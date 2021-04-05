@@ -1,0 +1,33 @@
+.notice {
+  &-warp {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+  &-title {
+    margin-bottom: 20px;
+  }
+  &-line {
+    box-shadow: 0px 2px 5px rgba(28, 41, 90, 0.04);
+    height: 2px;
+    @include background_color("border-color");
+  }
+  &-content {
+    min-height: 40vh;
+    margin-top: 20px;
+    &-box {
+      margin-top: 20px;
+      margin-bottom: 20px;
+    }
+    &-warp {
+      margin-bottom: 20px;
+      line-height: 2em;
+      &-voting {
+        margin-left: 20px;
+        &-content {
+          margin-left: 20px;
+        }
+      }
+    }
+  }
+}

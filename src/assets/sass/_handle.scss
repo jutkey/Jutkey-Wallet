@@ -1,0 +1,46 @@
+@import "./_themes.scss";
+
+@mixin themeify {
+  @each $theme-name, $theme-map in $themes {
+    $theme-map: $theme-map !global;
+
+    [data-theme="#{$theme-name}"] & {
+      @content;
+    }
+  }
+}
+@function themed($key) {
+  @return map-get($theme-map, $key);
+}
+
+@mixin background_color($color) {
+  @include themeify {
+    background: themed($color);
+  }
+}
+@mixin background_color_editor($color) {
+  @include themeify {
+    background: themed($color) !important;
+  }
+}
+@mixin font_color($color) {
+  @include themeify {
+    color: themed($color);
+  }
+}
+
+@mixin border_color($color) {
+  @include themeify {
+    border-color: themed($color);
+  }
+}
+@mixin border_color_editor($color) {
+  @include themeify {
+    border-color: themed($color) !important;
+  }
+}
+@mixin border_left_color($color) {
+  @include themeify {
+    border-left-color: themed($color);
+  }
+}

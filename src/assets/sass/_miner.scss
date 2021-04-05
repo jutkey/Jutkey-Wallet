@@ -1,0 +1,157 @@
+.miner {
+  width: 100%;
+  &-warp {
+    @include background_color("background-color1");
+    box-shadow: 0px 2px 6px rgba(28, 41, 90, 0.04);
+    border-radius: 20px;
+    padding: 20px;
+    box-sizing: border-box;
+    &-flex {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      & > .miner-warp-item {
+        flex: 1;
+      }
+      .el-button {
+        padding: 10px 20px;
+      }
+    }
+    &-item {
+      font-size: $font-14;
+      line-height: 2em;
+    }
+  }
+  &-item {
+    height: 60px;
+    @include background_color("background-color4");
+    border-left-width: 10px;
+    border-left-color: #cfd0d5;
+    @include border_left_color("border-color2");
+    border-left-style: solid;
+    box-shadow: 0px 4px 10px rgba(28, 41, 90, 0.08);
+    opacity: 1;
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 20px;
+    align-items: center;
+    font-size: $font-14;
+    margin-bottom: 20px;
+    cursor: pointer;
+    &-small {
+      flex: 1;
+      &-text {
+        font-size: $font-12;
+      }
+      strong {
+        font-weight: bolder;
+        @include font_color("color-title");
+      }
+    }
+    &-bolder {
+      font-weight: bolder;
+      @include font_color("color-title");
+    }
+    &-label {
+      @include font_color("color-text-secondary");
+    }
+  }
+  .miner-item-active {
+    @include background_color("color-modal");
+    border-left-color: #04b78a;
+  }
+  &-details {
+    display: flex;
+    justify-content: space-between;
+    height: 240px;
+    margin-bottom: 20px;
+    &-left {
+      width: 50%;
+    }
+    &-other {
+      width: 23%;
+      @include background_color("background-color1");
+      box-shadow: 0px 2px 6px rgba(28, 41, 90, 0.04);
+      border-radius: 20px;
+      box-sizing: border-box;
+      p:first-child {
+        color: #fff;
+        height: 40px;
+        border-top-left-radius: 20px;
+        border-top-right-radius: 20px;
+        line-height: 40px;
+        text-align: center;
+      }
+      &-yellow {
+        background-color: #ff8800;
+      }
+      &-lime {
+        background-color: #04b78a;
+      }
+      .miner-income-item-num {
+        height: 200px;
+        justify-content: center;
+        align-items: center;
+      }
+      .miner-item-bolder {
+        font-size: $font-24;
+      }
+    }
+  }
+  &-table {
+    @include background_color("background-color1");
+    box-shadow: 0px 2px 6px rgba(28, 41, 90, 0.04);
+    border-radius: 20px;
+    padding-bottom: 20px;
+    padding-right: 20px;
+    padding-left: 20px;
+  }
+  &-income {
+    width: 100%;
+    background-image: url("~@/assets/image/miner.png");
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    background-position: center center;
+    color: #fff;
+    padding: 20px;
+    box-sizing: border-box;
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-around;
+    text-align: center;
+    &-item {
+      &-num {
+        width: 100%;
+        display: flex;
+        strong {
+          max-width: 150px;
+          display: inline-block;
+        }
+      }
+      &-title {
+        height: 64px;
+        line-height: 64px;
+      }
+      .miner-income-item-num {
+        justify-content: center;
+      }
+    }
+    .dash-first-box-num {
+      color: #fff;
+      @extend %ellipsis-one;
+    }
+  }
+  &-noData {
+    text-align: center;
+    padding: 20px;
+    & > div {
+      opacity: 0.8;
+    }
+  }
+}
+small {
+  font-size: $font-12;
+  margin-left: 5px;
+  margin-top: 2px;
+}

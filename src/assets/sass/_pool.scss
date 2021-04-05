@@ -1,0 +1,712 @@
+.banner {
+  width: 100%;
+  margin-bottom: 20px;
+  img {
+    width: 100%;
+  }
+}
+.pool {
+  width: 100%;
+  &-flex {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    &-right {
+      display: inline-block;
+      cursor: pointer;
+      .el-input {
+        width: 300px;
+      }
+      .el-button {
+        margin-left: 20px;
+      }
+      i {
+        margin-left: 5px;
+      }
+    }
+    &-left {
+      display: flex;
+      align-items: center;
+      &-item {
+        display: flex;
+        align-items: center;
+        margin-right: 25px;
+        &-icon {
+          position: relative;
+          height: 32px;
+          & > * {
+            display: block;
+            cursor: pointer;
+            font-size: 18px;
+          }
+          i:first-child {
+            position: absolute;
+            top: 2px;
+            left: 0;
+          }
+          i:last-child {
+            position: absolute;
+            bottom: 2px;
+            left: 0;
+          }
+          &-active {
+            color: #04b78a;
+          }
+        }
+      }
+    }
+  }
+  &-bottom {
+    margin-bottom: 20px;
+  }
+  .el-collapse-item__header {
+    height: auto;
+    line-height: 2em;
+    @include background_color("background-color1");
+    border: 1px solid #eaedf7;
+    @include border_color("border-color");
+    box-shadow: 0px 2px 6px rgba(28, 41, 90, 0.04);
+    opacity: 1;
+    border-radius: 20px;
+    margin-bottom: 20px;
+    .el-collapse-item__arrow {
+      display: none;
+    }
+    .el-icon-caret-top {
+      display: none;
+    }
+    .el-icon-caret-bottom {
+      display: block;
+    }
+  }
+  .el-collapse-item__header.is-active {
+    .el-icon-caret-top {
+      display: block;
+    }
+    .el-icon-caret-bottom {
+      display: none;
+    }
+  }
+  .el-collapse,
+  .el-collapse-item__wrap {
+    border: none;
+  }
+  &-coll {
+    width: 100%;
+    &-header {
+      padding: 20px;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      i {
+        font-size: 22px;
+      }
+      &-img {
+        width: 100px;
+        margin-left: 20px;
+        img {
+          width: 100%;
+          max-height: 80px;
+        }
+      }
+    }
+    &-content {
+      flex: 1;
+      margin-left: 10px;
+      &-item {
+        display: flex;
+        &-text {
+          display: flex;
+          width: 40%;
+          margin-right: 10px;
+        }
+        &-num {
+          font-weight: bolder;
+          @extend %ellipsis-one;
+          max-width: calc(100% - 300px);
+        }
+        &-label {
+          width: 210px;
+          text-align: left;
+          margin-right: 10px;
+        }
+        &-second {
+          width: 140px;
+          text-align: left;
+          margin-right: 10px;
+        }
+        &-right {
+          margin-left: auto;
+          display: flex;
+          .el-button {
+            padding: 8px 15px;
+          }
+        }
+        &-middle {
+          width: 30%;
+          display: flex;
+          .pool-coll-content-item-num {
+            max-width: calc(100% - 160px);
+          }
+        }
+        &-url {
+          max-width: 180px;
+          @extend %ellipsis-one;
+        }
+        .dash-first-box-num {
+          max-width: 150px;
+          @extend %ellipsis-one;
+        }
+      }
+    }
+  }
+  &-create {
+    width: 100%;
+    .el-form-item__content {
+      width: 50%;
+    }
+    &-item {
+      width: 100%;
+      .el-form-item__content {
+        width: 100%;
+      }
+      .el-input-number,
+      .el-select {
+        width: 50%;
+      }
+
+      &-text {
+        margin-left: 5px;
+      }
+    }
+  }
+  .el-collapse-item__wrap {
+    background-color: transparent;
+  }
+  &-echarts {
+    span {
+      margin-right: 10px;
+      cursor: pointer;
+      &:hover {
+        color: #3961f5;
+      }
+    }
+    &-content {
+      height: 330px;
+    }
+    &-active {
+      color: #5e81f7;
+    }
+  }
+  &-dialog {
+    line-height: 1.5em;
+    height: 380px;
+  }
+  &-mode {
+    height: 40px;
+    line-height: 40px;
+    color: #04b78a;
+    padding-left: 20px;
+    position: relative;
+    &::after {
+      content: "";
+      display: block;
+      position: absolute;
+      width: 8px;
+      height: 8px;
+      background-color: #04b78a;
+      top: 15px;
+      left: 0;
+      border-radius: 50%;
+    }
+  }
+  &-count {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    &-item {
+      &-underline {
+        border-bottom: 1px solid;
+        padding-bottom: 5px;
+        @include border_color("border-color1");
+      }
+      &-line {
+        padding-top: 5px;
+      }
+      &-x {
+        margin: 0 20px;
+      }
+    }
+  }
+  &-details {
+    display: flex;
+    justify-content: space-between;
+    font-size: $font-14;
+    &-left {
+      width: 40%;
+      @extend %basic-loyout;
+      box-sizing: border-box;
+      &-item {
+        display: flex;
+        align-items: center;
+        margin-bottom: 5px;
+        img {
+          width: 65px;
+          border-radius: 5px;
+          margin-right: 10px;
+        }
+        &-span {
+          max-width: calc(100% - 75px);
+          @extend %ellipsis-one;
+          font-weight: bolder;
+        }
+        &-text {
+          @include font_color("color-text-secondary");
+          width: 210px;
+        }
+      }
+    }
+    &-right {
+      width: 58%;
+      @extend %basic-loyout;
+      box-sizing: border-box;
+    }
+  }
+  &-chart {
+    @include border_color("border-color");
+    box-shadow: 0px 2px 6px rgba(28, 41, 90, 0.04);
+    padding: 20px;
+    @include background_color("background-color1");
+    border: 1px solid #eaedf7;
+    opacity: 1;
+    border-radius: 20px;
+  }
+  &-batchJoin {
+    color: #5e81f7;
+    cursor: pointer;
+  }
+  &-unonline {
+    @include background_color("background-color7");
+    color: #83889c;
+    @extend %line;
+    position: relative;
+    &::after {
+      content: "";
+      position: absolute;
+      width: 8px;
+      height: 8px;
+      background-color: #83889c;
+      border-radius: 50%;
+      left: 5px;
+      top: 15px;
+    }
+  }
+  &-online {
+    @include background_color("background-color6");
+    color: #04b78a;
+    @extend %line;
+    position: relative;
+    &::after {
+      content: "";
+      position: absolute;
+      width: 8px;
+      height: 8px;
+      background-color: #04b78a;
+      border-radius: 50%;
+      left: 5px;
+      top: 15px;
+    }
+  }
+  &-income {
+    background-image: url("~@/assets/image/pool-1.png");
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    background-position: center center;
+    padding: 20px;
+    color: #fff;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    margin-bottom: 20px;
+    &-item {
+      width: 30%;
+      display: flex;
+      align-items: center;
+      &-amount {
+        font-size: $font-22;
+        margin-left: 10px;
+        font-weight: bolder;
+        display: inline-block;
+        max-width: 40%;
+        @extend %ellipsis-one;
+      }
+      &:last-child {
+        text-align: right;
+        justify-content: flex-end;
+      }
+    }
+  }
+  &-table-details {
+    tr.el-table__row {
+      td {
+        border-bottom: 1px solid #eaedf7;
+      }
+      .cell {
+        span {
+          line-height: 30px;
+          height: 30px;
+        }
+      }
+    }
+    tbody tr:hover > td {
+      background-color: transparent !important;
+    }
+  }
+  &-column {
+    @extend %ellipsis-one;
+  }
+  &-zzzAnalysis {
+    display: flex;
+  }
+  &-editor {
+    .w-e-toolbar,
+    .w-e-text-container,
+    .w-e-menu-panel {
+      @include background_color_editor("background-color9");
+      @include border_color_editor("border-color3");
+      z-index: 0 !important;
+    }
+    .text-center {
+      text-align: center;
+    }
+  }
+}
+.earning-chart {
+  height: 500px;
+  width: 100%;
+  margin-bottom: 20px;
+}
+.avatar-uploader-icon {
+  border: 1px dashed #a9acb9;
+  @include border_color("border-color");
+  border-radius: 10px;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  font-size: 28px;
+  color: #8c939d;
+  width: 160px;
+  height: 160px;
+  line-height: 160px;
+  text-align: center;
+  @include background_color("background-color3");
+}
+.avatar-uploader {
+  img {
+    width: 160px;
+    height: 160px;
+  }
+}
+%basic-loyout {
+  @include font_color("color-title");
+  @include background_color("background");
+  border: 1px solid #eaedf7;
+  margin-bottom: 20px;
+  @include border_color("border-color");
+  box-shadow: 0px 2px 6px rgba(28, 41, 90, 0.04);
+  opacity: 1;
+  border-radius: 20px;
+  padding: 20px;
+}
+%line {
+  padding: 8px 10px;
+  border-radius: 8px;
+  display: block;
+  text-align: center;
+}
+.minerPanel {
+  .dash-first-warp-item {
+    width: 23%;
+  }
+  .miner-small {
+    color: #83889c;
+  }
+  .dash-first-box-text {
+    font-size: $font-14;
+  }
+  .el-input {
+    width: 300px;
+  }
+  .warp-box-top-right span {
+    margin-left: 0;
+  }
+  .warp-box-top-right .warp-ecology-item-content-right-text {
+    margin-left: 20px;
+  }
+  .warp-ecology-item-content-right-text {
+    @include font_color("color-primary1");
+  }
+}
+.pool-console {
+  .el-tabs__nav-wrap::after {
+    background: transparent;
+  }
+  .pool-calender {
+    &-top {
+      @include background_color("background");
+      height: 80px;
+      border: 1px solid #eaedf7;
+      box-shadow: 0px 2px 6px rgba(28, 41, 90, 0.04);
+      opacity: 1;
+      border-radius: 20px;
+      margin-bottom: 20px;
+      @include border_color("border-color3");
+      display: flex;
+      align-items: center;
+      img {
+        margin-left: 20px;
+      }
+      .pool-calender-warp-info-item {
+        margin-left: 20px;
+      }
+      &-right {
+        margin-left: auto;
+        width: 250px;
+        border-left: 1px solid #eaedf7;
+        height: 80px;
+        @include border_color("border-color3");
+        position: relative;
+        &-cal {
+          text-align: center;
+          .el-button {
+            padding: 3px 12px;
+            margin-top: 20px;
+          }
+          p {
+            font-size: $font-12;
+            margin: 0;
+          }
+        }
+        &-edit {
+          position: absolute;
+          top: 0;
+          right: 0;
+          background-image: url("~@/assets/image/pool-3.png");
+          background-size: 100% 100%;
+          width: 56px;
+          height: 56px;
+          color: #fff;
+          cursor: pointer;
+          i {
+            font-size: $font-20;
+            position: absolute;
+            right: 5px;
+            top: 5px;
+          }
+        }
+      }
+    }
+    &-warp {
+      position: relative;
+      &-info {
+        position: absolute;
+        right: 0;
+        top: 20px;
+        display: flex;
+        max-width: calc(100% - 300px);
+        &-item {
+          margin-right: 20px;
+          display: flex;
+        }
+        &-text {
+          @include font_color("color-text-secondary");
+          margin-right: 5px;
+        }
+        &-num {
+          @extend %ellipsis-one;
+          max-width: 45%;
+          font-weight: bolder;
+          font-size: $font-18;
+        }
+      }
+    }
+    .el-picker-panel-calendar {
+      box-shadow: 0px 2px 6px rgba(28, 41, 90, 0.04);
+      border-radius: 20px;
+    }
+    .el-table-calendar,
+    .el-picker-panel-calendar__icon-btn {
+      @include font_color("color-title");
+    }
+    .el-date-table-calendar th {
+      @include font_color("color-title");
+      font-weight: 500;
+    }
+    .el-date-picker-calendar__header-label {
+      @include font_color("color-title");
+    }
+    .el-date-table-calendar {
+      font-size: $font-14;
+      font-weight: bolder;
+    }
+    .el-picker-panel-calendar__body .el-date-picker-calendar__header {
+      @include background_color("background");
+      margin: 0;
+      padding: 20px 20px 40px 20px;
+      width: 250px;
+      font-weight: bolder;
+      border-radius: 20px;
+    }
+    .el-date-picker-calendar__header-label {
+      font-weight: bolder;
+      font-size: $font-18;
+    }
+    .el-date-table-calendar th {
+      @include background_color("background");
+      border: none;
+    }
+    .el-date-table-calendar__row {
+      @include background_color("background-color9");
+    }
+    .el-table-calendar tr:nth-child(2) td {
+      border-top: 1px solid #eaedf7;
+      @include border_color("border-color3");
+    }
+    .el-table--border-calendar .el-date-table-calendar__row td {
+      border-right: 1px solid #eaedf7;
+      border-bottom: 1px solid #eaedf7;
+      @include border_color("border-color3");
+      text-align: left;
+      padding: 10px;
+    }
+    .el-table--border-calendar .el-date-table-calendar__row td.next-month,
+    .el-table--border-calendar .el-date-table-calendar__row td.prev-month {
+      pointer-events: none;
+      cursor: default;
+    }
+
+    .el-table--border-calendar .el-date-table-calendar__row td:first-child {
+      border-left: 1px solid #eaedf7;
+      @include border_color("border-color3");
+    }
+    .el-picker-panel-calendar,
+    .el-table--border-calendar {
+      border: none;
+      @include background_color("background");
+      border-bottom-left-radius: 20px;
+      border-bottom-right-radius: 20px;
+    }
+    &-content {
+      &-date {
+        font-size: $font-16;
+        padding: 0 10px;
+        height: 25px;
+        line-height: 25px;
+      }
+      &-box {
+        width: 100%;
+        padding: 0 10px;
+        height: 25px;
+        line-height: 25px;
+        span {
+          display: block;
+          height: 25px;
+          line-height: 25px;
+          text-align: center;
+          padding: 0 10px;
+          @extend %ellipsis-one;
+        }
+        &-positive {
+          color: #04b78a;
+        }
+        &-negative {
+          color: #ee2e6b;
+        }
+      }
+    }
+    &-box {
+      height: 50px;
+    }
+  }
+}
+.minerPanel .pool-create .el-input {
+  width: 100%;
+}
+.dialog-body-top {
+  display: flex;
+  align-items: center;
+  &-item {
+    display: flex;
+    align-items: center;
+    margin-right: 10px;
+    cursor: pointer;
+    img {
+      margin-right: 5px;
+    }
+  }
+  &-radio {
+    .el-form-item__content {
+      width: 100%;
+    }
+    .el-radio-group {
+      display: block;
+      width: 100%;
+    }
+    .el-radio {
+      white-space: pre-wrap;
+      width: 100%;
+      display: flex;
+      margin-bottom: 10px;
+      align-items: center;
+    }
+    .el-radio__label {
+      line-height: 20px;
+      word-wrap: break-word;
+    }
+  }
+}
+.dialog-body {
+  &-dis {
+    @include font_color("color-text1");
+    font-size: $font-16;
+    line-height: 2em;
+    font-weight: bolder;
+  }
+  &-small {
+    @include font_color("color-info");
+    font-size: $font-12;
+    line-height: 2em;
+  }
+}
+.pool-dialog {
+  .el-form-item {
+    margin-bottom: 15px;
+  }
+}
+.pool-transfer-dialog {
+  .el-form-item {
+    margin-bottom: 15px;
+  }
+  .el-dialog__body {
+    padding: 20px;
+  }
+}
+.cologre {
+  background: #04b78a;
+  @extend %color;
+}
+.colorgred {
+  background-color: #cfd0d5;
+  @extend %color;
+}
+%color {
+  border-radius: 50%;
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+}
+.dialog-text-url {
+  padding: 10px 0;
+  font-size: 16px;
+}

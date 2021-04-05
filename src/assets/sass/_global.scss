@@ -1,0 +1,164 @@
+html,
+body,
+div,
+ul,
+main,
+section,
+article,
+header,
+footer,
+li,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+dl,
+dt,
+dd,
+ol,
+form,
+input,
+textarea,
+th,
+td,
+select {
+  margin: 0;
+  padding: 0;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: bolder;
+  @include font_color("color-title");
+}
+h1 {
+  font-size: $font-32;
+}
+h2 {
+  font-size: $font-24;
+}
+h3 {
+  font-size: $font-20;
+}
+h4 {
+  font-size: $font-16;
+}
+em,
+strong {
+  font-style: normal;
+  font-weight: normal;
+}
+html,
+body {
+  height: 100%;
+}
+
+ul,
+li {
+  list-style: none;
+}
+a {
+  text-decoration: none;
+}
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s;
+}
+
+.fade-leave-to {
+  display: none;
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  opacity: 0;
+}
+// close
+.el-menu-vertical-side:not(.el-menu--collapse) {
+  width: 250px;
+}
+.el-menu-vertical-side.el-menu--collapse {
+  width: 48px;
+  text-align: center;
+}
+/* .el-container {
+  height: calc(100% - 64px);
+} */
+.el-container {
+  height: 100%;
+}
+.global {
+  height: 100%;
+  font-size: $font-16;
+  line-height: 2em;
+  @include font_color("color-text");
+  font-family: $font-family;
+  font-weight: 400;
+  &-content {
+    height: 100%;
+    &-box {
+      height: calc(100% - 20px);
+      &-item {
+        padding: 20px;
+        overflow-x: hidden;
+      }
+    }
+  }
+  .el-header {
+    padding: 0;
+  }
+  .el-main {
+    padding: 0;
+    @include background_color("background-content");
+  }
+  .el-menu {
+    border-right: none;
+    @include background_color("background");
+  }
+  .el-aside {
+    @include background_color("background");
+  }
+  .el-scrollbar__wrap {
+    overflow-x: hidden;
+  }
+}
+.first-level-title {
+  font-size: $font-32;
+  font-weight: bold;
+}
+.third-level-title {
+  font-size: $font-18;
+  &__bold {
+    font-size: $font-18;
+    font-weight: bold;
+  }
+}
+%ellipsis-one {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  word-break: break-all;
+}
+%triangle {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 10px;
+  width: 0;
+  height: 0;
+  border-bottom-width: 16px;
+  border-bottom-style: solid;
+  border-left: 16px solid transparent;
+}
+.disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+.el-dialog,
+.el-pager li {
+  @include background_color("color-modal");
+}

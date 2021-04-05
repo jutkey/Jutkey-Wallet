@@ -1,0 +1,44 @@
+<!--
+ * @Author: abc
+ * @Date: 2021-01-29 14:38:38
+ * @LastEditors: abc
+ * @LastEditTime: 2021-03-23 18:12:00
+ * @Description: 
+-->
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <link rel="icon" href="<%= BASE_URL %>favicon.ico" />
+    <link
+      rel="stylesheet"
+      href="//at.alicdn.com/t/font_2354567_dci8bt5b7ho.css"
+    />
+    <link
+      rel="stylesheet"
+      href="/theme/light/theme/index.css"
+      id="elementTheme"
+    />
+    <title>Jutkey Wallet</title>
+  </head>
+  <body>
+    <noscript>
+      <strong
+        >We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work
+        properly without JavaScript enabled. Please enable it to
+        continue.</strong
+      >
+    </noscript>
+    <div id="app"></div>
+    <!-- built files will be auto injected -->
+  </body>
+</html>
+<script>
+  var index = window.localStorage.getItem('theme');
+  const elementTheme = document.getElementById('elementTheme');
+  let theme = index === '1' ? 'dark' : 'light';
+  elementTheme.setAttribute('href', '/theme/' + theme + '/theme/index.css');
+  window.document.documentElement.setAttribute('data-theme', theme);
+</script>
