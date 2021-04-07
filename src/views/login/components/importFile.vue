@@ -2,7 +2,7 @@
  * @Author: abc
  * @Date: 2021-02-04 10:36:08
  * @LastEditors: abc
- * @LastEditTime: 2021-04-01 12:58:18
+ * @LastEditTime: 2021-04-06 16:04:38
  * @Description: import  document
 -->
 <template>
@@ -11,6 +11,7 @@
     :visible.sync="isImport"
     width="40%"
     :before-close="handleClose"
+    :close-on-click-modal="false"
     center
   >
     <el-tabs v-model="importForm.type" @tab-click="handleClick">
@@ -255,8 +256,8 @@ export default {
         if (!keyring.validateSeed(data.value)) {
           return that.$message.error(this.$t('wallet.invalidwords'));
         }
-        this.wallet_create_step(1);
-        this.createData.words = data.value;
+        this.$parent.wallet_create_step(1);
+        this.$parent.createData.words = data.value;
         this.$parent.isImport = false;
         this.$parent.createType = 'words';
       }

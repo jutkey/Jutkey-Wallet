@@ -2,7 +2,7 @@
  * @Author: abc
  * @Date: 2021-02-23 16:09:47
  * @LastEditors: abc
- * @LastEditTime: 2021-04-01 18:51:32
+ * @LastEditTime: 2021-04-06 19:20:24
  * @Description: dash Tabel
 -->
 <template>
@@ -121,7 +121,7 @@
         <el-table
           :data="monthehistorydetial"
           style="width: 100%"
-          height="200"
+          height="202"
           v-loading="detialLoading"
           class="dash-table"
         >

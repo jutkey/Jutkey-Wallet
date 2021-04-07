@@ -2,7 +2,7 @@
  * @Author: abc
  * @Date: 2021-02-23 16:23:40
  * @LastEditors: abc
- * @LastEditTime: 2021-03-30 14:43:46
+ * @LastEditTime: 2021-04-06 17:30:11
  * @Description: dash echarts
 -->
 <template>
@@ -11,11 +11,12 @@
     <h4 class="dash-box-content-title dash-box-content-span">
       <span>{{ $t('dashboard.mine_income_chart') }}</span>
       <span
-        class="dash-first-box-text"
+        class="dash-first-box-text dash-mine-chart"
         @click="handleEarning"
         style="cursor: pointer"
-        >{{ $t('mine.how_to_raseup') }}</span
-      >
+        >{{ $t('mine.how_to_raseup') }}
+        <i class="el-icon-question" style="color: #3961f5"></i>
+      </span>
     </h4>
     <div class="dash-box-content-echarts" id="dashMiner"></div>
     <dialog-earning :dialogEarning="dialogEarning"></dialog-earning>

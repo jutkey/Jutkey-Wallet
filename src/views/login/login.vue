@@ -2,7 +2,7 @@
  * @Author: abc
  * @Date: 2021-01-30 14:47:03
  * @LastEditors: abc
- * @LastEditTime: 2021-04-01 10:47:07
+ * @LastEditTime: 2021-04-06 17:58:32
  * @Description: login page
 -->
 <template>
@@ -341,11 +341,12 @@ export default {
           this.createData.lockpass
         )
       ) {
-        return this.$message.error(
-          this.$t('wallet.passregexp1', {
+        return this.$message.error({
+          dangerouslyUseHTMLString: true,
+          message: `<span class="info-error">${this.$t('wallet.passregexp1', {
             num: '8-50'
-          })
-        );
+          })}</span>`
+        });
       } else if (step == 3) {
         if (this.createData.privateKey && this.createType == 'create') {
           return (this.create_step = step);

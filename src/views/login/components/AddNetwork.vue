@@ -2,7 +2,7 @@
  * @Author: abc
  * @Date: 2021-02-01 15:09:11
  * @LastEditors: abc
- * @LastEditTime: 2021-02-02 12:28:50
+ * @LastEditTime: 2021-04-06 16:26:38
  * @Description: add Network
 -->
 <template>
@@ -121,6 +121,7 @@
   </el-dialog>
 </template>
 <script>
+import qs from 'qs';
 import keyring from '@/plugins/keyring.js';
 var md5 = require('md5');
 export default {
@@ -205,11 +206,14 @@ export default {
       this.$axios.defaults.headers.common[
         'Authorization'
       ] = `Bearer ${res.token}`;
-      const res1 = await this.$axios.post(data.ip + '/api/v2/' + 'login', {
-        signature: sign,
-        pubkey: publicKey,
-        ecosystem: 1
-      });
+      const res1 = await this.$axios.post(
+        data.ip + '/api/v2/' + 'login',
+        qs.stringify({
+          signature: sign,
+          pubkey: publicKey,
+          ecosystem: 1
+        })
+      );
       this.$axios.defaults.headers.common[
         'Authorization'
       ] = `Bearer ${res1.token}`;

@@ -2,7 +2,7 @@
  * @Author: abc
  * @Date: 2021-02-04 17:48:01
  * @LastEditors: abc
- * @LastEditTime: 2021-03-31 14:47:06
+ * @LastEditTime: 2021-04-06 16:20:03
  * @Description: Dashboard 
 -->
 <template>
@@ -10,10 +10,12 @@
     <!-- dash first -->
     <div class="dash-first">
       <div class="dash-first-warp">
-        <div
+        <a
+          :href="baseUrl.blockexplorer"
           class="dash-first-warp-item"
           v-for="(item, index) in arrTopData"
           :key="index"
+          target="_blank"
         >
           <div class="dash-first-box">
             <div class="dash-first-box-img">
@@ -53,7 +55,7 @@
               {{ $t(item.label) }}
             </p>
           </div>
-        </div>
+        </a>
       </div>
     </div>
     <!-- dash secnond -->

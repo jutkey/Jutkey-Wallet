@@ -2,7 +2,7 @@
  * @Author: abc
  * @Date: 2021-03-08 17:58:50
  * @LastEditors: abc
- * @LastEditTime: 2021-03-08 18:43:55
+ * @LastEditTime: 2021-04-06 16:57:25
  * @Description: transaction details
 -->
 <template>
@@ -78,6 +78,7 @@
         </li>
         <li>
           <a
+            class="warp-ecology-item-content-right-text"
             target="_blank"
             style="display: inline-block"
             :href="`${baseUrl.blockexplorer}/transaction/${objTransDetails.txhash}?lang=${$i18n.locale}`"
