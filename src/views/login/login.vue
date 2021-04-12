@@ -2,7 +2,7 @@
  * @Author: abc
  * @Date: 2021-01-30 14:47:03
  * @LastEditors: abc
- * @LastEditTime: 2021-04-06 17:58:32
+ * @LastEditTime: 2021-04-10 18:32:31
  * @Description: login page
 -->
 <template>
@@ -67,6 +67,7 @@
                 :key="item.value"
                 :label="item.nickname"
                 :value="keyid"
+                class="login-select"
               >
                 <div class="login-content-box-option">
                   <span>{{ item.nickname }} </span>
@@ -111,6 +112,7 @@
             <h3 class="third-level-title__bold">{{ $t('wallet.setpass') }}</h3>
             <div class="login-account">{{ $t('password') }}</div>
             <el-input
+              type="password"
               :placeholder="$t('wallet.pleasesetpass')"
               v-model="createData.lockpass"
               autocomplete="off"
@@ -589,7 +591,7 @@ export default {
         };
         this.$store.commit('handleChangeToken', obj);
         //  get pool url
-        const getpoolUrl = this.auth.getpoolUrl();
+        const getpoolUrl = this.baseUrl.poolserver;
         //  login pool
         this.$axios.defaults.headers.common['Authorization'] = '';
         const resPool = await this.$axios.get(getpoolUrl + '/api/v2/getuid');
@@ -675,7 +677,26 @@ export default {
           }
         }
       }
+      // close loading
+      this.handleCloseLoading();
     }
   }
 };
 </script>
+<style lang="scss" scope>
+.el-select-dropdown {
+  position: absolute;
+  z-index: 1001;
+  border: 1px solid #3961f5;
+  border-radius: 4px;
+  background-color: #f4f7fc;
+  -webkit-box-shadow: 0 2px 12px 0 rgb(0 0 0 / 10%);
+  box-shadow: 0 2px 12px 0 rgb(0 0 0 / 10%);
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  margin: 5px 0;
+}
+.el-popper[x-placement^='bottom'] .popper__arrow::after {
+  border-bottom-color: #f4f7fc;
+}
+</style>

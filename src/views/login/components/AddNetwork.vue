@@ -2,7 +2,7 @@
  * @Author: abc
  * @Date: 2021-02-01 15:09:11
  * @LastEditors: abc
- * @LastEditTime: 2021-04-06 16:26:38
+ * @LastEditTime: 2021-04-09 18:59:51
  * @Description: add Network
 -->
 <template>
@@ -14,6 +14,7 @@
   >
     <div class="network-content">
       <el-table
+        class="login-table"
         :data="networks.list"
         :header-cell-style="{ 'text-align': 'center' }"
       >
@@ -84,6 +85,7 @@
       :visible.sync="innerVisible"
       @close="handleCancelInner('newworkForm')"
       append-to-body
+      class="login-inner-dialog"
     >
       <div class="network-content">
         <el-form
@@ -91,7 +93,7 @@
           :rules="rules"
           ref="newworkForm"
           label-width="130px"
-          class="demo-ruleForm"
+          class="login-ruleForm"
         >
           <el-form-item :label="$t('network.name')" prop="name">
             <el-input v-model="newworkForm.name"></el-input>

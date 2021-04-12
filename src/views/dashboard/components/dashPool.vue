@@ -2,7 +2,7 @@
  * @Author: abc
  * @Date: 2021-03-01 17:57:07
  * @LastEditors: abc
- * @LastEditTime: 2021-03-02 14:40:37
+ * @LastEditTime: 2021-04-10 16:05:44
  * @Description: pool information
 -->
 <template>
@@ -144,7 +144,18 @@ export default {
           const dashMiner = document.getElementById('dashOwnerPool');
           /*  draw Line  */
           const label = [this.$t('MinersRevenue')];
-          this.hadnleDrawLine(dashMiner, xAxisData, seriesData, label);
+          const lineColor = '#04B78A';
+          const color1 = 'rgba(120,216,191,1)';
+          const color2 = 'rgba(120,216,191,0)';
+          this.hadnleDrawLine(
+            dashMiner,
+            xAxisData,
+            seriesData,
+            label,
+            lineColor,
+            color1,
+            color2
+          );
           this.loading = false;
         }, 100);
       }

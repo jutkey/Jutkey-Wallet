@@ -89,7 +89,7 @@ export default {
       objPage: {
         page: 1,
         limit: 10,
-        total: 20
+        total: 1
       },
       otherLoading: false,
       arrHistories: [],

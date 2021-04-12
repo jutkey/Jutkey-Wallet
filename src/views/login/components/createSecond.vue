@@ -2,7 +2,7 @@
  * @Author: abc
  * @Date: 2021-02-02 20:25:24
  * @LastEditors: abc
- * @LastEditTime: 2021-02-03 12:15:28
+ * @LastEditTime: 2021-04-09 18:03:53
  * @Description: create use second
 -->
 <template>
@@ -19,6 +19,7 @@
     >
       <el-form-item :label="$t('wallet.nickname')" prop="nickname">
         <el-input
+          type="text"
           v-model="objCreateUser.nickname"
           autocomplete="off"
         ></el-input>
@@ -27,7 +28,7 @@
         <el-input
           type="password"
           v-model="objCreateUser.tradepass"
-          autocomplete="off"
+          autocomplete="new-password"
         ></el-input>
       </el-form-item>
       <el-form-item

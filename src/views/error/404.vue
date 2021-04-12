@@ -2,7 +2,7 @@
  * @Author: abc
  * @Date: 2021-02-21 16:26:23
  * @LastEditors: abc
- * @LastEditTime: 2021-03-30 18:37:44
+ * @LastEditTime: 2021-04-07 14:36:51
  * @Description: 404 page
 -->
 <template>
@@ -16,7 +16,7 @@
         Go back to content
         <router-link :to="{ path: '/' }" class="error-link">home</router-link>
         of
-        <router-link :to="{ path: '/' }" class="error-link"
+        <router-link :to="{ path: '/about' }" class="error-link"
           >contact us</router-link
         >
         about a problem.

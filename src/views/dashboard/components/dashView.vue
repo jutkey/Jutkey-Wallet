@@ -2,7 +2,7 @@
  * @Author: abc
  * @Date: 2021-03-01 10:33:44
  * @LastEditors: abc
- * @LastEditTime: 2021-03-02 10:58:11
+ * @LastEditTime: 2021-04-10 15:56:56
  * @Description: overview
 -->
 <template>
@@ -135,7 +135,18 @@ export default {
           const dashMiner = document.getElementById('dashPool');
           /*  draw Line  */
           const label = [this.$t('MiningEarningsTrend')];
-          this.hadnleDrawLine(dashMiner, xAxisData, seriesData, label);
+          const lineColor = '#228FF5';
+          const color1 = 'rgba(3,127,244,1)';
+          const color2 = 'rgba(3,127,244,0)';
+          this.hadnleDrawLine(
+            dashMiner,
+            xAxisData,
+            seriesData,
+            label,
+            lineColor,
+            color1,
+            color2
+          );
           this.loading = false;
         }, 100);
       }

@@ -2,7 +2,7 @@
  * @Author: abc
  * @Date: 2021-02-04 18:52:25
  * @LastEditors: abc
- * @LastEditTime: 2021-04-05 10:51:23
+ * @LastEditTime: 2021-04-12 11:40:30
  * @Description: routes Array
  */
 const routes = [
@@ -79,6 +79,21 @@ const routes = [
         }
       }
     ]
+  },
+  {
+    path: '/ecolibs',
+    name: 'Ecolibs',
+    component: () =>
+      import(
+        /* webpackChunkName: "ecolibs" */ '@/views/ecolibs/ecolibsList.vue'
+      ),
+    meta: {
+      key: '8',
+      title: 'navbar.ecosystems',
+      icon: 'iconfont el-ui-oup10',
+      show: true,
+      roles: 'basic'
+    }
   },
   {
     path: '/404',

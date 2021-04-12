@@ -2,7 +2,7 @@
  * @Author: abc
  * @Date: 2021-03-07 18:23:30
  * @LastEditors: abc
- * @LastEditTime: 2021-04-01 18:50:10
+ * @LastEditTime: 2021-04-09 12:29:04
  * @Description: transfer record
 -->
 <template>
@@ -68,12 +68,12 @@
                 :show-overflow-tooltip="true"
               >
                 <template slot-scope="scope">
-                  <el-tooltip
-                    :content="`${util.formatAmountData(
-                      scope.row.amount
-                    )} ${util.formatUnit(ecosystem, true)}`"
-                    placement="bottom"
-                  >
+                  <el-tooltip>
+                    <div
+                      slot="content"
+                      v-html="handleIncome(scope.row, ecosystem)"
+                    ></div>
+
                     <span
                       class="ell"
                       v-html="handleIncome(scope.row, ecosystem)"
@@ -97,7 +97,7 @@
                 </template>
               </el-table-column>
             </el-table>
-            <div class="dash-collapse-pagination">
+            <div class="dash-collapse-pagination" style="text-align: right">
               <el-pagination
                 background
                 layout="prev,pager, next,jumper"
@@ -136,7 +136,7 @@ export default {
       objPage: {
         page: 1,
         limit: 10,
-        total: 20
+        total: 1
       },
       objTrans: {
         limit: 10,

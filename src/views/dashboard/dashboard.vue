@@ -2,7 +2,7 @@
  * @Author: abc
  * @Date: 2021-02-04 17:48:01
  * @LastEditors: abc
- * @LastEditTime: 2021-04-06 16:20:03
+ * @LastEditTime: 2021-04-10 15:36:30
  * @Description: Dashboard 
 -->
 <template>
@@ -85,6 +85,16 @@
               </div>
             </h4>
             <div class="dash-second-property-item">
+              <!--  <span> {{ objProperty.token_title || objProperty.name }}</span>
+              <el-tooltip
+                effect="dark"
+                :content="`${util.formatAmount(objProperty.amount)}`"
+                placement="bottom"
+              >
+                <span> {{ util.formatAmount(objProperty.amount) }}</span>
+              </el-tooltip> -->
+            </div>
+            <div class="dash-second-property-bottom dash-second-property-item">
               <span> {{ objProperty.token_title || objProperty.name }}</span>
               <el-tooltip
                 effect="dark"
@@ -94,10 +104,12 @@
                 <span> {{ util.formatAmount(objProperty.amount) }}</span>
               </el-tooltip>
             </div>
+
             <!-- USDT  -->
             <div
               class="dash-second-property-bottom"
               v-if="!util.isEmpty(usdtWallet)"
+              style="display: none"
             >
               <span class=""> USDT-ERC20 </span>
               <span class="dash-second-property-bottom-right">
@@ -105,7 +117,11 @@
               </span>
             </div>
             <!-- No USDT -->
-            <div class="dash-second-property-bottom" v-else>
+            <div
+              class="dash-second-property-bottom"
+              v-else
+              style="display: none"
+            >
               <span> USDT-ERC20 </span>
               <span class="dash-second-property-bottom-right">
                 <button

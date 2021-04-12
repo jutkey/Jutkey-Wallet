@@ -2,7 +2,7 @@
  * @Author: abc
  * @Date: 2021-03-05 15:03:02
  * @LastEditors: abc
- * @LastEditTime: 2021-04-02 18:24:18
+ * @LastEditTime: 2021-04-10 15:41:30
  * @Description:  more ecology
 -->
 <template>
@@ -12,6 +12,7 @@
       class="warp-ecology-item"
       v-if="util.isEmpty(usdtWallet)"
       :style="arrEcologyKey.length <= 1 ? width : {}"
+      style="display: none"
     >
       <div class="warp-ecology-item-box">
         <h4 class="dash-second-miner-title">USDT Wallet &nbsp;ERC20</h4>
@@ -30,6 +31,7 @@
       class="warp-ecology-item"
       v-else
       :style="arrEcologyKey.length <= 1 ? width : {}"
+      style="display: none"
     >
       <div class="warp-ecology-item-box">
         <h4 class="dash-second-miner-title">USDT Wallet&nbsp; ERC20</h4>

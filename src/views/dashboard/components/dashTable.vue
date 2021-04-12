@@ -2,7 +2,7 @@
  * @Author: abc
  * @Date: 2021-02-23 16:09:47
  * @LastEditors: abc
- * @LastEditTime: 2021-04-06 19:20:24
+ * @LastEditTime: 2021-04-10 15:40:12
  * @Description: dash Tabel
 -->
 <template>
@@ -30,6 +30,7 @@
           :disabled="util.isEmpty(usdtWallet)"
           class="dash-disabled"
           @click="handleChangeCoin('usdt')"
+          style="display: none"
         >
           USDT-ERC20
         </el-button>
@@ -210,7 +211,7 @@ export default {
       detialLoading: false,
       page: 1,
       limit: 5,
-      total: 20,
+      total: 1,
       usdtWallet: ''
     };
   },
