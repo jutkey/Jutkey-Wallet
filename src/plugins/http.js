@@ -2,7 +2,7 @@
  * @Author: abc
  * @Date: 2020-12-01 16:49:19
  * @LastEditors: abc
- * @LastEditTime: 2021-04-02 10:49:57
+ * @LastEditTime: 2021-04-15 17:39:30
  * @Description:axios
  */
 import router from '@/router';
@@ -101,14 +101,14 @@ Vue.use(VueAxiosPlugin, {
   resErrorFunc: (error) => {
     // console.log(error && error.response);
     if (error.response) {
-      const code = parseInt(error.response && error.response.status);
-      const url = error.response.request.responseURL;
-      Message.error({
+      //const code = parseInt(error.response && error.response.status);
+      // const url = error.response.request.responseURL;
+      /*   Message.error({
         showClose: true,
         type: 'error',
         duration: 0,
         message: `Error：${url};Code：${code}`
-      });
+      }); */
       localStorage.removeItem('nodeTokens');
       localStorage.removeItem('poolTokens');
       localStorage.removeItem('mainTokens');

@@ -10,15 +10,33 @@
   }
   &-warp {
     display: inline-flex;
-    width: 380px;
+    width: 450px;
     flex-wrap: wrap;
-    justify-content: space-between;
     margin-bottom: 20px;
+    text-align: left;
+    &-link {
+      display: block;
+      width: 30%;
+      @extend %ellipsis-one;
+      margin-left: 3%;
+    }
+    &-popover {
+      display: block;
+      width: 30%;
+      margin-left: 3%;
+      .el-popover__reference-wrapper {
+        display: block;
+        a {
+          width: 100%;
+        }
+      }
+    }
   }
   &-box {
     display: inline-flex;
     width: 60%;
     justify-content: space-between;
+    margin-top: 30px;
     p {
       font-size: 14px;
     }

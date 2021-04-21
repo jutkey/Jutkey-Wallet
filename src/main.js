@@ -2,7 +2,7 @@
  * @Author: abc
  * @Date: 2021-01-29 18:41:50
  * @LastEditors: abc
- * @LastEditTime: 2021-03-22 19:08:51
+ * @LastEditTime: 2021-04-19 16:11:33
  * @Description: Master file
  */
 import Vue from 'vue';
@@ -11,6 +11,7 @@ import baseUrl from './baseUrl';
 import ElementUI from 'element-ui';
 import router from './router';
 import store from './store';
+import isElectron from 'is-electron';
 import moment from 'moment';
 import auth from '@/plugins/auth.js';
 import myMixin from './plugins/mixins';
@@ -21,7 +22,9 @@ import twLocale from 'element-ui/lib/locale/lang/zh-TW';
 import jaLocale from 'element-ui/lib/locale/lang/ja';
 import util from './plugins/util.js';
 import './plugins/http';
-import './registerServiceWorker';
+if (!isElectron()) {
+  require('./registerServiceWorker');
+}
 import './components/component.js';
 const en = require('@/lang/en-us.json');
 const zh = require('@/lang/zh-cn.json');

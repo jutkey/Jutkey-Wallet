@@ -1,0 +1,57 @@
+.updater-header {
+  color: #04b78a;
+  text-align: left;
+}
+
+.updater-body {
+  padding: 15px;
+}
+
+#updater-progress {
+  line-height: 20px;
+  height: 20px;
+  background: #eee;
+  overflow: hidden;
+  color: #bbb;
+  text-align: right;
+  font-size: 12px;
+  border-radius: 5px;
+  position: relative;
+}
+
+#updater-progress span {
+  left: 0;
+  top: 0;
+  line-height: 20px;
+  height: 20px;
+  background: #000;
+  width: 0;
+  position: absolute;
+}
+
+#updater-progress em {
+  position: relative;
+  z-index: 12;
+  font-style: normal;
+  padding-right: 5px;
+}
+
+#updater-info {
+  margin-top: 10px;
+  max-height: 120px;
+  overflow: hidden;
+  overflow-y: auto;
+  word-break: break-all;
+}
+
+.update-footer {
+  text-align: center;
+  padding: 15px 0;
+  border-top: 1px solid #eee;
+  margin-top: 10px;
+}
+
+.update-footer .btn {
+  margin: 0 10px;
+  width: 124px;
+}

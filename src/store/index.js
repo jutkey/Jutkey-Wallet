@@ -2,7 +2,7 @@
  * @Author: abc
  * @Date: 2021-01-29 18:41:50
  * @LastEditors: abc
- * @LastEditTime: 2021-03-22 18:11:22
+ * @LastEditTime: 2021-04-07 11:05:29
  * @Description:
  */
 import Vue from 'vue';
@@ -118,6 +118,7 @@ export default new Vuex.Store({
           token_title: item.token_title
         };
       }
+      console.log(JSON.stringify(ecosystems));
       util.setCache('ecosystems', ecosystems);
       //  console.log(state.userInfo);
       if (assign.account) {

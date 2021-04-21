@@ -112,7 +112,7 @@ export default {
       }
     });
     copy.on('success', () => {
-      app.$message.success(app.$t('copysuccess'));
+      app.$message.success({ message: app.$t('copysuccess') });
       copy.destroy();
     });
     copy.on('error', () => {
@@ -442,8 +442,8 @@ export default {
   },
   formatUnit(id = 1, uper) {
     var arr = this.getCache('ecosystems');
-    var name = typeof arr == 'object' ? arr[id].token_title : 'NULL';
-    name = name == 'NULL' && id == 1 ? 'ibxc' : name;
+    var name = typeof arr == 'object' ? arr[id].token_title : '';
+    name = name == '' && id == 1 ? 'ibxc' : name;
     try {
       return uper ? name.toUpperCase() : name;
       // eslint-disable-next-line no-empty

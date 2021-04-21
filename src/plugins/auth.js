@@ -2,7 +2,7 @@
  * @Author: abc
  * @Date: 2021-02-02 16:09:32
  * @LastEditors: abc
- * @LastEditTime: 2021-04-01 12:24:51
+ * @LastEditTime: 2021-04-10 18:27:34
  * @Description:user file
  */
 import util from '@/plugins/util.js';
@@ -96,6 +96,7 @@ export default {
         util.getCache('network_uuid')
       );
       url = otherNetwork.ip;
+      console.log(url);
       //this.fullnode.length = otherNetwork.nodes.length;
       //url = otherNetwork.nodes[this.fullnode.index];
     }

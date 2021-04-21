@@ -46,17 +46,9 @@
       position: relative;
     }
     &-massage {
-      position: absolute;
-      width: 340px;
       @include font_color("color-title");
-      @include background_color("background-content");
-      border: 1px solid #eaedf7;
-      @include border_color("background-color");
-      box-shadow: 0px 0px 10px rgba(28, 41, 90, 0.1);
       opacity: 1;
       border-radius: 10px;
-      right: -10px;
-      top: 40px;
       z-index: 100;
       cursor: pointer;
       padding: 20px 0;
@@ -104,6 +96,10 @@
       &-nickname {
         margin-right: 16px;
       }
+      &-a {
+        display: flex;
+        align-items: center;
+      }
     }
   }
 }
@@ -148,4 +144,14 @@
 }
 .logo .header-logo {
   background: transparent;
+}
+.el-menu--vertical .el-menu-item {
+  a {
+    display: block;
+    padding: 0 20px;
+    @include font_color("color-text");
+    &:focus {
+      @include font_color("color-text");
+    }
+  }
 }

@@ -228,7 +228,7 @@
       &-underline {
         border-bottom: 1px solid;
         padding-bottom: 5px;
-        @include border_color("border-color1");
+        @include border_color("border-color2");
       }
       &-line {
         padding-top: 5px;
@@ -709,4 +709,14 @@
 .dialog-text-url {
   padding: 10px 0;
   font-size: 16px;
+}
+.pool-transfer-dialog {
+  .el-button {
+    @include font_color("color-primary2");
+    @include border_color("color-border1");
+  }
+  .el-button--primary.el-button {
+    color: #fff;
+    border-color: transparent;
+  }
 }

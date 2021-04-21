@@ -2,7 +2,7 @@
  * @Author: abc
  * @Date: 2021-01-30 10:59:44
  * @LastEditors: abc
- * @LastEditTime: 2021-03-30 16:48:07
+ * @LastEditTime: 2021-04-12 15:32:05
  * @Description: header
 -->
 <template>
@@ -27,56 +27,61 @@
     ></i>
     <div class="header-user">
       <div class="header-user-notice">
-        <el-badge>
-          <i
-            class="iconfont el-ui-ic_notification"
-            @click="toggle('notice')"
-          ></i>
-        </el-badge>
-        <div
-          class="header-user-massage"
-          v-show="dropdown.notice"
-          @click="toggle('notice')"
+        <el-popover
+          placement="bottom-end"
+          class="header-popover"
+          width="350"
+          v-model="popoverVisible"
         >
-          <li
-            v-for="item in newnotice"
-            @click="viewDetailPoll(item)"
-            :key="item.id"
-            class="header-user-massage-item"
-          >
-            <p class="header-user-massage-item-block">
-              {{ item.header }}
-            </p>
-            <el-tooltip
-              :content="item.date_created | formatTimeUtc"
-              placement="top"
+          <div class="header-user-massage">
+            <li
+              v-for="item in newnotice"
+              @click="handleViewDetailPoll(item)"
+              :key="item.id"
+              class="header-user-massage-item"
             >
-              <span class="header-user-massage-item-time">
-                {{ item.date_created | formatTime }}</span
+              <p class="header-user-massage-item-block">
+                {{ item.header }}
+              </p>
+              <el-tooltip
+                :content="item.date_created | formatTimeUtc"
+                placement="top"
               >
-            </el-tooltip>
-            <div class="header-user-massage-item-line"></div>
-          </li>
-          <li class="header-user-massage-item-bottom">
-            <router-link :to="{ path: '/notice' }">
-              {{ $t('seeAllNotice') }}
-            </router-link>
-          </li>
-        </div>
+                <span class="header-user-massage-item-time">
+                  {{ item.date_created | formatTime }}</span
+                >
+              </el-tooltip>
+              <div class="header-user-massage-item-line"></div>
+            </li>
+            <li
+              class="header-user-massage-item-bottom"
+              @click="popoverVisible = false"
+            >
+              <router-link :to="{ path: '/notice' }">
+                {{ $t('seeAllNotice') }}
+              </router-link>
+            </li>
+          </div>
+          <el-badge slot="reference">
+            <i class="iconfont el-ui-ic_notification"></i>
+          </el-badge>
+        </el-popover>
       </div>
       <div class="header-user-info">
-        <img
-          :src="$store.state.userInfo.avatar"
-          alt="head"
-          v-if="$store.state.userInfo.avatar"
-          class="header-user-info-head"
-        />
-        <img
-          src="@/assets/image/profile.png"
-          alt="head"
-          v-else
-          class="header-user-info-head"
-        />
+        <router-link :to="{ path: '/user' }" class="header-user-info-a">
+          <img
+            :src="$store.state.userInfo.avatar"
+            alt="head"
+            v-if="$store.state.userInfo.avatar"
+            class="header-user-info-head"
+          />
+          <img
+            src="@/assets/image/profile.png"
+            alt="head"
+            v-else
+            class="header-user-info-head"
+          />
+        </router-link>
         <span
           class="header-user-info-nickname"
           v-if="$store.state.userInfo.member_name"
@@ -89,7 +94,7 @@
           <el-dropdown-menu slot="dropdown">
             <el-dropdown-item>
               <div @click="handleLogout">
-                <i class="iconfont el-ui-333"></i>
+                <i class="el-icon-switch-button"></i>
                 <span>{{ $t('logout') }}</span>
               </div>
             </el-dropdown-item>
@@ -111,6 +116,7 @@ export default {
       date: '',
       nickname: '',
       newnotice: [],
+      popoverVisible: false,
       dropdown: {
         profile: false,
         notice: false
@@ -180,33 +186,13 @@ export default {
     toggleCollapse() {
       this.$store.commit('handleCollapse', !this.isCollapse);
     },
-    toggle(name) {
-      for (var i in this.dropdown) {
-        if (i != name) {
-          this.dropdown[i] = false;
-        }
-      }
-      if (name) {
-        this.dropdown[name] = !this.dropdown[name];
-      }
-      this.dropdown_cover = this.dropdown[name];
-      this.showresult = false;
-    },
-    viewDetailPoll(e) {
+    handleViewDetailPoll(row) {
+      console.log(row);
+      this.popoverVisible = false;
       this.$router.push({
         name: 'chainDetails',
-        query: {
-          page_name: e.page_name,
-          id: e.id,
-          voting_id: e.voting_id,
-          body: e.body,
-          header: e.header,
-          date_created: e.date_created,
-          request_id: e.request_id,
-          switch_id: e.switch_id,
-          pool_name: e.pool_name,
-          sender_account: e.sender_account,
-          closed: e.closed
+        params: {
+          id: row.id
         }
       });
     },

@@ -286,6 +286,9 @@
   .el-page-header__left {
     color: #242f57;
   }
+  .el-input .el-input__clear {
+    color: #bfc7e0;
+  }
 }
 .network {
   &-content {
@@ -351,4 +354,57 @@
 }
 .el-message--error .el-message__content a {
   color: #551a8b;
+}
+.login-select.el-select-dropdown__item.hover,
+.login-select.el-select-dropdown__item:hover {
+  background-color: #eaedf7;
+}
+.login-select.el-select-dropdown__item {
+  color: #4a5373;
+  background-color: #f4f7fc;
+}
+
+.login-table.el-table th,
+.login-table.el-table tr {
+  background: #fff;
+}
+.login-table.el-table {
+  color: #4a5373;
+}
+.login-table.el-table thead {
+  color: #83889c;
+  font-weight: 500;
+}
+.login-table.el-table--enable-row-hover .el-table__body tr:hover > td {
+  background-color: #eaedf7;
+}
+.login-inner-dialog {
+  .el-dialog {
+    background-color: #fff;
+    .el-dialog__title {
+      color: #242f57;
+    }
+    .el-form-item__label {
+      color: #4a5373;
+    }
+    .el-input__inner {
+      background: #fafcfe;
+      border-color: #eaedf7;
+      color: #4a5373;
+    }
+    .el-button {
+      border-color: #3961f5;
+      color: #3961f5;
+      background-color: #f4f7fc;
+    }
+    .el-button--primary.el-button {
+      color: #fff;
+      border-color: transparent;
+      background-color: #5e7ff6;
+    }
+  }
+}
+.login-third-content,
+.login-third-words {
+  color: #4a5373;
 }

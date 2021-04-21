@@ -2,7 +2,7 @@
  * @Author: abc
  * @Date: 2021-03-05 15:05:52
  * @LastEditors: abc
- * @LastEditTime: 2021-03-17 12:06:29
+ * @LastEditTime: 2021-04-10 17:11:19
  * @Description: mine invite
 -->
 <template>
@@ -11,6 +11,7 @@
     width="40%"
     :before-close="handleClose"
     v-loading="minerInitLoading"
+    :close-on-click-modal="false"
     element-loading-text="Loading"
     element-loading-spinner="el-icon-loading"
     element-loading-background="rgba(0, 0, 0, 0.8)"
@@ -137,6 +138,7 @@ export default {
       this.handleShowRule();
     },
     handleChangePage(page) {
+      console.log(page);
       this.paramDevid.page = page;
       this.paramDevid.devid = this.number;
       this.handleMineInvitehistory(this.paramDevid);
@@ -158,6 +160,8 @@ export default {
         this.paramDevid.devid = this.number;
         console.log(this.paramDevid);
         this.handleMineInvitehistory(this.paramDevid);
+        // close loading
+        this.minerInitLoading = false;
       } else {
         let Invite = this.util.generateInviteCode();
         const res1 = await this.$http.get(
@@ -170,10 +174,11 @@ export default {
         if (res1.data.exist == true) {
           this.handleGetInviteCode(val);
         } else {
+          console.log(this.number);
           this.auth.callContract(
             'NewMineInvite',
             {
-              BindAddr: this.util.formatKeyId(this.devid),
+              BindAddr: this.util.formatKeyId(this.number),
               Invite: Invite
             },
             {
@@ -217,7 +222,7 @@ export default {
         {},
         { interType: 'mainserver' }
       );
-      console.log(res);
+      console.log(JSON.stringify(res));
       if (res.code === 0) {
         this.arrMineList = res.data.rets || [];
       } else {

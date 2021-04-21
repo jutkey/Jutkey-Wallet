@@ -22,10 +22,11 @@
       text-align: center;
       margin: 3%;
       &-head {
-        width: 120px;
-        height: 120px;
+        width: 90px;
+        height: 90px;
         margin: auto;
         background-color: #fff;
+        box-shadow: 0px 10px 20px rgba(8, 27, 97, 0.15);
         border-radius: 50%;
         position: relative;
         cursor: pointer;
@@ -309,7 +310,7 @@
         display: flex;
         justify-content: space-between;
         span:last-child {
-          width: 80%;
+          // width: 80%;
           text-align: right;
           @extend %ellipsis-one;
         }
@@ -461,4 +462,12 @@
 .el-input__inner {
   @include background_color("background-color9");
   @include border_color("border-color3");
+}
+.dialog-password {
+  .el-dialog__body {
+    padding: 15px 20px;
+    .el-form-item {
+      margin-bottom: 15px;
+    }
+  }
 }

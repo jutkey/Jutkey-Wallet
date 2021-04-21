@@ -2,7 +2,7 @@
  * @Author: abc
  * @Date: 2021-02-04 17:48:01
  * @LastEditors: abc
- * @LastEditTime: 2021-04-10 15:36:30
+ * @LastEditTime: 2021-04-21 16:00:10
  * @Description: Dashboard 
 -->
 <template>
@@ -11,11 +11,11 @@
     <div class="dash-first">
       <div class="dash-first-warp">
         <a
-          :href="baseUrl.blockexplorer"
           class="dash-first-warp-item"
           v-for="(item, index) in arrTopData"
           :key="index"
-          target="_blank"
+          href="javascript:;"
+          @click="handleBrower"
         >
           <div class="dash-first-box">
             <div class="dash-first-box-img">
@@ -274,6 +274,14 @@ export default {
     this.handleEcosystemkey();
   },
   methods: {
+    handleBrower() {
+      const url = this.baseUrl.blockexplorer;
+      if (this.isElectron) {
+        window.ipcRenderer.send('open-url', url);
+      } else {
+        window.open(url);
+      }
+    },
     handleUsdtImport() {
       this.dialogImport = true;
     },

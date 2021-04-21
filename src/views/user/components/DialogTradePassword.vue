@@ -2,7 +2,7 @@
  * @Author: abc
  * @Date: 2021-03-05 15:33:53
  * @LastEditors: abc
- * @LastEditTime: 2021-04-06 18:23:26
+ * @LastEditTime: 2021-04-21 16:12:40
  * @Description: Trade Password
 -->
 <template>
@@ -11,7 +11,7 @@
     width="40%"
     :before-close="handleClose"
     :close-on-click-modal="false"
-    class="dialog"
+    class="dialog-password"
   >
     <h3 slot="title">{{ $t('user.modifytradepass') }}</h3>
     <div class="dialog-body">

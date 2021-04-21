@@ -2,12 +2,13 @@
  * @Author: abc
  * @Date: 2021-01-29 18:41:50
  * @LastEditors: abc
- * @LastEditTime: 2021-03-09 16:16:03
+ * @LastEditTime: 2021-04-07 19:24:28
  * @Description:
  */
 import Vue from 'vue';
 import Router from 'vue-router';
 //import routes from './routes.js';
+import isElectron from 'is-electron';
 Vue.use(Router);
 const originalPush = Router.prototype.push;
 Router.prototype.push = function push(location) {
@@ -26,9 +27,9 @@ Router.prototype.replace = function push(location, onResolve, onReject) {
     return originalReplace.call(this, location, onResolve, onReject);
   return originalReplace.call(this, location).catch((err) => err);
 };
-
+console.log(isElectron());
 const router = new Router({
-  mode: 'history',
+  mode: isElectron() ? 'hash' : 'history',
   base: process.env.BASE_URL,
   linkActiveClass: 'lick-active',
   routes: [
@@ -52,7 +53,7 @@ const router = new Router({
 });
 router.$addRoutes = (params) => {
   router.matcher = new Router({
-    mode: 'history',
+    mode: isElectron() ? 'hash' : 'history',
     base: process.env.BASE_URL,
     linkActiveClass: 'lick-active',
     routes: [

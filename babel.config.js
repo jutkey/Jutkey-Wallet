@@ -2,7 +2,7 @@
  * @Author: abc
  * @Date: 2021-01-29 18:41:50
  * @LastEditors: abc
- * @LastEditTime: 2021-02-23 16:46:49
+ * @LastEditTime: 2021-04-19 18:27:08
  * @Description:babel
  */
 const plugins = [];
@@ -13,4 +13,5 @@ if (process.env.NODE_ENV === 'production') {
 module.exports = {
   presets: ['@vue/cli-plugin-babel/preset'],
   plugins: [...plugins, 'equire']
+  //plugins: ['equire']
 };

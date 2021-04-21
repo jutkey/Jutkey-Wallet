@@ -2,7 +2,7 @@
  * @Author: abc
  * @Date: 2021-03-09 10:59:45
  * @LastEditors: abc
- * @LastEditTime: 2021-03-31 15:45:47
+ * @LastEditTime: 2021-04-21 17:24:17
  * @Description: Transfer transaction
 -->
 <template>
@@ -10,6 +10,7 @@
     v-loading="transferLoading"
     :visible.sync="dialogTransfer"
     width="40%"
+    top="10vh"
     :before-close="handleClose"
     class="dialog"
     :close-on-click-modal="false"
@@ -18,7 +19,7 @@
     element-loading-background="rgba(0, 0, 0, 0.8)"
   >
     <h3 slot="title">{{ $t('ecosystem.transfer') }}</h3>
-    <div class="pool-dialog" style="height: 300px">
+    <div class="pool-dialog" style="height: 50vh">
       <el-scrollbar style="height: 100%">
         <div class="dialog-body">
           <el-form

@@ -2,10 +2,14 @@
  * @Author: abc
  * @Date: 2020-10-24 16:13:49
  * @LastEditors: abc
- * @LastEditTime: 2021-03-22 15:42:31
+ * @LastEditTime: 2021-04-18 17:36:40
  * @Description:vue-cil config
  */
+//const CompressionWebpackPlugin = require('compression-webpack-plugin');
+
 const path = require('path');
+// const productionGzipExtensions = ['js', 'css'];
+//const webpack = require('webpack');
 function resolve(dir) {
   return path.join(__dirname, dir);
 }
@@ -15,6 +19,7 @@ if (process.env.NODE_ENV !== 'production') {
 } else {
   pattern = false;
 }
+console.log(pattern);
 module.exports = {
   //publicPath: process.env.NODE_ENV === 'production' ? './' : './',
   pwa: {
@@ -52,9 +57,11 @@ module.exports = {
       .set('src', resolve('src'))
       .set('common', resolve('src/common'))
       .set('components', resolve('src/components'));
+    config.plugins.delete('prefetch');
   },
   pluginOptions: {
     electronBuilder: {
+      //  nodeIntegration: true,
       builderOptions: {
         appId: 'com.jutkey.wallet',
         asar: true,
@@ -113,4 +120,27 @@ module.exports = {
       }
     }
   }
+  /* configureWebpack: (config) => {
+    if (!pattern) {
+      config.externals = {
+        vue: 'Vue',
+        'vue-router': 'VueRouter'
+      };
+    }
+  } */
+  /* configureWebpack: {
+    plugins: [
+      new CompressionWebpackPlugin({
+        algorithm: 'gzip',
+        test: /\.(js|css|scss)$/,
+        threshold: 10240,
+        minRatio: 0.8,
+        deleteOriginalAssets: true
+      }),
+      new webpack.optimize.LimitChunkCountPlugin({
+        maxChunks: 5,
+        minChunkSize: 100
+      })
+    ]
+  } */
 };

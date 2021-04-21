@@ -64,7 +64,7 @@
   &-details {
     display: flex;
     justify-content: space-between;
-    height: 240px;
+    height: 260px;
     margin-bottom: 20px;
     &-left {
       width: 50%;
@@ -149,9 +149,27 @@
       opacity: 0.8;
     }
   }
+  &-blockexplorer {
+    @include font_color("color-primary1");
+    cursor: pointer;
+    text-decoration: underline;
+  }
 }
 small {
   font-size: $font-12;
   margin-left: 5px;
   margin-top: 2px;
+}
+.dialog-miner {
+  .el-dialog__body {
+    padding: 0 20px;
+  }
+  .el-form-item {
+    margin-bottom: 20px;
+  }
+  .warp-form-item {
+    margin-bottom: 15px;
+    height: 25px;
+    line-height: 25px;
+  }
 }

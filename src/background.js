@@ -2,16 +2,26 @@
  * @Author: abc
  * @Date: 2021-01-29 16:13:10
  * @LastEditors: abc
- * @LastEditTime: 2021-03-22 15:42:58
+ * @LastEditTime: 2021-04-21 15:30:07
  * @Description: electron config
  */
 'use strict';
 // const path = require('path');
-import { app, protocol, BrowserWindow, globalShortcut, Menu } from 'electron';
+import {
+  app,
+  protocol,
+  BrowserWindow,
+  globalShortcut,
+  Menu,
+  ipcMain,
+  shell
+} from 'electron';
 import { createProtocol } from 'vue-cli-plugin-electron-builder/lib';
 import installExtension, { VUEJS_DEVTOOLS } from 'electron-devtools-installer';
+import { updateHandle } from './plugins/update';
 const isDevelopment = process.env.NODE_ENV !== 'production';
-
+let feedUrl = 'https://lightts1.hashold.com/download/';
+// let feedUrl = 'http://192.168.1.238:5500/download/'; // **.exe
 // Scheme must be registered before the app is ready
 protocol.registerSchemesAsPrivileged([
   { scheme: 'app', privileges: { secure: true, standard: true } }
@@ -26,14 +36,15 @@ async function createWindow() {
     minWidth: 1300,
     useContentSize: true,
     resizable: true,
-    //  frame: false,
+    // frame: false,
     //  backgroundColor: '#DC143C',
     // titleBarStyle: 'hidden',
     webPreferences: {
       webSecurity: false, //Remove cross domain restrictions
       nodeIntegration: process.env.ELECTRON_NODE_INTEGRATION,
       // eslint-disable-next-line no-undef
-      preload: `${__static}/preload.js`
+      preload: `${__static}/preload.js`,
+      webviewTag: true
     },
     //${__ Static} corresponds to the public directory
     // eslint-disable-next-line no-undef
@@ -52,6 +63,8 @@ async function createWindow() {
     createProtocol('app');
     // Load the index.html when not in development
     win.loadURL('app://./index.html');
+    //Detect version updates
+    updateHandle(win, feedUrl);
   }
   win.on('closed', () => {
     win = null;
@@ -63,6 +76,40 @@ async function createWindow() {
   globalShortcut.register('ESC', function () {
     win.unmaximize();
   });
+  ipcMain.on('window-close', function () {
+    win.close();
+  });
+  ipcMain.on('checkForUpdates', function () {
+    updateHandle(win, feedUrl);
+  });
+  ipcMain.on('open-url', (event, url) => {
+    event.preventDefault();
+    shell.openExternal(url);
+  });
+  if (process.platform === 'darwin') {
+    const template = [
+      {
+        label: 'Application',
+        submenu: [
+          {
+            label: 'Quit',
+            accelerator: 'Command+Q',
+            click: function () {
+              app.quit();
+            }
+          }
+        ]
+      },
+      {
+        label: 'Edit',
+        submenu: [
+          { label: 'Copy', accelerator: 'CmdOrCtrl+C', selector: 'copy:' },
+          { label: 'Paste', accelerator: 'CmdOrCtrl+V', selector: 'paste:' }
+        ]
+      }
+    ];
+    Menu.setApplicationMenu(Menu.buildFromTemplate(template));
+  }
 }
 
 // Quit when all windows are closed.
@@ -91,6 +138,15 @@ app.on('ready', async () => {
     } catch (e) {
       console.error('Vue Devtools failed to install:', e.toString());
     }
+  }
+  if (process.platform === 'darwin') {
+    let contents = win.webContents;
+    globalShortcut.register('CommandOrControl+C', () => {
+      contents.copy();
+    });
+    globalShortcut.register('CommandOrControl+V', () => {
+      contents.paste();
+    });
   }
   createWindow();
 });

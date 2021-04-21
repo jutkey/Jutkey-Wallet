@@ -162,3 +162,55 @@ a {
 .el-pager li {
   @include background_color("color-modal");
 }
+.el-form-item.is-required:not(.is-no-asterisk) .el-form-item__label-wrap > .el-form-item__label::before,
+.el-form-item.is-required:not(.is-no-asterisk) > .el-form-item__label::before {
+  color: #ee2e6b;
+}
+.el-form-item.is-error .el-input__inner,
+.el-form-item.is-error .el-input__inner:focus,
+.el-form-item.is-error .el-textarea__inner,
+.el-form-item.is-error .el-textarea__inner:focus,
+.el-message-box__input input.invalid,
+.el-message-box__input input.invalid:focus {
+  border-color: #ee2e6b;
+}
+.el-form-item__error {
+  color: #ee2e6b;
+}
+.el-form-item.is-error .el-input__validateIcon {
+  color: #ee2e6b;
+}
+.el-message--success {
+  background-color: #dcf1f1;
+  border-color: #c4eae5;
+}
+.el-message .el-icon-success {
+  color: #04b78a;
+}
+
+.el-message--success .el-message__content {
+  color: #04b78a;
+}
+.dash-mine-chart {
+  @include font_color("color-text-secondary");
+  text-decoration: underline;
+}
+.info-error {
+  line-height: 2em;
+}
+.el-tabs__item:focus.is-active.is-focus:not(:active) {
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+
+.el-drawer:focus,
+.el-dropdown:focus {
+  outline: none;
+}
+.pool-transfer-img {
+  text-align: center;
+  padding: 10px 0;
+}
+input {
+  filter: none !important;
+}

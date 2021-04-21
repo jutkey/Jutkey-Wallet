@@ -2,7 +2,7 @@
  * @Author: abc
  * @Date: 2020-12-07 10:15:34
  * @LastEditors: abc
- * @LastEditTime: 2021-04-01 18:50:34
+ * @LastEditTime: 2021-04-21 18:08:16
  * @Description:mixins
  */
 import isElectron from 'is-electron';
@@ -84,7 +84,15 @@ export default {
         handleDisconnect() {
           this.centrifuge.disconnect();
         },
-        hadnleDrawLine(dom, xAxisData, seriesData, label) {
+        hadnleDrawLine(
+          dom,
+          xAxisData,
+          seriesData,
+          label,
+          lineColor = '#4366F1',
+          color1 = 'rgba(67,102,241,1)',
+          color2 = 'rgba(67,102,241,0)'
+        ) {
           let indexeChart = echarts.init(dom);
           window.addEventListener('resize', function () {
             indexeChart.resize();
@@ -93,16 +101,28 @@ export default {
             tooltip: {
               trigger: 'axis'
             },
-            color: ['#4366F1'],
+            color: [lineColor],
             legend: {
               data: label,
-              selectedMode: false
+              selectedMode: false,
+              textStyle: {
+                color: 'rgb(102, 102, 102)'
+              }
             },
             xAxis: {
               type: 'category',
               boundaryGap: false,
               data: xAxisData,
+              axisLine: {
+                lineStyle: {
+                  color: 'rgba(139,172,255,0.2)'
+                }
+              },
               axisLabel: {
+                textStyle: {
+                  color: 'rgb(102, 102, 102)'
+                },
+                margin: 15,
                 interval: 0,
                 rotate: 45,
                 formatter: function (value) {
@@ -115,7 +135,13 @@ export default {
               }
             },
             yAxis: {
-              type: 'value'
+              type: 'value',
+              splitLine: {
+                show: true,
+                lineStyle: {
+                  color: 'rgba(139,172,255,0.2)'
+                }
+              }
             },
             series: [
               {
@@ -125,21 +151,21 @@ export default {
                 smooth: true,
                 showSymbol: true,
                 symbol: 'circle',
-                symbolSize: 8,
+                symbolSize: 12,
                 lineStyle: {
                   width: 3,
                   type: 'solid',
-                  color: '#4366F1'
+                  color: lineColor
                 },
                 areaStyle: {
                   color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
                     {
                       offset: 0,
-                      color: '#4366f1'
+                      color: color1
                     },
                     {
                       offset: 1,
-                      color: '#ffffff'
+                      color: color2
                     }
                   ])
                 }
@@ -161,7 +187,10 @@ export default {
               }
             },
             legend: {
-              data: label
+              data: label,
+              textStyle: {
+                color: 'rgb(102, 102, 102)'
+              }
             },
             toolbox: {
               show: true,
@@ -179,12 +208,17 @@ export default {
                 saveAsImage: { show: true }
               }
             },
+            animationEasing: 'elasticOut',
             dataZoom: [
               {
-                type: 'inside'
-              },
-              {
-                type: 'slider'
+                show: true,
+                height: 30,
+                xAxisIndex: [0],
+                bottom: 40,
+                start: 0,
+                end: 80,
+                startValue: 10,
+                endValue: 100
               }
             ],
             grid: {
@@ -208,7 +242,20 @@ export default {
             ],
             yAxis: [
               {
-                type: 'value'
+                type: 'log',
+                axisLabel: {
+                  textStyle: {
+                    color: '#333',
+                    fontStyle: 'normal',
+                    fontFamily: 'Microsoft Yahei',
+                    fontSize: 12
+                  }
+                },
+                axisLine: {
+                  lineStyle: {
+                    color: '#333'
+                  }
+                }
               }
             ],
             series: [
@@ -216,13 +263,13 @@ export default {
                 name: label[0],
                 type: 'bar',
                 barGap: '50%',
-                barWidth: 20,
+                stack: 'Total',
+                barWidth: 10,
                 itemStyle: {
                   emphasis: {
                     barBorderRadius: 30
                   },
                   normal: {
-                    barBorderRadius: [4, 4, 0, 0],
                     color: '#04B78A'
                   }
                 },
@@ -232,7 +279,8 @@ export default {
                 name: label[1],
                 type: 'bar',
                 barGap: '50%',
-                barWidth: 20,
+                stack: 'Total',
+                barWidth: 10,
                 itemStyle: {
                   emphasis: {
                     barBorderRadius: 30
@@ -244,7 +292,20 @@ export default {
                 },
                 data: seriesData
               }
-            ]
+            ],
+            noDataLoadingOption: {
+              effect: 'bubble',
+              text: 'No data available',
+              effectOption: {
+                effect: {
+                  n: 0
+                }
+              },
+              textStyle: {
+                fontSize: 32,
+                fontWeight: 'bold'
+              }
+            }
           });
         },
         /* in or out fouction */
@@ -276,7 +337,7 @@ export default {
           return moment(dataStr).format(pattern);
         },
         formatTimeUtc(dataStr, pattern = 'YYYY-MM-DD HH:mm:ss') {
-          return moment.unix(dataStr).utc().format(pattern);
+          return `${moment.unix(dataStr).utc().format(pattern)} (UTC)`;
         },
         formatMounthTimeUtc(dataStr, pattern = 'MM-DD HH:mm:ss') {
           return moment.unix(dataStr).utc().format(pattern);

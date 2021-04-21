@@ -2,7 +2,7 @@
  * @Author: abc
  * @Date: 2021-03-22 17:56:21
  * @LastEditors: abc
- * @LastEditTime: 2021-03-22 18:02:59
+ * @LastEditTime: 2021-04-20 18:01:02
  * @Description: pool  information
 -->
 <template>
@@ -50,14 +50,14 @@
         effect="dark"
         :content="`${
           util.money_format(objPoolInfo.day_theoretical_income) || 0
-        }  IBXC/${$t('10KPower')}`"
+        }  ${util.formatUnit(1, true)} / ${$t('10KPower')}`"
         placement="bottom"
       >
         <strong class="pool-coll-content-item-num">{{
           util.money_format(objPoolInfo.day_theoretical_income)
         }}</strong>
       </el-tooltip>
-      <small>IBXC/ {{ $t('10KPower') }}</small>
+      <small>{{ util.formatUnit(1, true) }} &nbsp;/ {{ $t('10KPower') }}</small>
     </div>
     <div class="pool-details-left-item">
       <span class="pool-details-left-item-text">
@@ -118,6 +118,31 @@
       </el-tooltip>
       <small>({{ $t('PerDay') }} UTC)</small>
     </div>
+    <div class="pool-details-left-item">
+      <span class="pool-details-left-item-text">
+        {{ $t('URL') }}
+      </span>
+      <span v-if="objPoolInfo.home_url === ''">null</span>
+      <el-tooltip
+        effect="dark"
+        :content="`${objPoolInfo.home_url}`"
+        placement="bottom"
+      >
+        <span
+          class="warp-ecology-item-content-right-text pool-coll-content-item-url"
+          v-if="objPoolInfo.home_url"
+          style="color: #5e81f7"
+          @click.stop="handleHomeUrl(objPoolInfo)"
+          >{{ objPoolInfo.home_url }}
+        </span>
+      </el-tooltip>
+    </div>
+    <!-- home_url -->
+    <dialog-url
+      :dialogUrl="dialogUrl"
+      v-if="objPoolInfo.home_url"
+      :objPoolUrl="objPoolInfo"
+    ></dialog-url>
   </div>
 </template>
 <script>
@@ -129,12 +154,21 @@ export default {
     }
   },
   data() {
-    return {};
+    return {
+      dialogUrl: false
+    };
   },
   computed: {},
   watch: {},
   created() {},
-  mounted() {},
-  methods: {}
+  mounted() {
+    console.log(this.objPoolInfo);
+  },
+  methods: {
+    handleHomeUrl(obj) {
+      console.log(obj);
+      this.dialogUrl = true;
+    }
+  }
 };
 </script>
