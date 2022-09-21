@@ -1,0 +1,54 @@
+.dialog-load {
+  background-color: rgba($color: #000, $alpha: 0.6);
+  .el-dialog__header {
+    display: none;
+  }
+  .el-dialog__body {
+    background-color: transparent;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
+.loadingThree {
+  width: 150px;
+  height: 15px;
+  margin: 0 auto;
+  margin-top: 100px;
+}
+.loadingThree span {
+  display: inline-block;
+  width: 15px;
+  height: 100%;
+  margin-right: 5px;
+  border-radius: 50%;
+  background: rgb(57, 97, 245);
+  -webkit-animation: load 1.04s ease infinite;
+}
+.loadingThree span:last-child {
+  margin-right: 0px;
+}
+@-webkit-keyframes load {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+.loadingThree span:nth-child(1) {
+  animation-delay: 0.13s;
+}
+.loadingThree span:nth-child(2) {
+  animation-delay: 0.26s;
+}
+.loadingThree span:nth-child(3) {
+  animation-delay: 0.39s;
+}
+.loadingThree span:nth-child(4) {
+  animation-delay: 0.52s;
+}
+.loadingThree span:nth-child(5) {
+  animation-delay: 0.65s;
+}

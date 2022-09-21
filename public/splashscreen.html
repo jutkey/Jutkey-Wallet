@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        background: rgba(57, 97, 245, 0.8);
+      }
+      .logo-box {
+        display: flex;
+        justify-content: center;
+        height: 50vh;
+        align-items: center;
+      }
+      .logo-box img {
+        width: 64px;
+        height: 64px;
+      }
+      .loading {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        height: 40px;
+        display: flex;
+        align-items: center;
+      }
+      .item {
+        height: 50px;
+        width: 5px;
+        background: #fff;
+        margin: 0px 3px;
+        border-radius: 10px;
+        animation: loading 1s infinite;
+      }
+      @keyframes loading {
+        0% {
+          height: 0px;
+        }
+
+        50% {
+          height: 50px;
+        }
+
+        100% {
+          height: 0px;
+        }
+      }
+      .item:nth-child(2) {
+        animation-delay: 0.1s;
+      }
+      .item:nth-child(3) {
+        animation-delay: 0.2s;
+      }
+      .item:nth-child(4) {
+        animation-delay: 0.3s;
+      }
+      .item:nth-child(5) {
+        animation-delay: 0.4s;
+      }
+      .item:nth-child(6) {
+        animation-delay: 0.5s;
+      }
+      .item:nth-child(7) {
+        animation-delay: 0.6s;
+      }
+      .item:nth-child(8) {
+        animation-delay: 0.7s;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="logo-box">
+      <img src="./img/icons/logo-64.png" alt="logo" />
+    </div>
+    <div class="loading">
+      <div class="item"></div>
+      <div class="item"></div>
+      <div class="item"></div>
+      <div class="item"></div>
+      <div class="item"></div>
+      <div class="item"></div>
+      <div class="item"></div>
+      <div class="item"></div>
+    </div>
+  </body>
+</html>

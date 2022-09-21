@@ -1,0 +1,116 @@
+.found {
+  font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+  &-wrap {
+    display: block;
+    position: relative;
+    width: 200px;
+    margin: 10% auto 0;
+    animation: shvr 0.2s infinite;
+    &::after {
+      content: "";
+      width: 20px;
+      height: 20px;
+      background: #000;
+      position: absolute;
+      top: 30px;
+      left: 25px;
+      border-radius: 50%;
+      box-shadow: 125px 0 0 #000;
+      animation: eye 2.5s infinite;
+    }
+    &-eye {
+      position: relative;
+      display: inline-block;
+      background: var(--color-text-base);
+      width: 75px;
+      height: 80px;
+      border-radius: 50% 50% 50% 50%/45px 45px 45% 45%;
+      transform: rotate(45deg);
+      &::after {
+        content: "";
+        position: absolute;
+        border-bottom: 2px solid var(--color-text-base);
+        width: 70px;
+        height: 50px;
+        left: 0px;
+        bottom: -10px;
+        border-radius: 50%;
+      }
+      &::before {
+        bottom: auto;
+        top: -100px;
+        transform: rotate(45deg);
+        left: 0;
+      }
+      &:nth-of-type(2) {
+        float: right;
+        transform: rotate(-45deg);
+        &::after {
+          left: 5px;
+        }
+      }
+      &:nth-of-type(3) {
+        display: none;
+      }
+    }
+  }
+  &-text {
+    margin-top: 50px;
+    text-align: center;
+    color: var(--color-text-base);
+    &::before {
+      content: "404";
+      font-size: 60px;
+      font-weight: 800;
+      display: block;
+      margin-bottom: 30px;
+    }
+    &::after {
+      content: "Got lost? How.....?  Why.....?  Ahhhh....";
+      color: #1ea7ab;
+      width: 120px;
+      height: 60px;
+      font-size: 30px;
+      overflow: hidden;
+      display: inline-block;
+      white-space: nowrap;
+      -webkit-animation: text-show 2s infinite steps(3);
+      animation: text-show 2s infinite steps(3);
+    }
+  }
+}
+@keyframes eye {
+  0%,
+  30%,
+  55%,
+  90%,
+  100% {
+    transform: translate(0, 0);
+  }
+  10%,
+  25% {
+    transform: translate(0, 20px);
+  }
+  65% {
+    transform: translate(-20px, 0);
+  }
+  80% {
+    transform: translate(20px, 0);
+  }
+}
+@keyframes shvr {
+  0% {
+    transform: translate(1px, 1em);
+  }
+  50% {
+    transform: translate(0, 1em);
+  }
+  100% {
+    transform: translate(-1px, 1em);
+  }
+}
+@keyframes text-show {
+  to {
+    text-indent: -373px;
+  }
+}

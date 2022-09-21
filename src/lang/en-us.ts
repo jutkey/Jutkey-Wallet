@@ -1,0 +1,28 @@
+const enUs = {
+  'page.symbol': 'IBXC',
+  'data.no': 'No Data',
+  'login.jutkey': 'The world is leading decentralized Cross Chain Wallet',
+  'login.backup': 'Backup',
+  'login.back': 'Back',
+  'login.welcome': 'Welcome to Jutkey',
+  'login.create': 'Create Wallet',
+  'login.account': 'Create an account',
+  'login.import': 'Import Wallet',
+  'login.success': 'Successful import',
+  'login.info': 'Wallet Information',
+  'login.user': '《Terms and Conditions》',
+  'login.already': 'I have carefully read and agree to the',
+  'login.isAgree': 'The user agreement must be agreed',
+  'login.empty': 'Please Choose a Wallet',
+  'login.enter': 'Enter',
+  'login.enteraespass': 'Please enter a backup password',
+  'login.nickname': 'Please enter a wallet nickname',
+  'login.privateKey': 'Please  enter the Private Key of USDT (ERC20)',
+  'login.errorback': 'Backup password error',
+  'login.error': 'Old password error',
+  'login.errorpass': 'Password error',
+  'login.exist': 'Wallet nickname already exists, please replace',
+  'login.offline': 'Offline',
+  'login.online': 'Online'
+};
+export default enUs;

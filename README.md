@@ -1,59 +1,64 @@
 # Jutkey Wallet
 
-## The project of jutkey wallet running on PC can be packaged as PC web page version and client based on Windows 10 and MAC system respectively.
-
-## Project setup
-
 ```
 yarn install
-```
-
-```
-npm install
 ```
 
 ### Compiles and hot-reloads for development
 
 ```
-yarn serve
+yarn dev
 ```
 
-or
+### Open the desktop development environment
 
 ```
-yarn electron:serve
+yarn tauri dev
+```
+
+### Compiles and hot-reloads for development test
+
+```
+yarn dev:test
+```
+
+### Open the desktop development test environment
+
+```
+yarn tauri dev:test
+```
+
+### Compiles and minifies for test
+
+```
+yarn build:test
+```
+
+### Build desktop test installation
+
+```
+yarn tauri build:test
 ```
 
 ### Compiles and minifies for production
 
 ```
 yarn build
-```
-
-or
 
 ```
-yarn electron:build
-```
 
-### Run your unit tests
+### Build desktop production installation
 
 ```
-yarn test:unit
+yarn tauri build
 ```
 
-### Run your end-to-end tests
+### Get tokens
 
-```
-yarn test:e2e
-```
+## Tauri + vite + Vue 3 + TypeScript
 
-### Lints and fixes files
+This template should help get you started developing with Vue 3 and TypeScript in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
 
-```
-yarn lint
-```
+## Recommended IDE Setup
 
-### Customize configuration
-
-See [Configuration Reference](https://cli.vuejs.org/config/).
+- [VS Code](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) + [Tauri](https://marketplace.visualstudio.com/items?itemName=tauri-apps.tauri-vscode) + [rust-analyzer](https://marketplace.visualstudio.com/items?itemName=rust-lang.rust-analyzer)
