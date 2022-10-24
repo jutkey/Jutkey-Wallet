@@ -10,7 +10,7 @@ import CreateWords from '@/components/login/CreateWords.vue';
 import UserAgreement from '@/components/login/UserAgreement.vue';
 import BackupWords from '@/components/login/BackupWords.vue';
 import AddNetwork from '@/components/login/AddNetwork.vue';
-import defaultUrl from '@/plugins/defaultUrl';
+import defaultUrl from '@/plugins/url/defaultUrl';
 import util from '@/plugins/util';
 import { networkLogin, arrNetwork, axiosType } from '@/plugins/dataType';
 
@@ -71,8 +71,9 @@ const handleTestNetwork = async (i: number) => {
       console.log(util.getCache('networkIp'));
       console.log(networkList.list[i].networkId);
       const networkIp = util.getCache('networkIp');
+      console.log(networkIp);
       if (networkIp) {
-        if (networkIp === networkList.list[i].ip) {
+        if (networkIp.ip === networkList.list[i].ip) {
           networkList.list[i].status = true;
           networks.status = true;
         } else {
@@ -130,8 +131,10 @@ const handleBackstep = () => {
     createStep.value = 0;
   }
 };
+if (localStorage.getItem('lang')) {
+  lang.value = localStorage.getItem('lang') as string;
+}
 
-lang.value = localStorage.getItem('lang') as string;
 provide('lang', lang);
 const handleLangShow = (val: string) => {
   const obj = objLang.find((item) => {
@@ -200,7 +203,8 @@ const handleAddNetwork = async (row: any) => {
   }
 };
 const handleConnectInner = async (row: networkLogin) => {
-  util.setCache('networkIp', row.ip);
+  util.setCache('networkIp', row);
+  console.log(row);
   handleTestNetwork(0);
   if (i >= networkList.list.length - 1) {
     window.location.reload();
@@ -218,7 +222,7 @@ const handleDeteleInner = (obj: networkLogin) => {
         customClass: 'network-box',
         cancelButtonText: handleI18n('login.cancel'),
         confirmButtonText: handleI18n('login.confirm'),
-        confirmButtonClass: 'bg-blue text-white border-blue force',
+        confirmButtonClass: ' bg-btn text-white border-btn force',
         cancelButtonClass: 'text-title hover:text-blue',
         center: true
       }
@@ -237,9 +241,30 @@ const handleDeteleInner = (obj: networkLogin) => {
 </script>
 <template>
   <div class="flex h-full bg-white text-base">
-    <div class="w-1/2 bg-login-big bg-no-repeat bg-center bg-100%"></div>
-    <div class="w-1/2">
-      <div class="flex mt-3 mb-15vh h-10 items-center">
+    <div
+      class="flex flex-wrap content-between w-1/3 bg-no-repeat bg-center bg-black text-white pt-5% px-5% pb-3%"
+    >
+      <div class="w-full">
+        <h1 class="text-white leading-tight mb-5 font-bebas login-h1">
+          A NEW GENERATION OF DECENTRALIZED MULTI-CHAIN WALLETS
+        </h1>
+        <p class="italic">
+          More than that, it's an asset management tool for IBAX Network
+        </p>
+      </div>
+      <div class="flex justify-center items-center w-full">
+        <div class="text-center">
+          <img src="@/assets/image/logo-128.png" alt="logo" />
+          <p class="mt-5 text-4xl login-h1 font-bebas">JUTKEY</p>
+        </div>
+      </div>
+      <p class="w-full">
+        By tapping "Login" or "Generate a new wallet" you consentand agree to
+        ourTerms and Conditions and Privacy Policy.
+      </p>
+    </div>
+    <div class="w-2/3 flex flex-wrap content-between">
+      <div class="flex mt-3 items-center w-full">
         <div v-show="createStep > 0" class="ml-20px">
           <el-page-header
             :title="$t('login.back')"
@@ -255,7 +280,7 @@ const handleDeteleInner = (obj: networkLogin) => {
             @click="networks.isDialog = true"
           >
             <span
-              class="inline-block w-2 h-2 rounded-full mr-1"
+              class="inline-block w-2 h-2 rounded-full mr-1 text-xs xl:text-base lg:text-sm"
               :class="{
                 'bg-success': networks.status,
                 'bg-error': !networks.status
@@ -267,7 +292,7 @@ const handleDeteleInner = (obj: networkLogin) => {
           </div>
           <!-- i18n change -->
           <el-dropdown @command="handleCommandLang">
-            <span class="ml-2 text-xs xl:text-xs lg:text-sm">
+            <span class="ml-2 text-xs xl:text-base lg:text-sm">
               {{ strLang }}
               <el-icon class="el-icon--right"><arrow-down /></el-icon>
             </span>
@@ -285,7 +310,7 @@ const handleDeteleInner = (obj: networkLogin) => {
           </el-dropdown>
         </div>
       </div>
-      <div class="w-8/12 xl:w-8/12 lg:w-10/12 mx-auto">
+      <div class="w-1/2 xl:w-1/2 lg:w-10/12 mx-auto">
         <template v-if="createStep === 0">
           <sign-login
             :create-step="createStep"
@@ -317,6 +342,7 @@ const handleDeteleInner = (obj: networkLogin) => {
           ></create-account>
         </template>
       </div>
+      <div class="w-full text-right pb-3% pr-3%">2022 @ JUTKEY TEAM</div>
     </div>
     <!-- Add network -->
     <dialog-login

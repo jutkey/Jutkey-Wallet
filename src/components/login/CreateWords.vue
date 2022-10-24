@@ -46,7 +46,7 @@ const handleCreateStep = (num: number) => {
   <div class="w-full">
     <el-button
       type="primary"
-      class="w-full h-10 bg-blue text-white border-blue"
+      class="w-full h-10 bg-btn text-white border-btn"
       @click="handleCreateStep(3)"
     >
       {{ $t('login.backups') }}

@@ -1,5 +1,5 @@
 .found {
-  font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+  font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif;
   &-wrap {
     display: block;
     position: relative;
@@ -7,7 +7,7 @@
     margin: 10% auto 0;
     animation: shvr 0.2s infinite;
     &::after {
-      content: "";
+      content: '';
       width: 20px;
       height: 20px;
       background: #000;
@@ -21,15 +21,15 @@
     &-eye {
       position: relative;
       display: inline-block;
-      background: var(--color-text-base);
+      background: var(--color-text-second);
       width: 75px;
       height: 80px;
       border-radius: 50% 50% 50% 50%/45px 45px 45% 45%;
       transform: rotate(45deg);
       &::after {
-        content: "";
+        content: '';
         position: absolute;
-        border-bottom: 2px solid var(--color-text-base);
+        border-bottom: 2px solid var(--color-text-second);
         width: 70px;
         height: 50px;
         left: 0px;
@@ -57,16 +57,16 @@
   &-text {
     margin-top: 50px;
     text-align: center;
-    color: var(--color-text-base);
+    color: var(--color-text-second);
     &::before {
-      content: "404";
+      content: '404';
       font-size: 60px;
       font-weight: 800;
       display: block;
       margin-bottom: 30px;
     }
     &::after {
-      content: "Got lost? How.....?  Why.....?  Ahhhh....";
+      content: 'Got lost? How.....?  Why.....?  Ahhhh....';
       color: #1ea7ab;
       width: 120px;
       height: 60px;

@@ -105,9 +105,9 @@ const handleImportKeystore = () => {
   util.checkTradepass(async () => {
     ElMessageBox.prompt('', handleI18n('set.keystorepassword'), {
       closeOnClickModal: false,
-      customClass: 'form-box bg-basic-box text-basic border-basic-box',
-      confirmButtonClass: 'bg-blue text-white border-blue',
-      cancelButtonClass: 'text-basic hover:text-blue',
+      customClass: 'form-box bg-basic-box   border-basic-box',
+      confirmButtonClass: ' bg-btn text-white border-btn',
+      cancelButtonClass: '  hover:text-blue',
       confirmButtonText: handleI18n('login.confirm'),
       cancelButtonText: handleI18n('login.cancel'),
       inputType: 'password',
@@ -151,7 +151,7 @@ const handleImportKeystore = () => {
 };
 </script>
 <template>
-  <div class="bg-basic-box rounded text-basic p-20px">
+  <div class="bg-basic-box rounded p-20px">
     <h4 class="mb-5">{{ $t('set.change') }}</h4>
     <!-- change password -->
     <div class="mb-3 w-1/3 form-box">
@@ -193,7 +193,7 @@ const handleImportKeystore = () => {
           <div class="w-full flex justify-center">
             <el-button
               type="primary"
-              class="bg-blue text-white border-blue"
+              class="bg-btn text-white border-btn"
               @click="handlePasswordSubmit(passwordFormRef)"
             >
               {{ $t('login.confirm') }}
@@ -236,7 +236,7 @@ const handleImportKeystore = () => {
       <div class="">
         <el-button
           type="primary"
-          class="bg-blue text-white border-blue"
+          class="bg-btn text-white border-btn"
           @click="handleImportWords"
         >
           {{ $t('set.importwords') }}
@@ -270,7 +270,7 @@ const handleImportKeystore = () => {
       <div class="">
         <el-button
           type="primary"
-          class="bg-blue text-white border-blue"
+          class="bg-btn text-white border-btn"
           @click="handleImportKeystore"
         >
           {{ $t('set.importKeystore') }}

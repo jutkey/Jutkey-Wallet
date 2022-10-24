@@ -108,7 +108,7 @@ defineExpose({
         :indeterminate="isIndeterminate"
         @change="handleCheckAllChange"
       >
-        <span class="text-basic">{{ $t('eth.checkAll') }}</span>
+        <span class=" ">{{ $t('eth.checkAll') }}</span>
       </el-checkbox>
     </div>
     <el-scrollbar style="height: 200px">
@@ -121,14 +121,12 @@ defineExpose({
         <div
           v-for="item in arrCurrencyList.list"
           :key="item.address"
-          class="text-basic mb-2"
+          class="mb-2"
         >
           <el-checkbox :label="item.address" :disabled="item.disabled">
             <div class="flex items-center">
               <img :src="item.logoURI" class="w-5 mr-2" />
-              <span class="text-basic">
-                {{ item.name }} ({{ item.symbol }})
-              </span>
+              <span class=" ">{{ item.name }} ({{ item.symbol }})</span>
             </div>
           </el-checkbox>
         </div>

@@ -61,7 +61,7 @@ const handleChangePage = (page: number) => {
 };
 </script>
 <template>
-  <div class="bg-basic-box rounded form-box text-basic">
+  <div class="bg-basic-box rounded form-box">
     <div v-if="help.list.length" class="p-20px">
       <el-tabs v-model="helpName" @tab-click="handleTabsHelp">
         <el-tab-pane :label="$t('help.common')" name="common">
@@ -73,7 +73,7 @@ const handleChangePage = (page: number) => {
                 :name="item.id"
               >
                 <template #title>
-                  <div class="w-full flex items-center text-basic">
+                  <div class="w-full flex items-center">
                     <div class="w-2/5 truncate">
                       <span>{{ $t('help.directory') }}:</span>
                       <el-tooltip
@@ -115,7 +115,7 @@ const handleChangePage = (page: number) => {
                 :name="item.id"
               >
                 <template #title>
-                  <div class="w-full flex items-center text-basic">
+                  <div class="w-full flex items-center">
                     <div class="w-2/5 truncate">
                       <span>{{ $t('help.directory') }}:</span>
                       <el-tooltip

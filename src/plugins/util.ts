@@ -95,11 +95,13 @@ export default {
     } catch (e) {}
   },
   getChainUrl() {
-    let url = handleGetObjUrl().nodeserver;
+    const obj = handleGetObjUrl() as any;
+    let url = obj.ip;
     const networkIp = this.getCache('networkIp');
     if (networkIp) {
-      url = networkIp;
+      url = networkIp.ip;
     }
+    console.log(url);
     return url;
   },
   handleReduce(arr: any, key: string = 'id') {
@@ -240,7 +242,7 @@ export default {
         if (fixed !== undefined) {
           money = money.toFixed(fixed);
         }
-        return money;
+        return this.cutZero(money);
       }
       return 0;
     } catch (e) {
@@ -260,9 +262,9 @@ export default {
       handleI18n('user.authorization') as any,
       {
         closeOnClickModal: false,
-        customClass: 'form-box bg-basic-box text-basic border-basic-box',
-        confirmButtonClass: 'bg-blue text-white border-blue',
-        cancelButtonClass: 'text-basic hover:text-blue',
+        customClass: 'form-box bg-basic-box   border-basic-box',
+        confirmButtonClass: ' bg-btn text-white border-btn',
+        cancelButtonClass: '  hover:text-blue',
         confirmButtonText: handleI18n('login.confirm'),
         cancelButtonText: handleI18n('login.cancel'),
         inputAutocomplete: 'off',

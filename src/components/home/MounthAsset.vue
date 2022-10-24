@@ -104,7 +104,7 @@ const handleSelectChange = (props: number) => {
 <template>
   <div class="w-full">
     <div class="flex justify-between items-center mb-20px">
-      <span>{{ $t('home.asset') }}</span>
+      <span class="text-first">{{ $t('home.asset') }}</span>
       <div class="select-box">
         <el-select
           v-model="ecoId"
@@ -136,9 +136,8 @@ const handleSelectChange = (props: number) => {
             class="bg-basic-box"
           >
             <template #title>
-              <div class="w-full flex items-center justify-between text-basic">
+              <div class="w-full flex items-center justify-between text-secnod">
                 <div class="w-1/5">{{ item.month }}</div>
-
                 <div class="w-2/5 truncate">
                   <span>{{ $t('home.income') }}:</span>
                   <el-tooltip
@@ -168,8 +167,8 @@ const handleSelectChange = (props: number) => {
               </div>
             </template>
             <template v-if="month.list.length">
-              <div class="mb-3 table-box">
-                <el-table :data="month.list" stripe style="width: 100%">
+              <div class="mb-3 table-box table-box-home">
+                <el-table :data="month.list" style="width: 100%">
                   <el-table-column
                     :label="$t('node.time')"
                     show-overflow-tooltip
@@ -218,10 +217,7 @@ const handleSelectChange = (props: number) => {
                 ></el-pagination>
               </div>
             </template>
-            <div
-              v-else
-              class="w-full bg-basic-box rounded-3xl p-10 flex justify-center"
-            >
+            <div v-else class="w-full rounded-3xl p-10 flex justify-center">
               <img src="@/assets/image/no-data.png" alt="no-data" />
             </div>
           </el-collapse-item>

@@ -1,14 +1,34 @@
 // Configuration of Axios
 import axios from 'axios';
+import { ElMessage } from 'element-plus';
 import router from '@/router/index';
 import auth from '../auth';
+import util from '@/plugins/util';
 
 const token = localStorage.getItem('token');
 const apiAddress = auth.getChainUrl();
+// eslint-disable-next-line no-unused-vars
 const errorHandle = (status: number, other: any) => {
   console.log(status);
   console.log(other);
-  if (status !== 200) {
+  util.closeLoading();
+  switch (status) {
+    case 401: {
+      const routeValue = router.replace('/login');
+      localStorage.removeItem('token');
+      routeValue
+        .then(() => {
+          window.location.reload();
+        })
+        .catch(() => {});
+      break;
+    }
+    default: {
+      ElMessage.error('request was aborted');
+      break;
+    }
+  }
+  /*  if (status !== 200) {
     const routeValue = router.replace('/login');
     localStorage.removeItem('token');
     routeValue
@@ -16,7 +36,7 @@ const errorHandle = (status: number, other: any) => {
         window.location.reload();
       })
       .catch(() => {});
-  }
+  } */
   /*  if (status === 401 || status === -402) {
     router.replace('/login');
     localStorage.removeItem('token');
@@ -57,6 +77,7 @@ service.interceptors.response.use(
   (error) => {
     const { response } = error;
     if (response) {
+      console.log(response.status);
       errorHandle(response.status, response.data.message);
       return Promise.reject(response.data);
     }

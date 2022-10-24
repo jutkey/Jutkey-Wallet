@@ -32,7 +32,7 @@ const handleNftIncome = async (params: any) => {
         return handleTimeUTC(item.time);
       });
       const amount = res.data.map((item: any) => {
-        return `${util.formatFixed(item.amount)}`;
+        return `${util.formatUnits(item.amount)}`;
       });
       console.log(time, amount);
       chart.lineChart(time, amount);
@@ -54,7 +54,7 @@ watch(
 </script>
 <template>
   <div class="w-full">
-    <div>{{ $t('home.nftmin') }}</div>
+    <div class="text-first">{{ $t('home.nftmin') }}</div>
     <div id="nftLine" class="w-full" style="height: 350px"></div>
   </div>
 </template>

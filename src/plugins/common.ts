@@ -1,23 +1,18 @@
-import devUrl from '../url/dev';
-import testUrl from '../url/test';
-import prodUrl from '../url/prod';
 import devNetworks from '../url/infura-dev';
 import testNetworks from '../url/infura-test';
 import prodNetworks from '../url/infura-prod';
+import walletUrl from './url/walletUrl';
+import util from './util';
 
 export const handleGetObjUrl = () => {
-  const condition = import.meta.env.VITE_NODE_ENV;
-  console.log(condition);
-  if (condition === 'development') {
-    return devUrl;
+  const arrUrl = walletUrl;
+  const networkIp = util.getCache('networkIp');
+  console.log(networkIp);
+  if (networkIp) {
+    const obj = arrUrl.find((item) => item.networkId === networkIp.networkId);
+    return obj;
   }
-  if (condition === 'test') {
-    return testUrl;
-  }
-  if (condition === 'production') {
-    return prodUrl;
-  }
-  return prodUrl;
+  return arrUrl[0];
 };
 export const handleArrNetwork = () => {
   const condition = import.meta.env.VITE_NODE_ENV;
@@ -34,11 +29,11 @@ export const handleArrNetwork = () => {
   return devNetworks;
 };
 export function handleWalletserver() {
-  const objUrl = handleGetObjUrl();
+  const objUrl = handleGetObjUrl() as any;
   return objUrl.walletserver;
 }
 export function handleBlockexplorer() {
-  const objUrl = handleGetObjUrl();
+  const objUrl = handleGetObjUrl() as any;
   return objUrl.blockexplorer;
 }
 export const zeroPadding = (num: number, digit: number) => {
@@ -101,73 +96,73 @@ export const bigNumCompare = (a: string, b: string) => {
   }
   return back;
 };
-export const handleEventNumber = (str: string) => {
+export const handleEventNumber = (num: number) => {
   let eventName = '';
-  switch (str) {
-    case '1':
+  switch (num) {
+    case 1:
       eventName = 'user.package';
       break;
-    case '2':
+    case 2:
       eventName = 'user.taxation';
       break;
-    case '3':
+    case 3:
       eventName = 'user.trade';
       break;
-    case '4':
+    case 4:
       eventName = 'user.create';
       break;
-    case '5':
+    case 5:
       eventName = 'user.iname';
       break;
-    case '6':
+    case 6:
       eventName = 'user.token';
       break;
-    case '7':
+    case 7:
       eventName = 'user.coin';
       break;
-    case '8':
+    case 8:
       eventName = 'user.private';
       break;
-    case '9':
+    case 9:
       eventName = 'user.foundation';
       break;
-    case '10':
+    case 10:
       eventName = 'user.team';
       break;
-    case '11':
+    case 11:
       eventName = 'user.partner';
       break;
-    case '12':
+    case 12:
       eventName = 'user.nft';
       break;
-    case '13':
+    case 13:
       eventName = 'user.mining';
       break;
-    case '14':
+    case 14:
       eventName = 'user.pledge';
       break;
-    case '15':
+    case 15:
       eventName = 'user.exchange';
       break;
-    case '16':
+    case 16:
       eventName = 'user.burning';
       break;
-    case '17':
+    case 17:
       eventName = 'user.detele';
       break;
-    case '18':
+    case 18:
       eventName = 'user.paid';
       break;
-    case '19':
+    case 19:
       eventName = 'user.nodes';
       break;
-    case '20':
+    case 20:
       eventName = 'user.voting';
       break;
-    case '21':
+    case 21:
       eventName = 'user.deposit';
       break;
-    case '22':
+    case 22:
       eventName = 'user.withdrawal';
       break;
     default:
@@ -226,6 +221,34 @@ export const handleRouter = () => {
         {
           path: '/ethereum',
           key: '4-1',
+          title: 'nav.assets',
+          icon: 'iconfont el-block-list'
+        }
+      ]
+    },
+    {
+      key: '9',
+      title: 'bnb.chain',
+      icon: 'iconfont el-ui-BNB',
+      path: '/bnb',
+      children: [
+        {
+          path: '/bnb',
+          key: '9-1',
+          title: 'nav.assets',
+          icon: 'iconfont el-block-list'
+        }
+      ]
+    },
+    {
+      key: '10',
+      title: 'tron.chain',
+      icon: 'iconfont el-ui-a-outline-trontron-trx',
+      path: '/tron',
+      children: [
+        {
+          path: '/tron',
+          key: '10-1',
           title: 'nav.assets',
           icon: 'iconfont el-block-list'
         }

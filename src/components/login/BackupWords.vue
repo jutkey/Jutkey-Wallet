@@ -120,7 +120,7 @@ const handleSelectWords = () => {
     </el-button>
     <el-button
       type="primary"
-      class="w-1/3 h-10 bg-blue text-white border-blue"
+      class="w-1/3 h-10 bg-btn text-white border-btn"
       @click="handleSelectWords"
     >
       {{ $t('login.confirm') }}

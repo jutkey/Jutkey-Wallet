@@ -40,7 +40,7 @@ const url = handleBlockexplorer();
       <el-table-column :label="$t('user.address')" show-overflow-tooltip>
         <template #default="scope">
           <a
-            :href="`${url}/blockchain/block/${scope.row.address}`"
+            :href="`${url}/blockchain/account/${scope.row.address}`"
             target="_blank"
             class="hover:text-blue"
           >
@@ -62,7 +62,7 @@ const url = handleBlockexplorer();
       </el-table-column>
       <el-table-column :label="$t('user.type')" show-overflow-tooltip>
         <template #default="scope">
-          <span>{{ $t(handleEventNumber(scope.row.type)) }}</span>
+          <span>{{ $t(handleEventNumber(Number(scope.row.type))) }}</span>
         </template>
       </el-table-column>
       <el-table-column :label="$t('user.contract')" show-overflow-tooltip>

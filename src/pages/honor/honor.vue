@@ -66,23 +66,23 @@ const handleConfirm = () => {
 const url = handleWalletserver();
 </script>
 <template>
-  <div class="w-full text-basic">
+  <div class="w-full">
     <div class="w-full bg-basic-box p-20px rounded mb-20px">
       <h3 class="mb-5 text-muted">
         <span>{{ $t('honor.node') }}:</span>
-        <span>{{ util.format(honorTotal) }}</span>
+        <span class="ml-1">{{ util.format(honorTotal) }}</span>
         <span class="ml-1 text-sm">{{ $t('honor.a') }}</span>
       </h3>
       <div class="mb-2">{{ $t('honor.behalf') }}</div>
       <div class="mb-5">{{ $t('honor.honorary') }}</div>
       <h3 class="mb-5 text-muted">
         <span>{{ $t('honor.candidate') }}:</span>
-        <span>{{ util.format(candidateTotal) }}</span>
+        <span class="ml-1">{{ util.format(candidateTotal) }}</span>
         <span class="ml-1 text-sm">{{ $t('honor.a') }}</span>
       </h3>
       <div class="mb-5">{{ $t('honor.application') }}</div>
     </div>
-    <div class="bg-basic-box rounded text-basic p-20px">
+    <div class="bg-basic-box rounded p-20px">
       <div v-if="honorList.list.length" class="table-box">
         <div class="mb-20px">
           <el-table :data="honorList.list" stripe style="width: 100%">
@@ -283,7 +283,7 @@ const url = handleWalletserver();
                 <div @click="handleOpenVate(scope.row.id, scope.row.name)">
                   <span
                     v-if="Number(scope.row.myVote) === 0"
-                    class="inline-block px-2 h-6 leading-6 text-center text-xs rounded bg-blue text-white border-blue cursor-pointer"
+                    class="inline-block px-2 h-6 leading-6 text-center text-xs rounded bg-btn text-white border-btn cursor-pointer"
                   >
                     {{ $t('node.votes') }}
                   </span>

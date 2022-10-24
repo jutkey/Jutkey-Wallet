@@ -156,6 +156,26 @@ const routes = [
     ]
   },
   {
+    path: '/bnb',
+    name: 'BNB',
+    component: () =>
+      import(/* webpackChunkName: "bnb" */ '@/pages/bnb/index.vue'),
+    meta: {
+      key: '9',
+      title: 'nav.eth'
+    }
+  },
+  {
+    path: '/tron',
+    name: 'Tron',
+    component: () =>
+      import(/* webpackChunkName: "tron" */ '@/pages/tron/index.vue'),
+    meta: {
+      key: '9',
+      title: 'nav.eth'
+    }
+  },
+  {
     path: '/honor',
     component: () =>
       import(/* webpackChunkName: "honor" */ '@/pages/honor/index.vue'),

@@ -8,6 +8,7 @@ import util from '@/plugins/util';
 const lang = inject('lang') as any;
 console.log(lang);
 const words = store.getters.postWords;
+const networkIp = util.getCache('networkIp');
 console.log(words);
 const emit = defineEmits(['update:createStep', 'update']);
 defineProps({
@@ -73,6 +74,7 @@ const handleCreateSubmit = (formEl: FormInstance | undefined) => {
         password
       };
       localStorage.setItem('lang', lang.value);
+      util.setCache('networkIp', networkIp);
       util.setCache('words', data);
       /*  util.removeCache('current');
       util.removeCache('accountWords');
@@ -161,15 +163,15 @@ const handleUserWords = (num: number) => {
     </el-form-item> -->
     <el-form-item>
       <div class="w-full flex justify-between py-20px">
+        <el-button class="w-1/3 h-10 text-base" @click="handleUserWords(0)">
+          {{ $t('login.cancel') }}
+        </el-button>
         <el-button
           type="primary"
-          class="w-1/3 h-10 bg-blue text-white border-blue"
+          class="w-1/3 h-10 bg-btn text-white border-btn"
           @click="handleCreateSubmit(createFormRef)"
         >
           {{ $t('login.confirm') }}
-        </el-button>
-        <el-button class="w-1/3 h-10 text-base" @click="handleUserWords(0)">
-          {{ $t('login.cancel') }}
         </el-button>
       </div>
     </el-form-item>

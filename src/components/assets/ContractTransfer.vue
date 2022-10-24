@@ -203,7 +203,7 @@ const handleUrgentInput = () => {
         </div>
         <el-button
           type="primary"
-          class="text-center text-sm rounded bg-blue text-white border-blue mx-3"
+          class="text-center text-sm rounded bg-btn text-white border-btn mx-3"
           @click="handleSubmitForm(tradeFormRef)"
         >
           {{ $t('login.confirm') }}

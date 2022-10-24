@@ -23,7 +23,7 @@ fs.readdirSync('node_modules/element-plus/es/components').forEach((dirname) => {
 });
 // https://vitejs.dev/config/
 export default ({ mode, command }) => {
-  console.log(mode, command, '00000');
+  console.log(mode, command);
   const boo = mode === 'dev';
   console.log(boo);
   console.log(process.env.TAURI_DEBUG);

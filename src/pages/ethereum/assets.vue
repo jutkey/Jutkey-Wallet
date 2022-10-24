@@ -150,7 +150,7 @@ const handleConfim = () => {
         </el-icon>
       </div>
     </div> -->
-    <div class="w-full bg-basic-box flex mb-8 rounded-3xl">
+    <div class="w-full bg-basic-box flex mb-8 rounded-3xl shadow-xl">
       <div class="m-3% text-center">
         <div
           class="rounded-full bg-white flex items-center justify-center w-24 h-24 mx-auto"
@@ -185,7 +185,7 @@ const handleConfim = () => {
         <div class="ml-auto w-36">
           <el-button
             type="primary"
-            class="w-full h-10 text-sm bg-blue text-white border-blue mb-3 ml-0"
+            class="w-full h-10 text-sm bg-btn text-white border-btn mb-3 ml-0"
             @click="handleOpenCurrency"
           >
             {{ $t('eth.add') }}
@@ -195,13 +195,13 @@ const handleConfim = () => {
               name: 'EthTransfer',
               params: { address }
             }"
-            class="block w-full h-10 leading-10 text-center text-sm rounded bg-blue text-white border-blue mb-3 ml-0"
+            class="block w-full h-10 leading-10 text-center text-sm rounded bg-btn text-white border-btn mb-3 ml-0"
           >
             {{ $t('user.trade') }}
           </router-link>
           <!--  <el-button
             type="primary"
-            class="w-full h-10 block bg-blue text-sm text-white border-blue mb-3 ml-0"
+            class="w-full h-10 block  bg-btn text-sm text-white border-btn mb-3 ml-0"
             @click="handleOpenTrade"
           >
             {{ $t('user.collection') }}

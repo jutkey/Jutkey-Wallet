@@ -58,7 +58,7 @@ const handleAddNetwork = () => {};
   </el-scrollbar>
   <!-- <div class="flex justify-center mb-5">
     <el-button
-      class="w-2/3 h-8 text-basic rounded-xl hover:bg-blue hover:border-blue hover:text-white focus:bg-blue focus:border-blue focus:text-white"
+      class="w-2/3 h-8   rounded-xl hover: bg-btn hover:border-btn hover:text-white focus: bg-btn focus:border-btn focus:text-white"
       @click="handleAddNetwork"
     >
       <el-icon :size="20"><Plus /></el-icon>

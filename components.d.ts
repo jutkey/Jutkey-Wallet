@@ -59,6 +59,7 @@ declare module '@vue/runtime-core' {
     InsideTransfer: typeof import('./src/components/assets/InsideTransfer.vue')['default']
     MounthAsset: typeof import('./src/components/home/MounthAsset.vue')['default']
     NetworkPopover: typeof import('./src/components/ethereum/NetworkPopover.vue')['default']
+    NftBuild: typeof import('./src/components/nft/NftBuild.vue')['default']
     NftCash: typeof import('./src/components/nft/NftCash.vue')['default']
     NftChart: typeof import('./src/components/home/NftChart.vue')['default']
     NftOut: typeof import('./src/components/nft/NftOut.vue')['default']

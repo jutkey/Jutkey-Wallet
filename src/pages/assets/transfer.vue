@@ -50,20 +50,20 @@ const handleTabsTransfer = (tab: TabsPaneContext) => {
 };
 </script>
 <template>
-  <div class="bg-basic-box rounded form-box text-basic">
+  <div class="bg-basic-box rounded form-box">
     <div class="w-1/2 m-auto p-20px">
-      <h2 class="text-center text-basic mb-10">{{ $t('user.trade') }}</h2>
+      <h2 class="text-center mb-10">{{ $t('user.trade') }}</h2>
       <div class="mb-5">
         <span class="text-tinge-text">{{ $t('user.econame') }}:</span>
-        <span class="font-semibold text-lime">{{ ecoInfo.obj.name }}</span>
+        <span class="font-semibold text-lime ml-1">{{ ecoInfo.obj.name }}</span>
       </div>
       <div class="mb-5">
         <span class="text-tinge-text">{{ $t('user.ecoid') }}:</span>
-        <span class="font-semibold text-lime">{{ ecoInfo.obj.id }}</span>
+        <span class="font-semibold text-lime ml-1">{{ ecoInfo.obj.id }}</span>
       </div>
       <div class="mb-5">
         <span class="text-tinge-text">{{ $t('user.balance') }}:</span>
-        <span class="font-semibold text-lime">
+        <span class="font-semibold text-lime ml-1">
           {{ util.formatFixed(ecoInfo.obj.amount) }}
         </span>
         <span class="ml-1 text-xs">{{ ecoInfo.obj.tokenSymbol }}</span>

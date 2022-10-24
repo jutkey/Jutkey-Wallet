@@ -89,7 +89,7 @@ const handleChangePage = (page: number) => {
 };
 </script>
 <template>
-  <div class="bg-basic-box rounded text-basic p-20px">
+  <div class="bg-basic-box rounded p-20px">
     <div v-if="arrRecord.list.length" class="table-box">
       <el-table :data="arrRecord.list" stripe style="width: 100%">
         <el-table-column label="Txn Hash" show-overflow-tooltip>

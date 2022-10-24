@@ -23,7 +23,6 @@ const axios = inject('axios') as axiosType;
 const recordParams = {
   ecosystem: 1,
   opt: 'all',
-  order: 'id desc',
   wallet: '',
   page: 1,
   limit: 10
@@ -81,7 +80,7 @@ const handleChangePage = (page: number) => {
 };
 </script>
 <template>
-  <div class="tabs-box bg-basic-box rounded text-basic p-20px">
+  <div class="tabs-box bg-basic-box rounded p-20px">
     <el-tabs
       v-model="activeRecord"
       stretch
@@ -90,7 +89,7 @@ const handleChangePage = (page: number) => {
     >
       <el-tab-pane name="all">
         <template #label>
-          <div class="text-basic">
+          <div class=" ">
             <div class="w-full flex justify-center items-center">
               <span>{{ $t('user.all') }}</span>
               <span class="ml-1">
@@ -113,7 +112,7 @@ const handleChangePage = (page: number) => {
       </el-tab-pane>
       <el-tab-pane name="recipient">
         <template #label>
-          <div class="text-basic">
+          <div class=" ">
             <div class="w-full flex justify-center items-center">
               <span>{{ $t('user.in') }}</span>
               <span class="ml-1">
@@ -136,7 +135,7 @@ const handleChangePage = (page: number) => {
       </el-tab-pane>
       <el-tab-pane name="send">
         <template #label>
-          <div class="text-basic">
+          <div class=" ">
             <div class="w-full flex justify-center items-center">
               <span>{{ $t('user.out') }}</span>
               <span class="ml-1">

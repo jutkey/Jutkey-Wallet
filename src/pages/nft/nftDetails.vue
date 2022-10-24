@@ -15,6 +15,7 @@ import {
 import { handleSecond, handleSecondUTC } from '@/plugins/day';
 import NftCash from '@/components/nft/NftCash.vue';
 import NftOut from '@/components/nft/NftOut.vue';
+import NftBuild from '@/components/nft/NftBuild.vue';
 import { handleBlockexplorer, handleWalletserver } from '@/plugins/common';
 
 const reload = inject('reload') as Function;
@@ -23,7 +24,9 @@ const axios = inject('axios') as axiosType;
 const { account } = util.getCache('current');
 const isCash = ref(false);
 const isOut = ref(false);
+const isBuild = ref(false);
 const dialogNft = ref(false);
+const nftImg = ref('');
 const nftId = ref(0) as Ref<number>;
 const nftData = reactive({
   info: {} as any,
@@ -45,10 +48,12 @@ const nftInfo = {
   wallet: account,
   search: 0
 };
+const url = handleWalletserver();
 const handleNftMiner = async (params: honorDeatils) => {
   const res = await axios.post('/nft_miner_detail', params, 'walletserver');
   console.log(res);
   nftData.info = res.data;
+  nftImg.value = `${url}/api/v1/nft_miner_file/${nftData.info.id}`;
 };
 const recordParams = {
   search: 0,
@@ -105,6 +110,9 @@ const handleNFTOut = () => {
 const handleNFTCash = () => {
   isCash.value = true;
 };
+const handleNFTBuild = () => {
+  isBuild.value = true;
+};
 const handleRecordPage = (page: number) => {
   console.log(page);
   recordParams.page = page;
@@ -118,9 +126,9 @@ const handleMiningPage = (page: number) => {
 const handleNFTRelieve = () => {
   ElMessageBox.confirm(handleI18n('nft.sure'), handleI18n('nft.relieve'), {
     closeOnClickModal: false,
-    customClass: 'form-box bg-basic-box text-basic border-basic-box',
-    confirmButtonClass: 'bg-blue text-white border-blue',
-    cancelButtonClass: 'text-basic hover:text-blue',
+    customClass: 'form-box bg-basic-box   border-basic-box',
+    confirmButtonClass: ' bg-btn text-white border-btn',
+    cancelButtonClass: '  hover:text-blue',
     confirmButtonText: handleI18n('login.confirm'),
     cancelButtonText: handleI18n('login.cancel')
   })
@@ -157,16 +165,16 @@ const handleNFTRelieve = () => {
 const handleClose = () => {
   isCash.value = false;
   isOut.value = false;
+  isBuild.value = false;
 };
 const handleShowNft = () => {
   dialogNft.value = true;
 };
-// eslint-disable-next-line no-unused-vars
-const url = handleWalletserver();
+
 const browser = handleBlockexplorer();
 </script>
 <template>
-  <div class="w-full text-basic">
+  <div class="w-full">
     <div v-if="nftData.info" class="w-full">
       <div class="flex justify-between flex-wrap h-nft mb-20px">
         <div class="bg-basic-box p-20px rounded mb-20px w-49 h-full">
@@ -177,21 +185,31 @@ const browser = handleBlockexplorer();
             <el-button
               v-if="Number(nftData.info.stakeStatus) === 2"
               type="primary"
-              class="text-center text-sm rounded bg-blue text-white border-blue"
+              class="text-center text-sm rounded bg-btn text-white border-btn"
               @click="handleNFTOut"
             >
               {{ $t('nft.over') }}
             </el-button>
           </h4>
-          <div class="flex items-center mb-3">
-            <span>{{ $t('nft.address') }}:</span>
-            <a
-              :href="`${browser}/blockchain/account/${nftData.info.owner}`"
-              target="_blank"
-              class="hover:text-blue"
+          <div class="flex items-center mb-3 justify-between">
+            <div class="flex items-center">
+              <span>{{ $t('nft.address') }}:</span>
+              <a
+                :href="`${browser}/blockchain/account/${nftData.info.owner}`"
+                target="_blank"
+                class="hover:text-blue ml-1"
+              >
+                {{ nftData.info.owner }}
+              </a>
+            </div>
+            <el-button
+              v-if="Number(nftData.info.stakeStatus) === 2"
+              type="primary"
+              class="text-center text-sm rounded bg-btn text-white border-btn"
+              @click="handleNFTBuild"
             >
-              {{ nftData.info.owner }}
-            </a>
+              {{ $t('nft.synthesis') }}
+            </el-button>
           </div>
           <div class="flex items-center mb-3">
             <span class="flex-shrink-0">NFT HASH:</span>
@@ -203,7 +221,7 @@ const browser = handleBlockexplorer();
               <a
                 :href="`${browser}/meta/${nftData.info.hash}`"
                 target="_blank"
-                class="hover:text-blue truncate"
+                class="hover:text-blue truncate ml-1"
               >
                 {{ nftData.info.hash }}
               </a>
@@ -211,24 +229,32 @@ const browser = handleBlockexplorer();
           </div>
           <div class="flex items-center mb-3">
             <span>{{ $t('nft.power') }}:</span>
-            <span>{{ util.format(nftData.info.energyPoint) }}</span>
+            <span class="ml-1">
+              {{ util.format(nftData.info.energyPoint) }}
+            </span>
           </div>
           <div class="flex items-center mb-3">
             <span>{{ $t('nft.value') }}:</span>
-            <span>{{ util.format(nftData.info.energyPower) }}</span>
+            <span class="ml-1">
+              {{ util.format(nftData.info.energyPower) }}
+            </span>
           </div>
           <div class="flex items-center mb-3">
             <span>{{ $t('nft.balance') }}:</span>
-            <span>{{ util.formatFixed(nftData.info.stakeAmount) }}</span>
+            <span class="ml-1">
+              {{ util.formatFixed(nftData.info.stakeAmount) }}
+            </span>
             <span class="ml-1">{{ $t('page.symbol') }}</span>
           </div>
           <div class="flex items-center mb-3">
-            <span>{{ $t('nft.times') }}:</span>
-            <span>{{ util.format(nftData.info.rewardCount) }}</span>
+            <span class="ml-1">{{ $t('nft.times') }}:</span>
+            <span class="ml-1">
+              {{ util.format(nftData.info.rewardCount) }}
+            </span>
           </div>
           <div class="flex items-center mb-3">
             <span>{{ $t('nft.mining') }}:</span>
-            <span>{{ util.formatFixed(nftData.info.ins) }}</span>
+            <span class="ml-1">{{ util.formatFixed(nftData.info.ins) }}</span>
             <span class="ml-1">{{ $t('page.symbol') }}</span>
           </div>
           <div class="flex items-center">
@@ -238,17 +264,20 @@ const browser = handleBlockexplorer();
               :content="`${handleSecondUTC(nftData.info.dateCreated)}`"
               placement="bottom"
             >
-              <span>{{ handleSecond(nftData.info.dateCreated) }}</span>
+              <span class="ml-1">
+                {{ handleSecond(nftData.info.dateCreated) }}
+              </span>
             </el-tooltip>
           </div>
         </div>
         <div
+          v-if="nftId"
           class="bg-basic-box p-20px rounded mb-20px w-49 h-full cursor-pointer"
           @click="handleShowNft"
         >
           <img
             class="w-full h-full"
-            :src="`${url}/api/v1/nft_miner_file/${nftData.info.id}`"
+            :src="`${url}/api/v1/nft_miner_file/${nftId}`"
             alt="logo"
           />
         </div>
@@ -265,7 +294,7 @@ const browser = handleBlockexplorer();
               Number(nftData.info.stakeStatus) === 2
             "
             type="primary"
-            class="text-center text-sm rounded bg-blue text-white border-blue"
+            class="text-center text-sm rounded bg-btn text-white border-btn"
             @click="handleNFTCash"
           >
             {{ $t('node.cash') }}
@@ -273,7 +302,7 @@ const browser = handleBlockexplorer();
           <el-button
             v-if="Number(nftData.info.stakeStatus) === 3"
             type="primary"
-            class="text-center text-xs rounded bg-blue text-white border-blue px-2 py-1"
+            class="text-center text-xs rounded bg-btn text-white border-btn px-2 py-1"
             @click="handleNFTRelieve"
           >
             {{ $t('nft.relieve') }}
@@ -413,13 +442,16 @@ const browser = handleBlockexplorer();
       :is-out="isOut"
       @close="handleClose"
     ></nft-out>
+    <nft-build
+      v-if="nftId"
+      :nft-id="nftId"
+      :is-build="isBuild"
+      :nft-img="nftImg"
+      :account="account"
+      @close="handleClose"
+    ></nft-build>
 
-    <el-dialog
-      v-model="dialogNft"
-      class="bg-basic-box text-basic"
-      width="80%"
-      center
-    >
+    <el-dialog v-model="dialogNft" class="bg-basic-box" width="80%" center>
       <div class="nft-img">
         <img
           :src="`${url}/api/v1/nft_miner_file/${nftData.info.id}`"

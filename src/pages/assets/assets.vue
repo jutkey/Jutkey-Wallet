@@ -35,6 +35,7 @@ const handleFisrtEcosystem = async (params: ecosystemParam) => {
     avatar.value = `${url}/api/v1/get_attachment/${
       obj.memberImageHash
     }?x=${new Date().getTime()}`;
+    console.log(avatar.value);
   }
 };
 handleFisrtEcosystem(fisrtEcosystem);
@@ -105,7 +106,7 @@ const handleConfirm = () => {
 <template>
   <div class="w-full">
     <div
-      class="w-full flex bg-user-image bg-no-repeat bg-center bg-100% mb-8 rounded-3xl"
+      class="w-full flex bg-basic-box bg-no-repeat bg-center bg-100% mb-8 rounded-3xl shadow-xl"
     >
       <div class="m-3% text-center">
         <div
@@ -159,20 +160,20 @@ const handleConfirm = () => {
               name: 'Transfer',
               params: { id: firstEco.obj.id, account: firstEco.obj.account }
             }"
-            class="block w-full h-10 leading-10 text-center text-sm rounded bg-blue text-white border-blue mb-3 ml-0"
+            class="block w-full h-10 leading-10 text-center text-sm rounded bg-btn text-white border-btn mb-3 ml-0"
           >
             {{ $t('user.trade') }}
           </router-link>
           <!--   <el-button
             type="primary"
-            class="w-full h-10 text-sm bg-blue text-white border-blue mb-3 ml-0"
+            class="w-full h-10 text-sm  bg-btn text-white border-btn mb-3 ml-0"
             @click="handleOpenTrade(firstEco.obj)"
           >
             {{ $t('user.trade') }}
           </el-button> -->
           <!--  <el-button
             type="primary"
-            class="w-full h-10 block bg-blue text-sm text-white border-blue mb-3 ml-0"
+            class="w-full h-10 block  bg-btn text-sm text-white border-btn mb-3 ml-0"
             @click="handleOpenTrade"
           >
             {{ $t('user.collection') }}
@@ -203,7 +204,7 @@ const handleConfirm = () => {
           <div
             v-for="item in otherEco.list"
             :key="item.id"
-            class="w-49 p-20px bg-basic-box rounded-2xl mb-20px"
+            class="w-49 p-20px bg-basic-box rounded-2xl mb-20px shadow-xl"
           >
             <h3 class="mb-20px text-muted">{{ item.name }}</h3>
             <div class="flex justify-between">
@@ -214,10 +215,7 @@ const handleConfirm = () => {
                     :src="`${url}/api/v1/get_attachment/${item.logoHash}`"
                     alt="coin"
                   />
-                  <i
-                    v-else
-                    class="iconfont el-ui-a-Ecology1 text-basic text-xl"
-                  ></i>
+                  <i v-else class="iconfont el-ui-a-Ecology1 text-xl"></i>
                 </div>
                 <div class="font-semibold text-xl">
                   <span>{{ util.formatFixed(item.amount) }}</span>
@@ -231,20 +229,20 @@ const handleConfirm = () => {
                     name: 'Transfer',
                     params: { id: item.id, account: item.account }
                   }"
-                  class="block w-full h-10 leading-10 text-center text-sm rounded bg-blue text-white border-blue mb-3 ml-0"
+                  class="block w-full h-10 leading-10 text-center text-sm rounded bg-btn text-white border-btn mb-3 ml-0"
                 >
                   {{ $t('user.trade') }}
                 </router-link>
                 <!--  <el-button
                     type="primary"
-                    class="w-full h-10 text-sm bg-blue text-white border-blue mb-3 ml-0"
+                    class="w-full h-10 text-sm  bg-btn text-white border-btn mb-3 ml-0"
                     @click="handleOpenTrade(item)"
                   >
                     {{ $t('user.trade') }}
                   </el-button> -->
                 <!--   <el-button
                     type="primary"
-                    class="w-full h-10 bg-blue text-sm text-white border-blue mb-3 ml-0"
+                    class="w-full h-10  bg-btn text-sm text-white border-btn mb-3 ml-0"
                     @click="handleOpenTrade"
                   >
                     {{ $t('user.collection') }}

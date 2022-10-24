@@ -25,8 +25,8 @@ const isArrow = ref(true);
 const AccountPopover = ref();
 const objLang = inject('objLang') as langArray;
 const strLang = ref('English');
-const theme = ref('light');
-const lang = reactive({ value: 'en' });
+const theme = ref('dark');
+const lang = ref('en');
 const order = ref(0);
 interface dateType {
   date: string;
@@ -47,7 +47,11 @@ interface currentType {
   type: boolean;
   index?: number;
 }
-lang.value = localStorage.getItem('lang') as string;
+console.log(localStorage.getItem('lang'));
+if (localStorage.getItem('lang')) {
+  lang.value = localStorage.getItem('lang') as string;
+}
+console.log(lang.value);
 const objDate = reactive({ data });
 let timer: ReturnType<typeof setTimeout>;
 const isCollapse = computed({
@@ -74,17 +78,14 @@ handleGetTime();
 onBeforeUnmount(() => {
   clearTimeout(timer);
 });
-theme.value = localStorage.getItem('theme') || 'light';
-if (
-  localStorage.theme === 'dark' ||
-  (!('theme' in localStorage) &&
-    window.matchMedia('(prefers-color-scheme: dark)').matches)
-) {
-  document.documentElement.classList.add('dark');
-  document.documentElement.classList.remove('light');
-} else {
+theme.value = localStorage.getItem('theme') || 'dark';
+console.log(theme.value);
+if (localStorage.theme === 'light') {
   document.documentElement.classList.remove('dark');
   document.documentElement.classList.add('light');
+} else {
+  document.documentElement.classList.add('dark');
+  document.documentElement.classList.remove('light');
 }
 const handleChangeTheme = (str: string) => {
   console.log(theme);
@@ -103,19 +104,22 @@ const handleChangeTheme = (str: string) => {
   }
 };
 const handleLangShow = (val: string) => {
+  console.log(val);
   const obj = objLang.find((item) => {
     return item.value === val;
   }) as itemFace;
+  console.log(obj);
+  i18n.global.locale.value = val as any;
   strLang.value = obj.label;
 };
 if (lang.value) {
+  console.log(lang.value);
   handleLangShow(lang.value);
 }
 const handleCommandLang = (val: any) => {
   const oldLang = localStorage.getItem('lang');
   if (oldLang !== val) {
     console.log(val);
-    i18n.global.locale.value = val;
     localStorage.setItem('lang', val);
     lang.value = val;
     handleLangShow(val);
@@ -151,7 +155,7 @@ const handleHidePopover = () => {
 <template>
   <div class="h-header flex items-center justify-between">
     <div class="flex items-center flex-shrink-0">
-      <div class="cursor-pointer text-basic" @click="handletoggleCollapse">
+      <div class="cursor-pointer" @click="handletoggleCollapse">
         <el-icon v-if="isCollapse" :size="25">
           <Expand />
         </el-icon>
@@ -177,7 +181,7 @@ const handleHidePopover = () => {
     <div class="flex items-center flex-shrink-0">
       <!-- i18n change -->
       <el-dropdown @command="handleCommandLang">
-        <span class="ml-2 text-basic">
+        <span class="ml-2 text-xs xl:text-base lg:text-sm">
           {{ strLang }}
           <el-icon class="el-icon--right" :size="20">
             <arrow-down />

@@ -105,7 +105,7 @@ const handleCancel = () => {
     @cancel="handleCancel"
   >
     <template #default>
-      <div class="text-basic text-center">
+      <div class="text-center">
         <span>{{ $t('node.votefor') }}:</span>
         <span class="font-semibold">{{ honorName }}</span>
       </div>
@@ -135,7 +135,7 @@ const handleCancel = () => {
             />
           </el-form-item>
         </el-form>
-        <div class="text-basic">{{ $t('node.voteTip') }}</div>
+        <div class=" ">{{ $t('node.voteTip') }}</div>
       </div>
     </template>
   </dialog-default>

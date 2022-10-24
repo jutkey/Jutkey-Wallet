@@ -61,7 +61,7 @@ handleCurrencyList(i);
         <div
           v-for="item in tokenList.list"
           :key="item.name"
-          class="w-49 p-20px bg-basic-box rounded-2xl mb-20px"
+          class="w-49 p-20px bg-basic-box rounded-2xl mb-20px shadow-xl"
         >
           <h3 class="mb-20px text-muted flex justify-between items-center">
             <span>{{ item.name }}</span>
@@ -71,10 +71,7 @@ handleCurrencyList(i);
             <div>
               <div class="w-12 mb-3">
                 <img v-if="item.logoURI" :src="item.logoURI" alt="coin" />
-                <i
-                  v-else
-                  class="iconfont el-ui-a-Ecology1 text-basic text-xl"
-                ></i>
+                <i v-else class="iconfont el-ui-a-Ecology1 text-xl"></i>
               </div>
               <div class="font-semibold text-xl">
                 <span>{{ item.balance }}</span>
@@ -87,7 +84,7 @@ handleCurrencyList(i);
                   name: 'TokenTransfer',
                   params: { contractAddress: item.contractAddress }
                 }"
-                class="block w-full h-10 leading-10 text-center text-sm rounded bg-blue text-white border-blue mb-3 ml-0"
+                class="block w-full h-10 leading-10 text-center text-sm rounded bg-btn text-white border-btn mb-3 ml-0"
               >
                 {{ $t('user.trade') }}
               </router-link>

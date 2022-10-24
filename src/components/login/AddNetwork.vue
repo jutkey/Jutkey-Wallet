@@ -33,7 +33,7 @@ const handleDetele = (obj: any) => {
         <template #default="scope">
           <span
             v-if="!scope.row.status"
-            class="bg-blue text-white text-xs cursor-pointer rounded-md py-1 px-2 inline-block mr-2"
+            class="bg-btn text-white text-xs cursor-pointer rounded-md py-1 px-2 inline-block mr-2"
             @click="handleConnect(scope.row)"
           >
             {{ $t('login.connect') }}

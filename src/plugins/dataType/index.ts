@@ -212,7 +212,7 @@ export interface getEcosystem {
 export interface historyParams {
   ecosystem: number;
   opt: string;
-  order: string;
+  order?: string;
   wallet: string;
   page: number;
   limit: number;

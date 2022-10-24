@@ -189,9 +189,9 @@ const handleImportConfirm = () => {
     }
     ElMessageBox.prompt('', handleI18n('login.password'), {
       closeOnClickModal: false,
-      customClass: 'form-box bg-basic-box text-basic border-basic-box',
-      confirmButtonClass: 'bg-blue text-white border-blue',
-      cancelButtonClass: 'text-basic hover:text-blue',
+      customClass: 'form-box bg-basic-box   border-basic-box',
+      confirmButtonClass: ' bg-btn text-white border-btn',
+      cancelButtonClass: '  hover:text-blue',
       confirmButtonText: handleI18n('login.confirm'),
       cancelButtonText: handleI18n('login.cancel'),
       inputType: 'password',
@@ -241,16 +241,16 @@ const handleSignOut = () => {
 const handleDeteleAccount = (obj: currentType) => {
   console.log(obj.privateKey);
   ElMessageBox.confirm(
-    `<span class="text-basic">${handleI18n('nav.isDetele')}:${
+    `<span class=" ">${handleI18n('nav.isDetele')}:${
       obj.name
     }<strong class="font-semibold">(${obj.account})</strong></span>`,
     handleI18n('nav.detele'),
     {
       closeOnClickModal: false,
-      customClass: 'form-box bg-basic-box text-basic border-basic-box',
+      customClass: 'form-box bg-basic-box   border-basic-box',
       dangerouslyUseHTMLString: true,
-      confirmButtonClass: 'bg-blue text-white border-blue',
-      cancelButtonClass: 'text-basic hover:text-blue',
+      confirmButtonClass: ' bg-btn text-white border-btn',
+      cancelButtonClass: '  hover:text-blue',
       confirmButtonText: handleI18n('login.confirm'),
       cancelButtonText: handleI18n('login.cancel'),
       type: 'warning',
@@ -347,7 +347,7 @@ const handleUploadRequest = () => {};
       <div
         v-for="(item, i) in accountList"
         :key="i"
-        class="h-8 flex items-center cursor-pointer mb-2"
+        class="h-6 flex items-center cursor-pointer mb-2"
         @click.stop="handleLoginAccount(item)"
       >
         <div class="flex-shrink-0 flex items-center w-1/2">
@@ -356,13 +356,13 @@ const handleUploadRequest = () => {};
               <Check />
             </el-icon>
           </div>
-          <span class="font-medium truncate w-full" :title="item.name">
+          <span class="font-medium truncate w-full text-xs" :title="item.name">
             {{ item.name }}
           </span>
         </div>
         <div v-if="item.type" class="ml-auto">
           <span
-            class="text-small border rounded-xl border-solid border-basic px-2 py-0.5 bg-basic"
+            class="text-small border rounded-xl border-solid border-basic px-1 py-0.5 bg-basic text-xs"
           >
             {{ $t('nav.type') }}
           </span>
@@ -381,7 +381,7 @@ const handleUploadRequest = () => {};
   </el-scrollbar>
   <div class="flex justify-center mb-5">
     <el-button
-      class="w-2/3 h-8 text-basic rounded-xl hover:bg-blue hover:border-blue hover:text-white focus:bg-blue focus:border-blue focus:text-white"
+      class="w-2/3 h-8 rounded-xl hover: bg-btn hover:border-btn hover:text-white focus: bg-btn focus:border-btn focus:text-white"
       @click="handleCreateAccount"
     >
       <el-icon :size="20"><Plus /></el-icon>
@@ -390,7 +390,7 @@ const handleUploadRequest = () => {};
   </div>
   <div class="flex justify-center mb-5">
     <el-button
-      class="w-2/3 h-8 text-basic rounded-xl hover:bg-blue hover:border-blue hover:text-white focus:bg-blue focus:border-blue focus:text-white"
+      class="w-2/3 h-8 rounded-xl hover: bg-btn hover:border-btn hover:text-white focus: bg-btn focus:border-btn focus:text-white"
       @click="handleImportAccount"
     >
       <el-icon :size="20"><Bottom /></el-icon>
@@ -399,7 +399,7 @@ const handleUploadRequest = () => {};
   </div>
   <div class="flex justify-center mb-5">
     <el-button
-      class="w-2/3 h-8 text-basic rounded-xl hover:bg-blue hover:border-blue hover:text-white focus:bg-blue focus:border-blue focus:text-white"
+      class="w-2/3 h-8 rounded-xl hover: bg-btn hover:border-btn hover:text-white focus: bg-btn focus:border-btn focus:text-white"
       @click="handleSignOut"
     >
       <i class="iconfont el-ui-333"></i>
@@ -415,7 +415,7 @@ const handleUploadRequest = () => {};
     @cancel="handleCreateCancel"
   >
     <template #default>
-      <div class="form-box text-basic">
+      <div class="form-box">
         <div class="mb-3">{{ $t('nav.name') }}</div>
         <el-input
           v-model="accountName"
@@ -433,7 +433,7 @@ const handleUploadRequest = () => {};
     @cancel="handleImportCancel"
   >
     <template #default>
-      <div class="form-box text-basic">
+      <div class="form-box">
         <el-alert type="info" :closable="false" show-icon class="mb-3">
           <template #title>
             <span class="text-xs">{{ $t('nav.privateInfo') }}</span>
@@ -482,7 +482,7 @@ const handleUploadRequest = () => {};
                   <el-icon class="el-icon--upload" :size="20">
                     <upload-filled />
                   </el-icon>
-                  <div class="text-basic text-xs">
+                  <div class="text-xs">
                     {{ $t('set.keystore') }}
                   </div>
                 </template>

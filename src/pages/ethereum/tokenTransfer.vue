@@ -127,9 +127,9 @@ const handleResetForm = (formEl: FormInstance | undefined) => {
 };
 </script>
 <template>
-  <div class="bg-basic-box rounded form-box text-basic">
+  <div class="bg-basic-box rounded form-box">
     <div class="w-1/2 m-auto p-20px">
-      <h2 class="text-center text-basic mb-10">{{ $t('user.trade') }}</h2>
+      <h2 class="text-center mb-10">{{ $t('user.trade') }}</h2>
       <div class="mb-5">
         <span class="text-tinge-text">{{ $t('eth.nameCoin') }}:</span>
         <span class="font-semibold text-lime">{{ name }}</span>
@@ -186,7 +186,7 @@ const handleResetForm = (formEl: FormInstance | undefined) => {
         <div class="text-center mb-3">
           <el-button
             type="primary"
-            class="text-center text-sm rounded bg-blue text-white border-blue mx-3"
+            class="text-center text-sm rounded bg-btn text-white border-btn mx-3"
             @click="handleSubmitForm(tradeFormRef)"
           >
             {{ $t('login.confirm') }}

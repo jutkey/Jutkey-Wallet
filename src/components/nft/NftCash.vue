@@ -157,12 +157,12 @@ const handleInput = () => {
           </el-form-item>
         </el-form>
         <div class="flex items-center mb-3">
-          <span>{{ $t('nft.cycle') }}:</span>
+          <span class="mr-1">{{ $t('nft.cycle') }}:</span>
           <span>{{ cashForm.Cycle }}</span>
           <span class="ml-1">{{ $t('nft.day') }}</span>
         </div>
         <div class="flex items-center">
-          <span>{{ $t('nft.force') }}:</span>
+          <span class="mr-1">{{ $t('nft.force') }}:</span>
           <span>{{ cashForm.energyPower }}</span>
         </div>
       </div>

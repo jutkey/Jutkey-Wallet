@@ -97,7 +97,7 @@ document.addEventListener('DOMContentLoaded', () => {
   <el-config-provider :locale="locale.lang">
     <div
       v-if="isLoad"
-      class="h-screen font-pingFang-medium text-basic bg-basic"
+      class="h-screen font-pingFang-medium bg-basic text-secnod"
     >
       <template v-if="isLogin">
         <!-- login page content -->
@@ -105,10 +105,10 @@ document.addEventListener('DOMContentLoaded', () => {
       </template>
       <el-container v-else>
         <!-- left nav -->
-        <el-aside width="auto" class="bg-basic-box text-basic">
+        <el-aside width="auto" class="bg-basic-box">
           <side-nav></side-nav>
         </el-aside>
-        <el-container class="global-content">
+        <el-container>
           <!-- header -->
           <el-header class="bg-basic-box h-header">
             <public-header></public-header>

@@ -21,6 +21,10 @@ module.exports = {
     extend: {
       // textOpacity: ['dark'],
       //  backgroundColor: ['dark'],
+      fontFamily: {
+        bebas: ['Bebas Neue', 'sans-serif', 'serif'],
+        publico: ['Publico Text', 'sans-serif', 'serif']
+      },
       fontSize: {
         icon: '24px',
         small: '12px'
@@ -45,8 +49,9 @@ module.exports = {
         success: '#04b78a',
         error: '#ee2e6b',
         title: '#242f57',
+        white: '#fff',
         primary: 'linear-gradient(270deg, #3961f5 0%, #5e81f7 100%)',
-        blue: '#3961F5',
+        blue: '#003380',
         gray: '#f7f7f7',
         tinge: '#97a0c3',
         place: '#bfc7e0',
@@ -71,15 +76,20 @@ module.exports = {
       },
       padding: {
         '20px': '20px',
-        '15vh': '15vh'
+        '15vh': '15vh',
+        '5%': '5%',
+        '3%': '3%'
       },
       backgroundColor: {
         basic: 'var(--bg-base)',
         'basic-box': 'var(--bg-base-box)',
-        side: 'var(--bg-side)'
+        side: 'var(--bg-side)',
+        btn: 'var(--bg-active)'
       },
       textColor: {
-        basic: 'var(--color-text-base)',
+        first: 'var(--color-text-first)',
+        secnod: 'var(--color-text-second)',
+        third: 'var(--color-text-third)',
         muted: 'var(--color-text-muted)',
         'light-blue': 'var(--color-text-blue)',
         'tinge-text': 'var(--color-text-tinge)',
@@ -88,7 +98,11 @@ module.exports = {
       borderColor: {
         basic: 'var(--border-base)',
         'basic-box': 'var(--bg-base-box)',
-        'light-blue': 'var(--color-text-blue)'
+        'light-blue': 'var(--color-text-blue)',
+        btn: 'var(--bg-active)'
+      },
+      boxShadow: {
+        xl: '0px 2px 6px rgba(28,41,90,0.04)'
       }
     }
   },
@@ -100,40 +114,56 @@ module.exports = {
         h3: { fontSize: '18px', color: '#242f57', fontWeight: 'bolder' },
         h4: { fontSize: '16px', color: '#242f57', fontWeight: 'bolder' },
         ':root': {
-          '--text-blue': '#3961F5',
+          '--text-blue': '#003380',
+          '--text-white': '#fff',
           '--bg-base': '#f4f7fc',
           '--bg-side': '#e1e8fb',
           '--bg-base-box': '#fff',
           '--border-base': '#eaedf7',
-          '--color-text-base': '#4a5373',
+          '--color-text-base': '#4A5373',
           '--color-text-blue': '#3961f5',
           '--color-text-muted': '#242f57',
           '--color-text-muted-hover': theme('colors.gray.200'),
           '--bg-assets': "url('./src/assets/image/user-light.png')"
         },
         '.light': {
+          '--bg-active': '#3961F5',
           '--bg-base': '#f4f7fc',
           '--bg-base-box': '#fff',
           '--bg-side': '#e1e8fb',
+          '--bg-home': '#EEF2FF',
+          '--bg-home-header':
+            'linear-gradient(270deg, #EEF2FF 0%, #FFFFFF 100%)',
           '--border-base': '#eaedf7',
-          '--color-text-base': '#4a5373',
+          '--color-text-first': '#242F57',
+          '--color-text-second': '#4A5373',
+          '--color-text-third': '#83889C',
           '--color-text-muted': '#242f57',
           '--color-text-blue': '#3961f5',
           '--color-text-tinge': '#97a0c3',
           '--color-text-muted-hover': theme('colors.gray.200'),
-          '--bg-assets': "url('/src/assets/image/user-light.png')"
+          '--bg-assets': "url('/src/assets/image/user-light.png')",
+          '--bg-shadow':
+            '0 0 0 1px var(--el-input-border-color,var(--el-border-color)) inset'
         },
         '.dark': {
-          '--bg-base': '#13192f',
-          '--bg-side': '#2c3b67',
-          '--bg-base-box': '#1d2742',
-          '--border-base': 'rgba(255, 255, 255, 0.7)',
-          '--color-text-base': 'rgba(255, 255, 255, 0.9)',
+          '--bg-active': '#003380',
+          '--bg-base': '#111111',
+          '--bg-side': '#003380',
+          '--bg-base-box': '#1C1C1C',
+          '--bg-home': '#1C1C1C',
+          '--border-base': '#646464',
+          '--bg-home-header': '#1C1C1C',
+          '--color-text-first': '#f6f6f6',
+          '--color-text-second': '#a0a0a0',
+          '--color-text-third': '#737373',
           '--color-text-blue': 'rgba(255, 255, 255, 0.9)',
-          '--color-text-muted': 'rgba(255, 255, 255, 0.7)',
+          '--color-text-muted': 'rgba(255, 255, 255, 0.9)',
           '--color-text-tinge': 'rgba(255, 255, 255, 0.7)',
           '--color-text-muted-hover': theme('colors.gray.200'),
-          '--bg-assets': "url('/src/assets/image/user-dark.png')"
+          '--bg-assets': "url('/src/assets/image/user-dark.png')",
+          '--bg-shadow': '0 0 0 1px #646464 inset',
+          '--bg-shadow-focus': '0 0 0 1px #022E22 inset'
         }
       });
     })

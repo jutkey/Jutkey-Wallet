@@ -38,18 +38,20 @@ const handleUserOperate = (num: number) => {
   <h3 class="pb-20px text-title leading-normal text-center">
     {{ $t('login.user') }}
   </h3>
-  <el-scrollbar height="330px">
-    <div class="m-20px">
-      <div v-html="userAgree"></div>
-    </div>
-  </el-scrollbar>
+  <div class="login-scroll">
+    <el-scrollbar height="330px">
+      <div class="m-20px">
+        <div v-html="userAgree"></div>
+      </div>
+    </el-scrollbar>
+  </div>
   <div class="w-full flex justify-between py-20px">
     <el-button class="w-1/3 h-10 text-base" @click="handleUserOperate(0)">
       {{ $t('login.reject') }}
     </el-button>
     <el-button
       type="primary"
-      class="w-1/3 h-10 bg-blue text-white border-blue"
+      class="w-1/3 h-10 bg-btn text-white border-btn"
       @click="handleUserOperate(2)"
     >
       {{ $t('login.agree') }}

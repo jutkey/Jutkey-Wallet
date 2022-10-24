@@ -53,6 +53,12 @@ watch(
       case 'NFTDetails':
         pathActive.value = '/nft';
         break;
+      case 'BNB':
+        pathActive.value = '/bnb';
+        break;
+      case 'Tron':
+        pathActive.value = '/tron';
+        break;
       case 'Message':
       case 'MessageDetails':
         pathActive.value = '/message';
@@ -83,12 +89,12 @@ const theme = computed(() => {
   <el-scrollbar style="height: 100%">
     <el-menu
       :default-active="pathActive"
-      class="text-basic"
+      class=" "
       :collapse="isCollapse"
       :default-openeds="arrOpeneds"
       router
       unique-opened
-      :background-color="theme === 'light' ? '#fff' : '#1d2742'"
+      :background-color="theme === 'light' ? '#fff' : '#1C1C1C'"
       @open="handleOpen"
       @close="handleClose"
     >
@@ -97,7 +103,7 @@ const theme = computed(() => {
         :to="{ path: '/' }"
       >
         <img src="@/assets/image/logo-32.png" alt="logo" class="w-img" />
-        <span v-show="!isCollapse" class="ml-3 text-blue text-lg">
+        <span v-show="!isCollapse" class="ml-3 text-lg uppercase">
           Jutkey Wallet
         </span>
       </router-link>
@@ -105,23 +111,23 @@ const theme = computed(() => {
         <el-sub-menu
           v-if="item.children"
           :key="item.key"
-          class="text-basic"
+          class=" "
           :index="item.path"
-          popper-class="text-basic"
+          popper-class=" "
         >
           <template #title>
-            <div class="text-basic">
-              <i :class="item.icon" class="text-icon"></i>
-              <span class="ml-3">{{ $t(item.title) }}</span>
+            <div class=" ">
+              <i :class="item.icon" class="text-icon text-secnod"></i>
+              <span class="ml-3 text-secnod">{{ $t(item.title) }}</span>
             </div>
           </template>
           <el-menu-item
             v-for="child in item.children"
             :key="child.key"
             :index="child.path"
-            class="text-basic"
+            class=" "
           >
-            <span class="ml-3">{{ $t(child.title) }}</span>
+            <span class="ml-3 text-secnod">{{ $t(child.title) }}</span>
           </el-menu-item>
         </el-sub-menu>
         <template v-else>
@@ -129,10 +135,10 @@ const theme = computed(() => {
             v-if="item.path"
             :key="item.key"
             :index="item.path"
-            class="text-basic"
+            class=" "
           >
-            <i :class="item.icon" class="text-icon"></i>
-            <span class="ml-3">{{ $t(item.title) }}</span>
+            <i :class="item.icon" class="text-icon text-secnod"></i>
+            <span class="ml-3 text-secnod">{{ $t(item.title) }}</span>
           </el-menu-item>
         </template>
       </template>

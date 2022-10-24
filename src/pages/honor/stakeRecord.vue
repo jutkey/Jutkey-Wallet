@@ -96,8 +96,8 @@ const handleRevoke = () => {
 };
 </script>
 <template>
-  <div class="w-full text-basic">
-    <h3 class="mb-3 flex justify-between text-basic">
+  <div class="w-full">
+    <h3 class="mb-3 flex justify-between">
       <span>{{ $t('node.bondRecord') }}</span>
       <router-link :to="`/honor/${honorId}`">
         <i class="iconfont el-ui-back pr-20px text-2xl cursor-pointer"></i>
@@ -126,7 +126,7 @@ const handleRevoke = () => {
         <el-button
           v-if="stake.data.getStatus === 0"
           type="primary"
-          class="block w-full h-8 text-center text-xs rounded bg-blue text-white border-blue"
+          class="block w-full h-8 text-center text-xs rounded bg-btn text-white border-btn"
           @click="handleRevoke"
         >
           {{ $t('node.cancel') }}
@@ -141,14 +141,14 @@ const handleRevoke = () => {
         <el-button
           v-if="stake.data.getStatus === 2"
           type="primary"
-          class="block w-full h-8 text-center text-xs rounded bg-blue text-white border-blue"
+          class="block w-full h-8 text-center text-xs rounded bg-btn text-white border-btn"
           @click="handleRevoke"
         >
           {{ $t('node.funds') }}
         </el-button>
       </div>
     </div>
-    <div class="bg-basic-box rounded text-basic p-20px">
+    <div class="bg-basic-box rounded p-20px">
       <div v-if="stake.list.length" class="table-box">
         <div class="mb-20px">
           <el-table :data="stake.list" stripe style="width: 100%">

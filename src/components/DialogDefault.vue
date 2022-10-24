@@ -34,7 +34,7 @@ const handleDialogCancel = () => {
 <template>
   <el-dialog
     v-model="isDialog"
-    class="bg-basic-box text-basic"
+    class="bg-basic-box"
     :close-on-click-modal="false"
     :close-on-press-escape="false"
     width="40%"
@@ -44,14 +44,14 @@ const handleDialogCancel = () => {
     :before-close="handleClose"
   >
     <template #header>
-      <h3 class="font-semibold text-basic">{{ title }}</h3>
+      <h3 class="font-semibold">{{ title }}</h3>
     </template>
     <slot></slot>
     <template #footer>
       <span class="dialog-footer">
         <el-button
           type="primary"
-          class="text-center text-sm rounded bg-blue text-white border-blue mx-3"
+          class="text-center text-sm rounded bg-btn text-white border-btn mx-3"
           @click="handleDialogConfirm"
         >
           {{ $t('login.confirm') }}

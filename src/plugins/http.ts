@@ -29,7 +29,8 @@ const service = axios.create({
 service.interceptors.request.use(
   (config: any) => {
     // console.log(config);
-    const objUrl = handleGetObjUrl();
+    const objUrl = handleGetObjUrl() as any;
+    console.log(objUrl);
     switch (config.interType) {
       case 'nodeserver':
         url = nodeserver || objUrl.nodeserver;

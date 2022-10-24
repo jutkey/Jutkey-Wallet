@@ -3,6 +3,7 @@ import { GridComponent, TooltipComponent } from 'echarts/components';
 import { LineChart } from 'echarts/charts';
 import { UniversalTransition } from 'echarts/features';
 import { CanvasRenderer } from 'echarts/renderers';
+import util from './util';
 
 echarts.use([
   GridComponent,
@@ -11,7 +12,7 @@ echarts.use([
   UniversalTransition,
   TooltipComponent
 ]);
-const theme: string = window.localStorage.getItem('theme')!;
+const theme: string = window.localStorage.getItem('theme')! || 'light';
 class Chart {
   private theme = theme;
 
@@ -34,14 +35,20 @@ class Chart {
   }
 
   private themeValue() {
-    this.theme = window.localStorage.getItem('theme')!;
+    this.theme = window.localStorage.getItem('theme')! || 'light';
+    console.log(this.theme);
     return this.theme === 'light' ? '#4a5373' : 'rgba(255, 255, 255, 0.9)';
+  }
+
+  private themeyAxis() {
+    this.theme = window.localStorage.getItem('theme')! || 'light';
+    return this.theme === 'light' ? '#eaedf7' : '#646464';
   }
 
   public lineChart(xData: any, yData: any) {
     const color = this.themeValue();
     const option = {
-      color: ['#3961F5'],
+      color: ['#00FFA6'],
       grid: {
         left: '2%',
         right: '2%',
@@ -59,14 +66,24 @@ class Chart {
         axisPointer: {
           type: 'shadow'
         },
-        valueFormatter: (value: string) => `${value} IBXC`
+        valueFormatter: (value: string) => `${util.format(value)} IBXC`
       },
       xAxis: {
         type: 'category',
-        data: xData
+        data: xData,
+        axisLine: {
+          lineStyle: {
+            color: this.themeyAxis()
+          }
+        }
       },
       yAxis: {
-        type: 'value'
+        type: 'value',
+        splitLine: {
+          lineStyle: {
+            color: this.themeyAxis()
+          }
+        }
       },
       series: [
         {

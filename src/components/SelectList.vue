@@ -92,7 +92,7 @@ const handleSelectAdd = (item: any) => {
         </span>
         <span
           v-else
-          class="block px-2 py-1 text-center text-sm rounded bg-blue text-white border-blue"
+          class="block px-2 py-1 text-center text-sm rounded bg-btn text-white border-btn"
           @click.stop="handleSelectAdd(item)"
         >
           {{ $t('user.add') }}

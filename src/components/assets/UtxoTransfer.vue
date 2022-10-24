@@ -219,7 +219,7 @@ watch(
       </el-form-item>
       <div class="flex mb-5">
         <span>{{ $t('user.gas') }}:</span>
-        <div>
+        <div class="ml-1">
           <div>
             <span>{{ gas.first }}</span>
             <span class="ml-1 text-xs">IBXC</span>
@@ -233,7 +233,7 @@ watch(
       <div class="text-center mb-3">
         <el-button
           type="primary"
-          class="text-center text-sm rounded bg-blue text-white border-blue mx-3"
+          class="text-center text-sm rounded bg-btn text-white border-btn mx-3"
           @click="handleSubmitForm(tradeFormRef)"
         >
           {{ $t('login.confirm') }}

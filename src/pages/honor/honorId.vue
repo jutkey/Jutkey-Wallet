@@ -67,7 +67,7 @@ const url = handleWalletserver();
 const explorer = handleBlockexplorer();
 </script>
 <template>
-  <div class="w-full text-basic">
+  <div class="w-full">
     <div
       v-if="honorData.info.id"
       class="w-full flex justify-between bg-basic-box p-20px rounded mb-20px text-sm"
@@ -242,14 +242,14 @@ const explorer = handleBlockexplorer();
           <div class="ml-3 w-36 flex flex-wrap content-between">
             <el-button
               type="primary"
-              class="block w-full h-8 text-center text-xs rounded bg-blue text-white border-blue"
+              class="block w-full h-8 text-center text-xs rounded bg-btn text-white border-btn"
               @click="handleOpenStake(honorData.info.id, honorData.info.name)"
             >
               {{ $t('node.act') }}
             </el-button>
             <el-button
               type="primary"
-              class="block w-full h-8 text-center text-xs rounded bg-blue text-white border-blue ml-0"
+              class="block w-full h-8 text-center text-xs rounded bg-btn text-white border-btn ml-0"
               @click="handleOpenVate(honorData.info.id, honorData.info.name)"
             >
               {{ $t('node.for') }}

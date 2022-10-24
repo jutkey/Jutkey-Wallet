@@ -5,7 +5,7 @@ console.log(version);
 const versionstr = `BPN-α-v${version}`;
 </script>
 <template>
-  <div class="bg-basic-box rounded form-box text-basic">
+  <div class="bg-basic-box rounded form-box">
     <div class="p-10 text-center">
       <img
         src="@/assets/image/logo-512.png"
@@ -49,7 +49,7 @@ const versionstr = `BPN-α-v${version}`;
           <div class="text-left">
             <el-button
               type="primary"
-              class="text-center text-sm rounded bg-blue text-white border-blue"
+              class="text-center text-sm rounded bg-btn text-white border-btn"
             >
               {{ $t('about.download') }}
             </el-button>

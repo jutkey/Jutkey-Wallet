@@ -11,7 +11,7 @@ const account = localStorage.getItem('account');
 export default createStore({
   state: {
     lang: lang || 'en',
-    theme: theme || 'light',
+    theme: theme || 'dark',
     token: token || '',
     nodeserver: auth.getChainUrl(),
     words: words || '',

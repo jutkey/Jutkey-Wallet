@@ -177,18 +177,18 @@ const handleBeforeAvatar = async (file: File) => {
 };
 const handleUploadSubmit = async () => {
   console.log(typeof imageId.value);
-  if (imageId.value === 0) {
+  /* if (imageId.value === 0) {
     ElMessage.error(handleI18n('user.pictureEmpty'));
     return false;
-  }
+  } */
   if (!nickFormRef.value) return false;
   await nickFormRef.value.validate((valid, fields) => {
     if (valid) {
       const params = {
         contractName: 'ProfileEdit',
         Name: nickFrom.nickName,
-        Info: 'xx',
-        ImageId: imageId.value
+        Info: 'xx'
+        // ImageId: imageId.value
       };
       util.checkTradepass(() => {
         util.showLoading();
@@ -250,11 +250,11 @@ const handleUploadAvatar = () => {};
           />
         </div>
         <el-icon v-else class="el-icon--upload"><upload-filled /></el-icon>
-        <div class="text-basic text-xs">
+        <div class="text-xs">
           {{ $t('user.drag') }}
         </div>
         <template #tip>
-          <div class="text-basic mt-2 text-xs">
+          <div class="mt-2 text-xs">
             {{ $t('user.pictureSize500') }}
           </div>
         </template>
@@ -301,7 +301,7 @@ const handleUploadAvatar = () => {};
               <template #reference>
                 <i
                   style="color: #666"
-                  class="iconfont el-ui-fa cursor-pointer text-basic text-xl ml-2"
+                  class="iconfont el-ui-fa cursor-pointer text-xl ml-2"
                 ></i>
               </template>
             </el-popover>

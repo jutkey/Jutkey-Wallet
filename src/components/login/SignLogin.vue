@@ -170,95 +170,63 @@ const watchInputWords = (index: number) => {
 };
 </script>
 <template>
-  <h1 class="text-title leading-normal">{{ $t('login.welcome') }}</h1>
-  <h3 class="text-title leading-normal">{{ $t('login.lead') }}</h3>
-  <el-form
-    ref="loginFormRef"
-    :model="loginData"
-    status-icon
-    :rules="loginRules"
-    label-width="100px"
-    class="wallet-form"
-    label-position="top"
-    @submit.prevent
-  >
-    <!--  <el-form-item prop="username" class="mb-5">
-      <template #label>
-        <span class="text-tinge">{{ $t('login.account') }}</span>
-      </template>
-      <el-input
-        ref="securitydiscword"
-        v-model="loginData.username"
-        class="placeholder-place"
-        type="text"
-        disabled
-        :placeholder="$t('login.createWallet')"
-        autocomplete="off"
-        clearable
-      /> -->
-    <!-- <el-select
-        v-model="loginData.username"
-        class="placeholder-place h-40px"
-        :placeholder="$t('login.choose')"
-        style="width: 100%"
-        :no-data-text="$t('data.no')"
-      >
-        <el-option
-          v-for="(item, keyid) in accountList"
-          :key="item.value"
-          :label="item.nickname"
-          :value="keyid"
-          class="login-select"
-        >
-          <div class="login-content-box-option">
-            <span>{{ item.nickname }}</span>
-            <i
-              class="el-icon-close"
-              @click.stop="handleDeleteAccount(keyid)"
-            ></i>
-          </div>
-        </el-option>
-      </el-select> -->
-    <!--   </el-form-item> -->
-    <el-form-item prop="password" class="mb-5">
-      <template #label>
-        <span class="text-tinge">{{ $t('login.signPassword') }}</span>
-      </template>
-      <el-input
-        ref="securitydiscword"
-        v-model="loginData.password"
-        class="placeholder-place"
-        type="password"
-        :show-password="isPassword"
-        autocomplete="off"
-        :placeholder="$t('login.inputPassword')"
-        clearable
-      />
-    </el-form-item>
-    <el-form-item>
-      <div class="w-full">
-        <el-button
-          type="primary"
-          :disabled="logining"
-          class="w-full h-10 bg-blue text-white"
-          @click="handleLoginSubmit(loginFormRef)"
-        >
-          {{ logining ? $t('logging') : $t('login.sign') }}
-        </el-button>
-      </div>
-    </el-form-item>
-    <div class="flex justify-around">
-      <a class="text-blue" href="javascript:;">
-        <span @click="handleCreate">{{ $t('login.build') }}</span>
-      </a>
-      <a class="text-blue" href="javascript:;">
-        <span @click="handleImport">{{ $t('login.import') }}</span>
-      </a>
-      <!--  <a class="text-blue" href="javascript:;">
-        <span @click="handleCreate">{{ $t('login.add') }}</span>
-      </a> -->
+  <h1 class="text-title leading-normal mb-3 font-publico italic text-3xl">
+    {{ $t('login.welcome') }}
+  </h1>
+  <div class="flex w-full items-center">
+    <div class="w-10 mr-3 mt-2">
+      <img src="@/assets/image/fingerprint.png" alt="" />
     </div>
-  </el-form>
+    <div class="flex-1">
+      <!-- <h3 class="text-title leading-normal mb-2">{{ $t('login.lead') }}</h3> -->
+      <el-form
+        ref="loginFormRef"
+        :model="loginData"
+        status-icon
+        :rules="loginRules"
+        label-width="100px"
+        class="wallet-form"
+        label-position="top"
+        @submit.prevent
+      >
+        <el-form-item prop="password" class="mb-5">
+          <template #label>
+            <span class="text-tinge">{{ $t('login.signPassword') }}</span>
+          </template>
+          <el-input
+            ref="securitydiscword"
+            v-model="loginData.password"
+            class="placeholder-place"
+            type="password"
+            :show-password="isPassword"
+            autocomplete="off"
+            :placeholder="$t('login.inputPassword')"
+            clearable
+          />
+        </el-form-item>
+      </el-form>
+    </div>
+  </div>
+  <div class="w-full text-right">
+    <el-button
+      type="primary"
+      :disabled="logining"
+      class="h-10 bg-black text-white border-none uppercase w-1/4 rounded-3xl"
+      @click="handleLoginSubmit(loginFormRef)"
+    >
+      <span class="text-xl">
+        {{ logining ? $t('logging') : $t('login.sign') }}
+      </span>
+    </el-button>
+  </div>
+  <div class="text-right mt-3">
+    <a class="text-black uppercase block mb-3" href="javascript:;">
+      <span @click="handleCreate">{{ $t('login.build') }}</span>
+    </a>
+    <a class="text-black uppercase block" href="javascript:;">
+      <span @click="handleImport">{{ $t('login.import') }}</span>
+    </a>
+  </div>
   <dialog-login
     :title="$t('login.impwall')"
     :is-dialog="isDialog"

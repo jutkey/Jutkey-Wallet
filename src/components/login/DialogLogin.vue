@@ -200,7 +200,7 @@ const handleRestInner = (formEl: FormInstance | undefined) => {
               <el-button
                 v-loading.fullscreen.lock="addNetworkLoading"
                 type="primary"
-                class="bg-blue text-sm text-white border-none"
+                class="bg-btn text-sm text-white border-none"
                 element-loading-spinner="el-icon-loading"
                 element-loading-background="rgba(0, 0, 0, 0.8)"
                 @click="handleSubmitInner(newworkRef)"
@@ -208,7 +208,7 @@ const handleRestInner = (formEl: FormInstance | undefined) => {
                 {{ $t('login.confirm') }}
               </el-button>
               <el-button
-                class="text-center text-sm rounded text-blue border border-blue"
+                class="text-center text-sm rounded text-blue border border-btn"
                 @click="handleRestInner(newworkRef)"
               >
                 {{ $t('login.cancel') }}
@@ -222,13 +222,13 @@ const handleRestInner = (formEl: FormInstance | undefined) => {
       <span class="dialog-footer">
         <el-button
           type="primary"
-          class="text-center text-sm rounded bg-blue text-white border-blue mx-3"
+          class="text-center text-sm rounded bg-btn text-white border-btn mx-3"
           @click="handleDialogConfirm"
         >
           {{ $t('login.confirm') }}
         </el-button>
         <el-button
-          class="text-center text-sm rounded text-blue border border-blue mx-3 hover:bg-blue hover:text-white hover:border-blue focus:bg-blue focus:border-blue"
+          class="text-center text-sm rounded text-blue border border-btn mx-3 hover: bg-btn hover:text-white hover:border-btn focus: bg-btn focus:border-btn"
           @click="handleDialogCancel"
         >
           {{ $t('login.cancel') }}

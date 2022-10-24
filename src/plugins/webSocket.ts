@@ -65,7 +65,9 @@ class Socket {
   }
 
   public handleDisconnect(subscribe: string) {
-    this[subscribe].disconnect();
+    if (this[subscribe]) {
+      this[subscribe].disconnect();
+    }
   }
 }
 export default new Socket();

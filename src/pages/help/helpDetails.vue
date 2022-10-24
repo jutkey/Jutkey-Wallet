@@ -25,5 +25,5 @@ watch(
 );
 </script>
 <template>
-  <div class="bg-basic-box rounded form-box text-basic">content</div>
+  <div class="bg-basic-box rounded form-box">content</div>
 </template>

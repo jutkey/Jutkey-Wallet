@@ -37,7 +37,7 @@ const handleNftMiner = async (params: nftParams) => {
   const res = await axios.post('/nft_miner_key_infos', params, 'walletserver');
   console.log(res);
 
-  if (res.code === 0) {
+  if (res.code === 0 && res.data) {
     nftMiner.isCreate = res.data.isCreate;
     console.log(res.data.rets);
     if (res.data.rets) {
@@ -106,7 +106,7 @@ const handleNftMinerReward = async (params: nftRewardList) => {
     params,
     'walletserver'
   );
-  if (res.code === 0) {
+  if (res.code === 0 && res.data) {
     if (res.data.list) {
       nftMiner.arr = res.data.list;
       nftMiner.pageNum.page = res.data.page;
@@ -125,12 +125,12 @@ const url = handleWalletserver();
 const browser = handleBlockexplorer();
 </script>
 <template>
-  <div class="w-full text-basic">
+  <div class="w-full">
     <div v-if="nftMiner.list.length" class="w-full rounded mb-20px">
       <div v-if="!nftMiner.isCreate" class="w-full mb-20px">
         <el-button
           type="primary"
-          class="text-center text-sm rounded bg-blue text-white border-blue"
+          class="text-center text-sm rounded bg-btn text-white border-btn"
           @click="handleGetNFT"
         >
           {{ $t('nft.get') }}
@@ -141,7 +141,7 @@ const browser = handleBlockexplorer();
           v-for="item in nftMiner.list"
           :key="item.id"
           :to="{ name: 'NFTDetails', params: { id: item.id } }"
-          class="bg-basic-box p-20px rounded w-49 flex items-stretch justify-between text-sm mb-3"
+          class="bg-basic-box p-20px rounded w-49 flex items-stretch justify-between text-sm mb-3 shadow-xl"
         >
           <div class="flex items-center">
             <span class="bg-success w-3 h-3 rounded-full"></span>
@@ -152,18 +152,18 @@ const browser = handleBlockexplorer();
           <div class="w-2/3 flex flex-wrap content-around">
             <div class="flex items-center justify-between w-full">
               <div class="w-49 flex items-center">
-                <span>{{ $t('nft.power') }}:</span>
+                <span class="mr-1">{{ $t('nft.power') }}:</span>
                 <span>{{ util.format(item.energy_point) }}</span>
               </div>
               <div class="w-49 flex items-center">
-                <span>{{ $t('node.cash') }}:</span>
+                <span class="mr-1">{{ $t('node.cash') }}:</span>
                 <span>{{ util.formatFixed(item.stake_amount) }}</span>
                 <span class="ml-1 text-xs">{{ $t('page.symbol') }}</span>
               </div>
             </div>
             <div class="flex items-center justify-between w-full">
               <div class="w-49 flex items-center">
-                <span>NFT HASH:</span>
+                <span class="mr-1">NFT HASH:</span>
                 <el-tooltip
                   effect="dark"
                   :content="`${item.token_hash}`"
@@ -173,13 +173,13 @@ const browser = handleBlockexplorer();
                 </el-tooltip>
               </div>
               <div class="w-49 flex items-center">
-                <span>{{ $t('nft.explosive') }}:</span>
+                <span class="mr-1">{{ $t('nft.explosive') }}:</span>
                 <span>{{ util.format(item.burst) }}</span>
               </div>
             </div>
           </div>
           <div class="flex items-center">
-            <span>{{ $t('nft.value') }}:</span>
+            <span class="mr-1">{{ $t('nft.value') }}:</span>
             <span>{{ util.format(item.energy_power) }}</span>
           </div>
         </router-link>
@@ -187,17 +187,17 @@ const browser = handleBlockexplorer();
     </div>
     <div
       v-if="!nftMiner.isCreate"
-      class="w-full bg-basic-box p-15vh rounded mb-20px flex items-center justify-center"
+      class="w-full bg-basic-box p-15vh rounded mb-20px flex items-center justify-center shadow-xl"
     >
       <el-button
         type="primary"
-        class="text-center text-sm rounded bg-blue text-white border-blue mx-3"
+        class="text-center text-sm rounded bg-btn text-white border-btn mx-3"
         @click="handleGetNFT"
       >
         {{ $t('nft.get') }}
       </el-button>
     </div>
-    <div class="w-full p-20px bg-basic-box rounded-lg mb-20px">
+    <div class="w-full p-20px bg-basic-box rounded-lg mb-20px shadow-xl">
       <div class="w-full flex justify-between">
         <div class="flex-1 text-center">
           <div class="mb-2">{{ $t('home.nft') }}</div>
@@ -258,7 +258,7 @@ const browser = handleBlockexplorer();
         </div>
       </div>
     </div>
-    <div class="bg-basic-box rounded text-basic p-20px">
+    <div class="bg-basic-box rounded p-20px">
       <div v-if="nftMiner.arr.length" class="table-box">
         <div class="mb-20px">
           <el-table :data="nftMiner.arr" stripe style="width: 100%">
