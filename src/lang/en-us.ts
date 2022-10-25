@@ -89,7 +89,7 @@ const enUs = {
   'nav.account': 'Account',
   'nav.private': 'Private Key',
   'nav.keystroe': 'Keystroe files',
-  'nav.manage': 'Wallet Settings',
+  'nav.manage': 'Settings',
   'nav.message': 'Messages',
   'nav.help': 'Help Center',
   'nav.about': 'About Us',

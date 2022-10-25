@@ -52,7 +52,7 @@ const handleTabsTransfer = (tab: TabsPaneContext) => {
 <template>
   <div class="bg-basic-box rounded form-box">
     <div class="w-1/2 m-auto p-20px">
-      <h2 class="text-center mb-10">{{ $t('user.trade') }}</h2>
+      <h2 class="text-center mb-10 text-first">{{ $t('user.trade') }}</h2>
       <div class="mb-5">
         <span class="text-tinge-text">{{ $t('user.econame') }}:</span>
         <span class="font-semibold text-lime ml-1">{{ ecoInfo.obj.name }}</span>

@@ -149,7 +149,7 @@ const handleConfirm = () => {
         </div>
       </div>
       <div class="flex flex-auto p-20px">
-        <div class="font-semibold text-xl">
+        <div class="font-semibold text-xl text-first">
           <span>{{ util.formatFixed(firstEco.obj.amount) }}</span>
           <span class="ml-1 text-sm">{{ firstEco.obj.tokenSymbol }}</span>
         </div>

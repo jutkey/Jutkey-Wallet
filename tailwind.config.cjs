@@ -114,6 +114,7 @@ module.exports = {
         h3: { fontSize: '18px', color: '#242f57', fontWeight: 'bolder' },
         h4: { fontSize: '16px', color: '#242f57', fontWeight: 'bolder' },
         ':root': {
+          '--text-lime': '#04b78a',
           '--text-blue': '#003380',
           '--text-white': '#fff',
           '--bg-base': '#f4f7fc',

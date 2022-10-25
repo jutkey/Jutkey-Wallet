@@ -381,7 +381,7 @@ const handleUploadRequest = () => {};
   </el-scrollbar>
   <div class="flex justify-center mb-5">
     <el-button
-      class="w-2/3 h-8 rounded-xl hover: bg-btn hover:border-btn hover:text-white focus: bg-btn focus:border-btn focus:text-white"
+      class="w-2/3 h-8 rounded-xl hover:bg-btn hover:border-btn hover:text-white focus:bg-btn focus:border-btn focus:text-white"
       @click="handleCreateAccount"
     >
       <el-icon :size="20"><Plus /></el-icon>
@@ -390,7 +390,7 @@ const handleUploadRequest = () => {};
   </div>
   <div class="flex justify-center mb-5">
     <el-button
-      class="w-2/3 h-8 rounded-xl hover: bg-btn hover:border-btn hover:text-white focus: bg-btn focus:border-btn focus:text-white"
+      class="w-2/3 h-8 rounded-xl hover:bg-btn hover:border-btn hover:text-white focus:bg-btn focus:border-btn focus:text-white"
       @click="handleImportAccount"
     >
       <el-icon :size="20"><Bottom /></el-icon>
@@ -399,7 +399,7 @@ const handleUploadRequest = () => {};
   </div>
   <div class="flex justify-center mb-5">
     <el-button
-      class="w-2/3 h-8 rounded-xl hover: bg-btn hover:border-btn hover:text-white focus: bg-btn focus:border-btn focus:text-white"
+      class="w-2/3 h-8 rounded-xl hover:bg-btn hover:border-btn hover:text-white focus:bg-btn focus:border-btn focus:text-white"
       @click="handleSignOut"
     >
       <i class="iconfont el-ui-333"></i>

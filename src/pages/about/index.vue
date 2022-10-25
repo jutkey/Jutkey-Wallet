@@ -16,25 +16,25 @@ const versionstr = `BPN-α-v${version}`;
         <span>{{ $t('about.version') }}:</span>
         <span>{{ versionstr }}</span>
       </div>
-      <div class="mx-auto inline-flex justify-between">
+      <div class="mx-auto inline-flex justify-between text-first">
         <a
           href="https://ibax.io/server/privacy-policy"
           target="_blank"
-          class="flex-shrink-0 underline text-blue"
+          class="flex-shrink-0 underline text-first"
         >
           {{ $t('about.privacy') }}
         </a>
         <a
           href="https://ibax.io/contact"
           target="_blank"
-          class="mx-20 flex-shrink-0 underline text-blue"
+          class="mx-20 flex-shrink-0 underline text-first"
         >
           {{ $t('about.contact') }}
         </a>
         <a
           href="https://ibax.io"
           target="_blank"
-          class="flex-shrink-0 underline text-blue"
+          class="flex-shrink-0 underline text-first"
         >
           {{ $t('about.web') }}
         </a>

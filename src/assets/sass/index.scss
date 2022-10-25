@@ -155,8 +155,9 @@ $font-32: 32px;
   }
 
   .el-menu-item:focus,
-  .el-menu-item:hover {
-    background-color: var(--bg-active);
+  .el-menu-item:hover,
+  .el-sub-menu__title:hover {
+    background-color: var(--bg-active) !important;
     border-bottom-right-radius: 5px;
     border-top-right-radius: 5px;
     i.iconfont {

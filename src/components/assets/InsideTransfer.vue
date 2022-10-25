@@ -98,24 +98,24 @@ watch(
     <div class="text-sm">{{ $t('user.notes') }}</div>
     <div class="flex items-center justify-around mt-5 mb-10">
       <div class="text-center">
-        <h4 class="mb-3">
+        <h4 class="mb-3 text-first">
           <span>{{ util.formatFixed(balance.data.utxo) }}</span>
           <span class="ml-1 text-xs">{{ ecoInfo.tokenSymbol }}</span>
         </h4>
-        <h4 class=" ">{{ $t('user.utxoAccount') }}</h4>
+        <h4 class="text-first">{{ $t('user.utxoAccount') }}</h4>
       </div>
       <div class="text-center">
-        <h4 class="mb-3">
+        <h4 class="mb-3 text-first">
           <span>{{ util.formatFixed(balance.data.amount) }}</span>
           <span class="ml-1 text-xs">{{ ecoInfo.tokenSymbol }}</span>
         </h4>
-        <h4 class=" ">{{ $t('user.contractAccount') }}</h4>
+        <h4 class="text-first">{{ $t('user.contractAccount') }}</h4>
       </div>
     </div>
     <div class="flex items-center justify-around mb-3">
       <el-button
         type="primary"
-        class="text-center text-sm rounded bg-btn text-white border-btn mx-3"
+        class="text-center text-sm rounded bg-btn text-white border-blue mx-3"
         @click="handleInto('utxo')"
       >
         {{ $t('user.intoutxo') }}

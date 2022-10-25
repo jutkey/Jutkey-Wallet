@@ -68,14 +68,14 @@ const url = handleWalletserver();
 <template>
   <div class="w-full">
     <div class="w-full bg-basic-box p-20px rounded mb-20px">
-      <h3 class="mb-5 text-muted">
+      <h3 class="mb-5 text-first">
         <span>{{ $t('honor.node') }}:</span>
         <span class="ml-1">{{ util.format(honorTotal) }}</span>
         <span class="ml-1 text-sm">{{ $t('honor.a') }}</span>
       </h3>
       <div class="mb-2">{{ $t('honor.behalf') }}</div>
       <div class="mb-5">{{ $t('honor.honorary') }}</div>
-      <h3 class="mb-5 text-muted">
+      <h3 class="mb-5 text-first">
         <span>{{ $t('honor.candidate') }}:</span>
         <span class="ml-1">{{ util.format(candidateTotal) }}</span>
         <span class="ml-1 text-sm">{{ $t('honor.a') }}</span>

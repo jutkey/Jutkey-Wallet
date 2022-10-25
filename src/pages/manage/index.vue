@@ -152,7 +152,7 @@ const handleImportKeystore = () => {
 </script>
 <template>
   <div class="bg-basic-box rounded p-20px">
-    <h4 class="mb-5">{{ $t('set.change') }}</h4>
+    <h4 class="mb-5 text-first">{{ $t('set.change') }}</h4>
     <!-- change password -->
     <div class="mb-3 w-1/3 form-box">
       <el-form
@@ -193,13 +193,13 @@ const handleImportKeystore = () => {
           <div class="w-full flex justify-center">
             <el-button
               type="primary"
-              class="bg-btn text-white border-btn"
+              class="text-center text-sm rounded bg-btn text-white border-btn mx-3"
               @click="handlePasswordSubmit(passwordFormRef)"
             >
               {{ $t('login.confirm') }}
             </el-button>
             <el-button
-              class="text-base"
+              class="text-center text-sm rounded text-light-blue border border-light-blue mx-3 hover:bg-side hover:border-light-blue focus:bg-side focus:border-light-blue"
               @click="handleResetForm(passwordFormRef)"
             >
               {{ $t('login.cancel') }}
@@ -208,7 +208,7 @@ const handleImportKeystore = () => {
         </el-form-item>
       </el-form>
     </div>
-    <h4 class="mb-5">{{ $t('set.account') }}</h4>
+    <h4 class="mb-5 text-first">{{ $t('set.account') }}</h4>
     <!-- check words and import words -->
     <div class="mb-3 w-1/3">
       <div class="flex items-center mb-3">
