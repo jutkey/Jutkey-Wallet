@@ -8,7 +8,7 @@
   },
   "package": {
     "productName": "Jutkey Wallet",
-    "version": "0.0.6"
+    "version": "0.0.7"
   },
   "tauri": {
     "allowlist": {
@@ -55,7 +55,8 @@
       "endpoints": [
         "https://github.com/jutkey/Jutkey-Wallet/releases/download/updater/update.json"
       ],
-      "dialog": false
+      "dialog": false,
+      "pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IEYxMzM3RTBCNEFDQjdDNwpSV1RIdDZ5MDREY1REeXJFSEhjcHJWL28xR2hxT2NGakdPS1lQNHFYTWlCWEpJM0ZhaFlNTFZ1VQo="
     },
     "windows": [
       {
