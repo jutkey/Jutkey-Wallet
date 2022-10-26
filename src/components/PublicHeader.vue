@@ -4,11 +4,37 @@ import { ref, reactive, computed, onBeforeUnmount, inject, unref } from 'vue';
 import { Fold, Expand, ArrowDown, ArrowUp } from '@element-plus/icons-vue';
 import { ClickOutside as vClickOutside } from 'element-plus';
 import store from '@/store';
-import { handleUpdateTime } from '@/plugins/common';
+import { handleUpdateTime, handleWalletserver } from '@/plugins/common';
 import i18n from '@/plugins/i18n';
 import AccountList from './AccountList.vue';
 import util from '@/plugins/util';
+import { ecosystemParam } from '@/plugins/dataType';
+import http from '@/plugins/http';
 
+const url = handleWalletserver();
+const avatar = ref('');
+const firstEco = reactive({ obj: {} }) as any;
+const current = util.getCache('current');
+const fisrtEcosystem = {
+  wallet: current.account,
+  page: 1,
+  limit: 1,
+  search: 'ecosystem = 1'
+};
+const handleFisrtEcosystem = async (params: ecosystemParam) => {
+  const res = await http.post('/ecosystem_key_totals', params, 'walletserver');
+  console.log(res);
+  if (res.code === 0) {
+    const [obj] = res.data.rets;
+    firstEco.obj = obj;
+    avatar.value = `${url}/api/v1/get_attachment/${
+      obj.memberImageHash
+    }?x=${new Date().getTime()}`;
+
+    console.log(avatar.value);
+  }
+};
+handleFisrtEcosystem(fisrtEcosystem);
 interface itemFace {
   value: string;
   label: string;
@@ -204,7 +230,19 @@ const handleHidePopover = () => {
         v-click-outside="handlePopover"
         class="flex ml-20px cursor-pointer items-center"
       >
-        <img src="../assets/image/profile.png" alt="profile" class="w-8" />
+        <img
+          v-if="firstEco.obj.memberImageHash"
+          :src="avatar"
+          alt="profile"
+          class="w-8 rounded-full"
+        />
+
+        <img
+          v-else
+          src="@/assets/image/profile.png"
+          alt="profile"
+          class="w-8 rounded-full"
+        />
         <el-icon v-show="isArrow" class="el-icon--right" :size="20">
           <arrow-down />
         </el-icon>

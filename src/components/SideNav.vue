@@ -103,7 +103,7 @@ const theme = computed(() => {
         :to="{ path: '/' }"
       >
         <img src="@/assets/image/logo-32.png" alt="logo" class="w-img" />
-        <span v-show="!isCollapse" class="ml-3 text-lg uppercase">
+        <span v-show="!isCollapse" class="ml-3 text-lg uppercase text-first">
           Jutkey Wallet
         </span>
       </router-link>

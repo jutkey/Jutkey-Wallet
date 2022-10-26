@@ -1,26 +1,17 @@
 <script setup lang="ts">
-import { ref, reactive, inject, toRefs } from 'vue';
-import { UploadFilled } from '@element-plus/icons-vue';
+import { ref, reactive, toRefs } from 'vue';
 import type { FormInstance, FormRules } from 'element-plus';
 import { ElMessage } from 'element-plus';
 import DialogDefault from '@/components/DialogDefault.vue';
 import { handleI18n } from '@/plugins/i18n';
 import util from '@/plugins/util';
 import contract from '@/plugins/lib';
-import { axiosType } from '@/plugins/dataType';
-import { handleWalletserver } from '@/plugins/common';
 
-const url = handleWalletserver();
 const nickFormRef = ref<FormInstance>();
-const axios = inject('axios') as axiosType;
-const current = util.getCache('current');
-const preImageUrl = ref('');
 const editNicknameFee = ref('');
-const imageId = ref(0);
-const appId = ref(0);
-const avatar = ref('');
+
 const props = defineProps({
-  isImage: {
+  isIname: {
     type: Boolean,
     default: () => false
   },
@@ -31,21 +22,18 @@ const props = defineProps({
 });
 const { ecoInfo } = toRefs(props);
 console.log(ecoInfo.value);
-avatar.value = `${url}/api/v1/get_attachment/${
-  ecoInfo.value.memberImageHash
-}?x=${new Date().getTime()}`;
-const emit = defineEmits(['update:isImage', 'close', 'confirm', 'cancel']);
+const emit = defineEmits(['update:isIname', 'close', 'confirm', 'cancel']);
 // eslint-disable-next-line no-unused-vars
 const handleChangeNickName = (value: string) => {
   const regNickName = /^[\w]{1,20}$/;
   if (regNickName.test(value)) {
     const len = value.length;
     if (len <= 3 && len > 0) {
-      editNicknameFee.value = '1,000 IBXC';
+      editNicknameFee.value = '10,00 IBXC';
     } else if (len === 4) {
-      editNicknameFee.value = '500 IBXC';
+      editNicknameFee.value = '5,000 IBXC';
     } else if (len === 5) {
-      editNicknameFee.value = '100 IBXC';
+      editNicknameFee.value = '1,000 IBXC';
     } else {
       editNicknameFee.value = '';
     }
@@ -74,113 +62,11 @@ const nickFrom = reactive({
 }) as any;
 const handleImageCancel = () => {
   emit('close');
+  nickFrom.nickName = '';
+  editNicknameFee.value = '';
 };
-const handleBufferData = async (file: File, FileData: any) => {
-  preImageUrl.value = `data:${
-    file.type
-  };base64,${util.transformArrayBufferToBase64(FileData.value)}`;
-  // this.$store.commit('getuser');
-  const objParams = {
-    limit: 1,
-    offset: 0,
-    order: '',
-    where: {
-      account: current.account,
-      ecosystem: 1,
-      key: 'avatar'
-    }
-  };
 
-  // const objQs = qs.stringify(objParams);
-  const buffer = await (axios.request as any).post(
-    `/listWhere/buffer_data`,
-    null,
-    {
-      params: objParams
-    }
-  );
-  const data = JSON.parse(buffer.list[0].value);
-  console.log(data.binary_id);
-  imageId.value = data.binary_id;
-  // localStorage.setItem('ImageId', data.binary_id);
-  //  this.profileForm.ImageId = data.binary_id;
-  // this.$parent.handleEcologyKey();
-  // this.$store.dispatch('handleActionEcology');
-};
-const handleBeforeAvatar = async (file: File) => {
-  console.log(file);
-  const testmsg = file.name.substring(file.name.lastIndexOf('.') + 1);
-  const extension =
-    testmsg === 'jpg' ||
-    testmsg === 'JPG' ||
-    testmsg === 'png' ||
-    testmsg === 'PNG' ||
-    testmsg === 'jpeg' ||
-    testmsg === 'JPEG';
-  const isLt50M = file.size / 1024 / 1024 < 0.5;
-  if (!extension) {
-    ElMessage({
-      message: handleI18n('user.imageFormatss'),
-      type: 'error'
-    });
-    return false;
-  }
-  if (!isLt50M) {
-    ElMessage.error(handleI18n('user.pictureSize500'));
-    return false;
-  }
-  const objParams = {
-    limit: 1,
-    offset: 0,
-    order: '',
-    where: {
-      ecosystem: 1,
-      name: 'Basic',
-      deleted: 0
-    }
-  };
-  const app = await (axios.request as any).post(
-    `/listWhere/applications`,
-    null,
-    {
-      params: objParams
-    }
-  );
-  appId.value = app.list[0].id;
-  util.transfile(file, 'FileData', (FileData: any) => {
-    console.log(FileData);
-    util.checkTradepass(() => {
-      const params = {
-        contractName: 'BufferFileUpload',
-        AppId: appId.value,
-        FileData,
-        BufferKey: 'avatar',
-        FileName: ''
-      };
-      util.showLoading();
-      contract.tokensSend(params, (res: any, status: string) => {
-        if (status === 'error') {
-          console.log(res);
-          ElMessage.error(res.errmsg.error);
-        } else if (status === 'loading') {
-          ElMessage.success(handleI18n('user.chain'));
-        } else if (status === 'success') {
-          ElMessage.success(handleI18n('user.dosuccess'));
-        } else {
-          ElMessage.error(res.msg);
-        }
-        handleBufferData(file, FileData);
-        util.closeLoading();
-      });
-    });
-  });
-};
 const handleUploadSubmit = async () => {
-  console.log(typeof imageId.value);
-  /* if (imageId.value === 0) {
-    ElMessage.error(handleI18n('user.pictureEmpty'));
-    return false;
-  } */
   if (!nickFormRef.value) return false;
   await nickFormRef.value.validate((valid, fields) => {
     if (valid) {
@@ -188,7 +74,6 @@ const handleUploadSubmit = async () => {
         contractName: 'ProfileEdit',
         Name: nickFrom.nickName,
         Info: 'xx'
-        // ImageId: imageId.value
       };
       util.checkTradepass(() => {
         util.showLoading();
@@ -220,45 +105,17 @@ const handleUploadSubmit = async () => {
     }
   });
 };
-const handleUploadAvatar = () => {};
 </script>
 <template>
   <dialog-default
-    :title="$t('user.head')"
-    :is-dialog="isImage"
+    :title="$t('user.modify')"
+    :is-dialog="isIname"
     @close="handleImageCancel"
     @cancel="handleImageCancel"
     @confirm="handleUploadSubmit"
+    @submit.prevent
   >
     <template #default>
-      <el-upload
-        class="upload-box"
-        drag
-        action="#"
-        :http-request="(handleUploadAvatar as any)"
-        :show-file-list="false"
-        :before-upload="handleBeforeAvatar"
-      >
-        <div
-          v-if="ecoInfo.memberImageHash || preImageUrl"
-          class="bg-white cursor-pointer rounded-full flex items-center justify-center w-24 h-24 mx-auto mb-2"
-        >
-          <img
-            class="m-auto w-20 h-20 rounded-full"
-            :src="preImageUrl || avatar"
-            alt="head"
-          />
-        </div>
-        <el-icon v-else class="el-icon--upload"><upload-filled /></el-icon>
-        <div class="text-xs">
-          {{ $t('user.drag') }}
-        </div>
-        <template #tip>
-          <div class="mt-2 text-xs">
-            {{ $t('user.pictureSize500') }}
-          </div>
-        </template>
-      </el-upload>
       <div class="form-box my-2">
         <el-form
           ref="nickFormRef"

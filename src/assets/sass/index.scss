@@ -317,14 +317,14 @@ $font-32: 32px;
   .el-tabs__item {
     color: var(--color-text-second);
     &:hover {
-      color: var(--bg-active);
+      color: var(--color-text-first);
     }
     &.is-active {
-      color: var(--bg-active);
+      color: var(--color-text-first);
     }
   }
   .el-tabs__active-bar {
-    background-color: var(--bg-active);
+    background-color: var(--color-text-first);
   }
   .tabs-box {
     .el-tabs__nav.is-stretch {

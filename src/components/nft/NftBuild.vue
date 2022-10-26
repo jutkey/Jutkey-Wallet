@@ -128,7 +128,7 @@ const handleSelectChange = (id: number) => {
           </template>
         </el-alert>
         <div class="flex justify-between items-center mb-20px">
-          <h3>{{ $t('nft.nftsynthesis') }}</h3>
+          <h3 class="text-first">{{ $t('nft.nftsynthesis') }}</h3>
           <div class="select-box">
             <el-select
               v-model="seleId"

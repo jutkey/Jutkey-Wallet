@@ -183,10 +183,12 @@ export default {
         console.log(num);
         if (num <= 0) {
           clearTimeout(timer);
+          num = 4;
           return callback(0, 'loading');
         }
         if (result.errmsg) {
           clearTimeout(timer);
+          num = 4;
           return callback(result, 'error');
         }
         if (!result.blockid) {
@@ -196,6 +198,7 @@ export default {
           }, 5000);
         } else {
           clearTimeout(timer);
+          num = 4;
           return callback(result, 'success');
         }
       }

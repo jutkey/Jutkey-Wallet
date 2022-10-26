@@ -44,23 +44,23 @@ const handleDialogCancel = () => {
     :before-close="handleClose"
   >
     <template #header>
-      <h3 class="font-semibold">{{ title }}</h3>
+      <h3 class="font-semibold text-first">{{ title }}</h3>
     </template>
     <slot></slot>
     <template #footer>
       <span class="dialog-footer">
+        <el-button
+          class="text-center text-sm rounded text-light-blue border border-light-blue mx-3 hover:bg-side hover:border-light-blue focus:bg-side focus:border-light-blue"
+          @click="handleDialogCancel"
+        >
+          {{ $t('login.cancel') }}
+        </el-button>
         <el-button
           type="primary"
           class="text-center text-sm rounded bg-btn text-white border-btn mx-3"
           @click="handleDialogConfirm"
         >
           {{ $t('login.confirm') }}
-        </el-button>
-        <el-button
-          class="text-center text-sm rounded text-light-blue border border-light-blue mx-3 hover:bg-side hover:border-light-blue focus:bg-side focus:border-light-blue"
-          @click="handleDialogCancel"
-        >
-          {{ $t('login.cancel') }}
         </el-button>
       </span>
     </template>

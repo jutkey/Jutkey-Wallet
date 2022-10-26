@@ -3,15 +3,18 @@ import { ref, reactive, inject } from 'vue';
 import util from '@/plugins/util';
 import { handleWalletserver } from '@/plugins/common';
 import { ecosystemParam, axiosType, getListResponse } from '@/plugins/dataType';
-import ImageNickname from '@/components/assets/ImageNickname.vue';
+import NickName from '@/components/assets/NickName.vue';
 import lib from '@/plugins/lib';
 import SelectList from '@/components/SelectList.vue';
+import AvatarUpload from '@/components/assets/AvatarUpload.vue';
+import store from '@/store';
 
 const url = handleWalletserver();
 const axios = inject('axios') as axiosType;
 const reload = inject('reload') as Function;
 const current = util.getCache('current');
-const isImage = ref(false);
+const isIname = ref(false);
+const isAvatar = ref(false);
 console.log(current);
 const handleBalance = async () => {
   const res = await lib.getBalance(1);
@@ -35,6 +38,7 @@ const handleFisrtEcosystem = async (params: ecosystemParam) => {
     avatar.value = `${url}/api/v1/get_attachment/${
       obj.memberImageHash
     }?x=${new Date().getTime()}`;
+    store.dispatch('handleActavatar', avatar.value);
     console.log(avatar.value);
   }
 };
@@ -68,7 +72,10 @@ const handleOtherEcosystem = async (params: ecosystemParam) => {
 handleOtherEcosystem(paramsEcosystem);
 
 const handleDialogUpload = () => {
-  isImage.value = true;
+  isAvatar.value = true;
+};
+const handleDialogIname = () => {
+  isIname.value = true;
 };
 const handleChangePage = (page: number) => {
   console.log(page);
@@ -86,7 +93,8 @@ const handleActionUser = async () => {
 };
 handleActionUser();
 const handleCancel = () => {
-  isImage.value = false;
+  isIname.value = false;
+  isAvatar.value = false;
 };
 const handleSelect = (val: number) => {
   console.log(val);
@@ -99,7 +107,8 @@ const handleSelect = (val: number) => {
   handleOtherEcosystem(paramsEcosystem);
 };
 const handleConfirm = () => {
-  isImage.value = false;
+  isIname.value = false;
+  isAvatar.value = false;
   reload();
 };
 </script>
@@ -129,11 +138,15 @@ const handleConfirm = () => {
         <h3 v-if="firstEco.obj.memberName" class="mt-20px text-muted">
           {{ firstEco.obj.memberName }}
         </h3>
-        <h3 v-else class="mt-20px" @click="handleDialogUpload">
-          <span class="text-ashy italic">iName</span>
+        <div
+          v-else
+          class="mt-20px flex items-center justify-center text-first"
+          @click="handleDialogIname"
+        >
+          <span class="italic mr-1">iName</span>
           <i class="iconfont el-ui-bianji text-xl cursor-pointer"></i>
-        </h3>
-        <div class="my-2">
+        </div>
+        <div class="my-2 text-first">
           {{ firstEco.obj.account }}
           <el-tooltip
             class="item"
@@ -282,12 +295,19 @@ const handleConfirm = () => {
         <img src="@/assets/image/no-data.png" alt="no-data" />
       </div>
     </div>
-    <image-nickname
+    <nick-name
       v-if="firstEco.obj.id"
       :eco-info="firstEco.obj"
-      :is-image="isImage"
+      :is-iname="isIname"
       @close="handleCancel"
       @confirm="handleConfirm"
-    ></image-nickname>
+    ></nick-name>
+    <avatar-upload
+      v-if="firstEco.obj.id"
+      :eco-info="firstEco.obj"
+      :is-avatar="isAvatar"
+      @close="handleCancel"
+      @confirm="handleConfirm"
+    ></avatar-upload>
   </div>
 </template>

@@ -45,6 +45,7 @@ const zhCn = {
   'login.createWallet': '请创建钱包',
   'login.nickname': '账户昵称',
   'login.inputnickname': '请输入账户昵称',
+  'login.inputnickempty': '昵称不能为空',
   'login.signPassword': '登录密码',
   'login.inputPassword': '请输入登录密码',
   'login.inputkeystore': '请输入Keystore密码',

@@ -20,9 +20,13 @@ export default createStore({
     isCollapse: false,
     objBalance: {},
     socketData: {},
-    ecoList: []
+    ecoList: [],
+    avatar: ''
   },
   mutations: {
+    handleMutavatar(state, url) {
+      state.avatar = url;
+    },
     handleMutWords(state, words) {
       state.words = words;
     },
@@ -62,6 +66,9 @@ export default createStore({
           reject(new Error('get balance error'));
         }
       });
+    },
+    handleActavatar({ commit }, url) {
+      commit('handleMutavatar', url);
     },
     handleActWords({ commit }, words) {
       commit('handleMutWords', words);
@@ -116,6 +123,9 @@ export default createStore({
   getters: {
     postWords(state) {
       return state.words;
+    },
+    postAvatar(state) {
+      return state.avatar;
     },
     postToken(state) {
       return state.token;
