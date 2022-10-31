@@ -135,9 +135,6 @@ $font-32: 32px;
 }
 #body {
   font-family: $font-family;
-  .text-base {
-    color: #4a5373;
-  }
   .el-main {
     padding: 0;
   }
@@ -317,14 +314,14 @@ $font-32: 32px;
   .el-tabs__item {
     color: var(--color-text-second);
     &:hover {
-      color: var(--color-text-first);
+      color: var(--text-lime);
     }
     &.is-active {
-      color: var(--color-text-first);
+      color: var(--text-lime);
     }
   }
   .el-tabs__active-bar {
-    background-color: var(--color-text-first);
+    background-color: var(--text-lime);
   }
   .tabs-box {
     .el-tabs__nav.is-stretch {
@@ -351,10 +348,10 @@ $font-32: 32px;
           line-height: 2rem;
           font-weight: 500;
           &.is-active {
-            color: var(--bg-active);
+            color: var(--text-lime);
             font-weight: 600;
             .text-secnod {
-              color: var(--bg-active);
+              color: var(--text-lime);
               font-weight: 600;
             }
           }
@@ -554,20 +551,43 @@ $font-32: 32px;
       height: auto;
     }
   }
-}
-.el-select__popper.el-popper {
-  background-color: var(--bg-base-box);
-  border-color: var(--border-base);
+  .el-select__popper.el-popper {
+    background-color: var(--bg-base-box);
+    border-color: var(--border-base);
+  }
+  .el-select-dropdown__item.hover,
+  .el-select-dropdown__item:hover {
+    background-color: transparent;
+    color: var(--color-text-first);
+  }
+  .el-select-dropdown__item.selected {
+    color: var(--color-text-first);
+    font-weight: 400;
+  }
+  .page-wrap {
+    .el-pagination.is-background .btn-next,
+    .el-pagination.is-background .btn-prev,
+    .el-pagination.is-background .el-pager li {
+      background-color: var(--bg-base-box);
+    }
+  }
+  .bg-btn {
+    &:hover {
+      background-color: var(--bg-btn-hover);
+      color: #1c1c1c;
+    }
+  }
+  .el-button--primary.bg-black {
+    &:hover {
+      background-color: gray;
+    }
+  }
 }
 
 .el-select-dropdown__item {
   color: var(--color-text-second);
 }
-.el-select-dropdown__item.hover,
-.el-select-dropdown__item:hover {
-  background-color: var(--bg-side);
-  color: #3961f5;
-}
+
 .el-tabs__nav-wrap::after {
   background-color: var(--border-base);
 }

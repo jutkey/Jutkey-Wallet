@@ -274,7 +274,7 @@ const handleConfirm = () => {
             </div>
           </div>
         </div>
-        <div class="w-full flex justify-center mb-20px">
+        <div class="w-full flex justify-center mb-20px page-wrap">
           <el-pagination
             small
             background

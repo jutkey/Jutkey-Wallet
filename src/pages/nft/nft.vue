@@ -273,6 +273,17 @@ const browser = handleBlockexplorer();
                 </a>
               </template>
             </el-table-column>
+            <el-table-column :label="$t('node.hash')" show-overflow-tooltip>
+              <template #default="scope">
+                <a
+                  :href="`${browser}/blockchain/hash/${scope.row.token_hash}`"
+                  target="_blank"
+                  class="hover:text-blue"
+                >
+                  {{ scope.row.txhash }}
+                </a>
+              </template>
+            </el-table-column>
             <el-table-column :label="$t('nft.profit')" show-overflow-tooltip>
               <template #default="scope">
                 <span>{{ util.formatFixed(scope.row.amount) }}</span>

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref, reactive, inject, provide, markRaw } from 'vue';
 import { ElMessageBox, ElMessage } from 'element-plus';
-import { Delete } from '@element-plus/icons-vue';
+import { Delete, ArrowDown } from '@element-plus/icons-vue';
 import i18n, { handleI18n } from '@/plugins/i18n';
 import SignLogin from '@/components/login/SignLogin.vue';
 import DialogLogin from '@/components/login/DialogLogin.vue';
@@ -12,7 +12,8 @@ import BackupWords from '@/components/login/BackupWords.vue';
 import AddNetwork from '@/components/login/AddNetwork.vue';
 import defaultUrl from '@/plugins/url/defaultUrl';
 import util from '@/plugins/util';
-import { networkLogin, arrNetwork, axiosType } from '@/plugins/dataType';
+import { networkLogin, arrNetwork } from '@/plugins/dataType';
+import axios from '@/plugins/http';
 
 const createType = ref('create');
 const createStep = ref(0);
@@ -43,7 +44,8 @@ const networkList: arrNetwork = reactive({
 
 // const networks = reactive();
 const objLang = inject('objLang') as langArray;
-const axios = inject('axios') as axiosType;
+
+console.log(axios);
 /* const handleGetuid = async () => {
   const res = await axios.get('/getuid', {}, 'nodeserver');
   console.log(res);
@@ -242,28 +244,40 @@ const handleDeteleInner = (obj: networkLogin) => {
 <template>
   <div class="flex h-full bg-white text-base">
     <div
-      class="flex flex-wrap content-between w-1/3 bg-no-repeat bg-center bg-black text-white pt-5% px-5% pb-3%"
+      class="flex flex-wrap content-between w-2/5 bg-no-repeat bg-center bg-black text-white pt-5% px-5% pb-3%"
     >
       <div class="w-full">
-        <h1 class="text-white leading-tight mb-5 font-bebas login-h1">
-          A NEW GENERATION OF DECENTRALIZED MULTI-CHAIN WALLETS
+        <h1
+          class="text-white leading-tight mb-5 font-bebas login-h1 uppercase md:text-3xl lg:text-5xl xl:text-5xl 2xl:text-6xl"
+        >
+          A Multi-Chain Wallet That NEVER STORES Your Private Keys
         </h1>
-        <p class="italic">
+        <p
+          class="italic text-base md:text-lg lg:text-2xl xl:text-2xl 2xl:text-3xl"
+        >
           More than that, it's an asset management tool for IBAX Network
         </p>
       </div>
       <div class="flex justify-center items-center w-full">
         <div class="text-center">
-          <img src="@/assets/image/logo-128.png" alt="logo" />
-          <p class="mt-5 text-4xl login-h1 font-bebas">JUTKEY</p>
+          <img
+            src="@/assets/image/logo-128.png"
+            alt="logo"
+            class="w-24 md:w-24 lg:w-28 xl:w-32 2xl:w-36"
+          />
+          <p
+            class="mt-5 text-2xl login-h1 font-bebas md:text-2xl lg:text-2xl xl:text-3xl 2xl:text-4xl"
+          >
+            JUTKEY
+          </p>
         </div>
       </div>
-      <p class="w-full">
+      <p class="w-full md:text-lg lg:text-xl xl:text-2xl 2xl:text-2xl">
         By tapping "Login" or "Generate a new wallet" you consentand agree to
         ourTerms and Conditions and Privacy Policy.
       </p>
     </div>
-    <div class="w-2/3 flex flex-wrap content-between">
+    <div class="w-3/5 flex flex-wrap content-between">
       <div class="flex mt-3 items-center w-full">
         <div v-show="createStep > 0" class="ml-20px">
           <el-page-header
@@ -342,7 +356,7 @@ const handleDeteleInner = (obj: networkLogin) => {
           ></create-account>
         </template>
       </div>
-      <div class="w-full text-right pb-3% pr-3%">2022 @ JUTKEY TEAM</div>
+      <div class="w-full text-right pb-3% pr-3%">2022 © JUTKEY TEAM</div>
     </div>
     <!-- Add network -->
     <dialog-login

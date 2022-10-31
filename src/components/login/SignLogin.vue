@@ -11,6 +11,7 @@ import store from '@/store';
 
 const current = util.getCache('words');
 console.log(current);
+const tabName = ref('words');
 const emit = defineEmits(['update:createStep', 'update']);
 const router = useRouter();
 console.log(router);
@@ -121,11 +122,21 @@ const handleConfirm = () => {
   isDialog.value = false;
   const { value } = importForm;
   if (value) {
-    const boo = keyring.verifyWords(value);
-    console.log(value);
-    console.log(boo);
-    if (!boo) {
-      ElMessage.error(handleI18n('login.wrong'));
+    if (tabName.value === 'words') {
+      const boo = keyring.verifyWords(value);
+      console.log(value);
+      console.log(boo);
+      if (!boo) {
+        ElMessage.error(handleI18n('login.wrong'));
+      } else {
+        emit('update', 4);
+        ElMessage({
+          showClose: true,
+          message: handleI18n('login.wordSuccess'),
+          type: 'success'
+        });
+        store.dispatch('handleActWords', value);
+      }
     } else {
       emit('update', 4);
       ElMessage({
@@ -143,6 +154,9 @@ const handleConfirm = () => {
 const handleTabsImport = (tab: TabsPaneContext) => {
   const { name } = tab.props;
   console.log(name);
+  if (name) {
+    tabName.value = name as string;
+  }
   handleReset();
 };
 
@@ -170,7 +184,9 @@ const watchInputWords = (index: number) => {
 };
 </script>
 <template>
-  <h1 class="text-title leading-normal mb-3 font-publico italic text-3xl">
+  <h1
+    class="text-title leading-normal mb-3 font-publico italic md:text-xl lg:text-2xl xl:text-2xl 2xl:text-3xl"
+  >
     {{ $t('login.welcome') }}
   </h1>
   <div class="flex w-full items-center">

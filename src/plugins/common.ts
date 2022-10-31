@@ -165,6 +165,15 @@ export const handleEventNumber = (num: number) => {
     case 22:
       eventName = 'user.withdrawal';
       break;
+    case 23:
+      eventName = 'user.textcoin';
+      break;
+    case 25:
+      eventName = 'user.privateye';
+      break;
+    case 26:
+      eventName = 'user.offering';
+      break;
     default:
       eventName = 'user.package';
       break;

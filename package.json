@@ -1,7 +1,7 @@
 {
   "name": "jutkey-wallet",
   "private": true,
-  "version": "0.0.8",
+  "version": "0.0.9",
   "type": "module",
   "scripts": {
     "dev": "vite --open --mode dev",
@@ -10,7 +10,8 @@
     "build": "vue-tsc --noEmit && vite build --mode prod",
     "build:test": "vue-tsc --noEmit && vite build --mode prod",
     "tauri": "tauri",
-    "update": "node scripts/update.mjs"
+    "update": "node scripts/update.mjs",
+    "preview": "vite preview"
   },
   "dependencies": {
     "@element-plus/icons-vue": "^2.0.9",
@@ -72,6 +73,7 @@
     "vite-plugin-eslint": "^1.8.1",
     "vite-plugin-optimize-persist": "^0.1.2",
     "vite-plugin-package-config": "^0.1.1",
+    "vite-plugin-remove-console": "^1.1.0",
     "vue-tsc": "^0.40.13"
   }
 }

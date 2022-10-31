@@ -2,7 +2,6 @@
 import { ref, computed, reactive } from 'vue';
 import type { FormInstance } from 'element-plus';
 import { handleI18n } from '@/plugins/i18n';
-// eslint-disable-next-line no-unused-vars
 import util from '@/plugins/util';
 import { networkLogin } from '@/plugins/dataType';
 
@@ -135,6 +134,7 @@ const handleSubmitInner = async (formEl: FormInstance | undefined) => {
   await formEl.validate((valid, fields) => {
     if (valid) {
       const { name, ip } = networkForm;
+      console.log(name, ip);
       emit('add', { name, ip });
       formEl.resetFields();
     } else {
@@ -228,7 +228,7 @@ const handleRestInner = (formEl: FormInstance | undefined) => {
           {{ $t('login.confirm') }}
         </el-button>
         <el-button
-          class="text-center text-sm rounded text-blue border border-btn mx-3 hover: bg-btn hover:text-white hover:border-btn focus: bg-btn focus:border-btn"
+          class="text-center text-sm rounded text-blue border border-btn mx-3 hover:bg-btn hover:text-white hover:border-btn focus:bg-btn focus:border-btn"
           @click="handleDialogCancel"
         >
           {{ $t('login.cancel') }}

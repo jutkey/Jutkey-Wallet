@@ -5,6 +5,8 @@ import AutoImport from 'unplugin-auto-import/vite';
 import Components from 'unplugin-vue-components/vite';
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers';
 import fs from 'fs';
+import removeConsole from 'vite-plugin-remove-console';
+
 // import OptimizationPersist from 'vite-plugin-optimize-persist';
 // import PkgConfig from 'vite-plugin-package-config';
 // console.log(PkgConfig);
@@ -51,7 +53,8 @@ export default ({ mode, command }) => {
       }),
       Components({
         resolvers: [ElementPlusResolver()]
-      })
+      }),
+      removeConsole()
     ],
     resolve: {
       alias

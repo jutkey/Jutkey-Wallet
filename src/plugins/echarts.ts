@@ -12,7 +12,7 @@ echarts.use([
   UniversalTransition,
   TooltipComponent
 ]);
-const theme: string = window.localStorage.getItem('theme')! || 'light';
+const theme: string = window.localStorage.getItem('theme')! || 'dark';
 class Chart {
   private theme = theme;
 
@@ -35,13 +35,13 @@ class Chart {
   }
 
   private themeValue() {
-    this.theme = window.localStorage.getItem('theme')! || 'light';
+    this.theme = window.localStorage.getItem('theme')! || 'dark';
     console.log(this.theme);
-    return this.theme === 'light' ? '#4a5373' : 'rgba(255, 255, 255, 0.9)';
+    return this.theme === 'light' ? '#4a5373' : '#a0a0a0';
   }
 
   private themeyAxis() {
-    this.theme = window.localStorage.getItem('theme')! || 'light';
+    this.theme = window.localStorage.getItem('theme')! || 'dark';
     return this.theme === 'light' ? '#eaedf7' : '#646464';
   }
 

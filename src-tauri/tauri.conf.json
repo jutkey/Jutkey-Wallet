@@ -8,7 +8,7 @@
   },
   "package": {
     "productName": "Jutkey Wallet",
-    "version": "0.0.8"
+    "version": "0.0.9"
   },
   "tauri": {
     "allowlist": {
@@ -61,25 +61,24 @@
     "windows": [
       {
         "fullscreen": false,
-        "height": 600,
-        "resizable": true,
-        "title": "Jutkey Wallet",
         "width": 1200,
-        "center": true,
+        "height": 600,
         "minWidth": 1200,
         "minHeight": 600,
+        "resizable": true,
+        "title": "Jutkey Wallet",
+        "center": true,
         "decorations": true,
         "visible": false
       },
       {
         "fullscreen": false,
-        "height": 600,
-        "resizable": true,
-        "title": "Jutkey Wallet",
         "width": 1200,
-        "center": true,
+        "height": 600,
         "minWidth": 1200,
         "minHeight": 600,
+        "resizable": true,
+        "title": "Jutkey Wallet",
         "decorations": false,
         "url": "/splashscreen.html",
         "label": "splashscreen"

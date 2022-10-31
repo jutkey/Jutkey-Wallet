@@ -8,14 +8,11 @@ import ja from 'element-plus/es/locale/lang/ja';
 import es from 'element-plus/es/locale/lang/es';
 import tr from 'element-plus/es/locale/lang/tr';
 import { invoke } from '@tauri-apps/api/tauri';
-import PublicHeader from '@/components/PublicHeader.vue';
-import SideNav from '@/components/SideNav.vue';
 import UpdateApp from '@/components/UpdateApp.vue';
 
 const route = useRoute();
 console.log(route.name);
 const isLogin = ref(true);
-const isRouterAlive = ref(true);
 isLogin.value = route.path === '/login';
 watch(
   () => route.path,
@@ -99,36 +96,12 @@ document.addEventListener('DOMContentLoaded', () => {
       v-if="isLoad"
       class="h-screen font-pingFang-medium bg-basic text-secnod"
     >
-      <template v-if="isLogin">
-        <!-- login page content -->
-        <router-view />
-      </template>
-      <el-container v-else>
-        <!-- left nav -->
-        <el-aside width="auto" class="bg-basic-box">
-          <side-nav></side-nav>
-        </el-aside>
-        <el-container>
-          <!-- header -->
-          <el-header class="bg-basic-box h-header">
-            <public-header></public-header>
-          </el-header>
-          <el-main>
-            <!-- all page content -->
-            <el-scrollbar style="height: 100%">
-              <div class="app-view">
-                <router-view v-if="isRouterAlive" v-slot="{ Component }">
-                  <transition name="fade">
-                    <component :is="Component" />
-                  </transition>
-                </router-view>
-              </div>
-            </el-scrollbar>
-          </el-main>
-        </el-container>
-      </el-container>
-      <!-- update  verison -->
-      <!--  <dialog-updater ref="updater" :isCheck="isCheck"></dialog-updater> -->
+      <!-- login page content -->
+      <router-view v-slot="{ Component }">
+        <transition name="fade">
+          <component :is="Component" />
+        </transition>
+      </router-view>
       <update-app></update-app>
     </div>
   </el-config-provider>

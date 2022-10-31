@@ -1,6 +1,14 @@
 <script setup lang="ts">
 // eslint-disable-next-line no-unused-vars
-import { ref, reactive, computed, onBeforeUnmount, inject, unref } from 'vue';
+import {
+  ref,
+  reactive,
+  computed,
+  onBeforeUnmount,
+  inject,
+  unref,
+  onMounted
+} from 'vue';
 import { Fold, Expand, ArrowDown, ArrowUp } from '@element-plus/icons-vue';
 import { ClickOutside as vClickOutside } from 'element-plus';
 import store from '@/store';
@@ -15,6 +23,7 @@ const url = handleWalletserver();
 const avatar = ref('');
 const firstEco = reactive({ obj: {} }) as any;
 const current = util.getCache('current');
+const reload = inject('reload') as Function;
 const fisrtEcosystem = {
   wallet: current.account,
   page: 1,
@@ -92,15 +101,18 @@ const handletoggleCollapse = () => {
   isCollapse.value = !isCollapse.value;
   store.dispatch('handleActCollapse', !isCollapse.value);
 };
-const handleGetTime = () => {
-  const date = new Date();
-  objDate.data = handleUpdateTime(date);
-  timer = setTimeout(() => {
-    handleGetTime();
-  }, 1000);
-  //  console.log(timer);
-};
-handleGetTime();
+onMounted(() => {
+  const handleGetTime = () => {
+    const date = new Date();
+    objDate.data = handleUpdateTime(date);
+    timer = setTimeout(() => {
+      handleGetTime();
+    }, 1000); //
+    // console.log(timer);
+  };
+  handleGetTime();
+});
+
 onBeforeUnmount(() => {
   clearTimeout(timer);
 });
@@ -127,6 +139,7 @@ const handleChangeTheme = (str: string) => {
       document.documentElement.classList.remove('dark');
     }
     localStorage.setItem('theme', str);
+    reload();
   }
 };
 const handleLangShow = (val: string) => {

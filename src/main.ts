@@ -4,7 +4,6 @@ import {
   CaretBottom,
   CaretTop,
   Search,
-  ArrowDown,
   CirclePlusFilled
 } from '@element-plus/icons-vue';
 import VueAxios from 'vue-axios';
@@ -46,5 +45,4 @@ app.provide('axios', axios); // provide 'axios2'
 app.component('CaretBottom', CaretBottom);
 app.component('CaretTop', CaretTop);
 app.component('Search', Search);
-app.component('ArrowDown', ArrowDown);
 app.component('CirclePlusFilled', CirclePlusFilled);

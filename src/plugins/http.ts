@@ -93,7 +93,7 @@ const http = {
    * @param url request address
    * @param params request params
    */
-  get(url: string, params: any, type: string) {
+  get(url: string, params?: any, type?: string) {
     params = {
       _t: Date.parse(String(new Date())) / 1000,
       ...params
@@ -109,7 +109,7 @@ const http = {
     }
     return service(config);
   },
-  post(url: string, params: any, type: string) {
+  post(url: string, params?: any, type?: string) {
     const config: any = {
       method: 'post',
       url,

@@ -137,9 +137,9 @@ const handleSelectChange = (props: number) => {
           >
             <template #title>
               <div class="w-full flex items-center justify-between text-secnod">
-                <div class="w-1/5">{{ item.month }}</div>
+                <div class="w-1/5 text-xs">{{ item.month }}</div>
                 <div class="w-2/5 truncate">
-                  <span>{{ $t('home.income') }}:</span>
+                  <span class="mr-1 text-xs">{{ $t('home.income') }}:</span>
                   <el-tooltip
                     effect="dark"
                     :content="`${util.formatFixed(
@@ -147,12 +147,14 @@ const handleSelectChange = (props: number) => {
                     )} ${tokenSymbol}`"
                     placement="bottom"
                   >
-                    <span>{{ util.formatFixed(item.inAmount) }}</span>
+                    <span class="text-xs">
+                      {{ util.formatFixed(item.inAmount) }}
+                    </span>
                   </el-tooltip>
                   <span class="ml-1 text-xs">{{ tokenSymbol }}</span>
                 </div>
                 <div class="w-2/5 truncate">
-                  <span>{{ $t('home.expend') }}:</span>
+                  <span class="mr-1 text-xs">{{ $t('home.expend') }}:</span>
                   <el-tooltip
                     effect="dark"
                     :content="`${util.formatFixed(
@@ -160,7 +162,9 @@ const handleSelectChange = (props: number) => {
                     )} ${tokenSymbol}`"
                     placement="bottom"
                   >
-                    <span>{{ util.formatFixed(item.outAmount) }}</span>
+                    <span class="text-xs">
+                      {{ util.formatFixed(item.outAmount) }}
+                    </span>
                   </el-tooltip>
                   <span class="ml-1 text-xs">{{ tokenSymbol }}</span>
                 </div>
@@ -181,7 +185,7 @@ const handleSelectChange = (props: number) => {
                   </el-table-column>
                   <el-table-column :label="$t('home.do')" show-overflow-tooltip>
                     <template #default="scope">
-                      <span>
+                      <span class="text-xs">
                         {{ util.formatFixed(scope.row.amount) }}
                       </span>
                       <span class="ml-1 text-xs">
@@ -194,7 +198,7 @@ const handleSelectChange = (props: number) => {
                     show-overflow-tooltip
                   >
                     <template #default="scope">
-                      <span>
+                      <span class="text-xs">
                         {{ util.formatFixed(scope.row.balance) }}
                       </span>
                       <span class="ml-1 text-xs">

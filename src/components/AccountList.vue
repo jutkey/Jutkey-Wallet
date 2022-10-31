@@ -376,6 +376,15 @@ const handleUploadRequest = () => {};
             <el-icon><Delete /></el-icon>
           </div>
         </template>
+        <template v-else>
+          <div
+            v-if="item.index !== 0"
+            class="ml-auto"
+            @click.stop="handleDeteleAccount(item)"
+          >
+            <div class="w-3"></div>
+          </div>
+        </template>
       </div>
     </div>
   </el-scrollbar>

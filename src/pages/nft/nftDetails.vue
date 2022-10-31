@@ -385,6 +385,17 @@ const browser = handleBlockexplorer();
             style="width: 100%"
             :show-header="false"
           >
+            <el-table-column show-overflow-tooltip>
+              <template #default="scope">
+                <a
+                  :href="`${browser}/blockchain/hash/${scope.row.token_hash}`"
+                  target="_blank"
+                  class="hover:text-blue"
+                >
+                  {{ scope.row.txhash }}
+                </a>
+              </template>
+            </el-table-column>
             <el-table-column :label="$t('nft.balance')">
               <template #default="scope">
                 <span>{{ util.formatFixed(scope.row.ins) }}</span>

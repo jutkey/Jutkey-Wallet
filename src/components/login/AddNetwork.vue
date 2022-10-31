@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import { toRefs } from 'vue';
+import { CirclePlusFilled } from '@element-plus/icons-vue';
 
 const emit = defineEmits(['close', 'open', 'detele', 'connact']);
 const props = defineProps({

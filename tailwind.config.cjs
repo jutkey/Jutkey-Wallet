@@ -133,6 +133,7 @@ module.exports = {
           '--bg-base-box': '#fff',
           '--bg-side': '#e1e8fb',
           '--bg-home': '#EEF2FF',
+          '--bg-btn-hover': '#409eff',
           '--bg-home-header':
             'linear-gradient(270deg, #EEF2FF 0%, #FFFFFF 100%)',
           '--border-base': '#eaedf7',
@@ -148,11 +149,12 @@ module.exports = {
             '0 0 0 1px var(--el-input-border-color,var(--el-border-color)) inset'
         },
         '.dark': {
-          '--bg-active': '#003380',
+          '--bg-active': '#102D23',
           '--bg-base': '#111111',
-          '--bg-side': '#003380',
+          '--bg-side': '#102D23',
           '--bg-base-box': '#1C1C1C',
           '--bg-home': '#1C1C1C',
+          '--bg-btn-hover': '#00ffa6',
           '--border-base': '#646464',
           '--bg-home-header': '#1C1C1C',
           '--color-text-first': '#f6f6f6',
@@ -163,7 +165,7 @@ module.exports = {
           '--color-text-tinge': 'rgba(255, 255, 255, 0.7)',
           '--color-text-muted-hover': theme('colors.gray.200'),
           '--bg-assets': "url('/src/assets/image/user-dark.png')",
-          '--bg-shadow': '0 0 0 1px #646464 inset',
+          '--bg-shadow': '0 0 0 1px #102D23 inset',
           '--bg-shadow-focus': '0 0 0 1px #022E22 inset'
         }
       });
