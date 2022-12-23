@@ -5,7 +5,6 @@ import { ElMessage } from 'element-plus';
 import { handleI18n } from 'plugins/i18n';
 import { useRouter } from 'vue-router';
 import util from '@/plugins/util';
-import DialogLogin from './DialogLogin.vue';
 import keyring from '@/plugins/keyring';
 import store from '@/store';
 
@@ -27,7 +26,6 @@ const loginFormRef = ref<FormInstance>();
 const isPassword = ref(true);
 const logining = ref(false);
 const isDialog = ref(false);
-const isFooter = ref(true);
 const importName = ref('words');
 const width = ref('40%');
 const loginData = reactive({
@@ -119,7 +117,7 @@ const handleCancel = () => {
 };
 // liberty human aunt mix shed rabbit wait desert health rather athlete kind
 const handleConfirm = () => {
-  isDialog.value = false;
+  // isDialog.value = false;
   const { value } = importForm;
   if (value) {
     if (tabName.value === 'words') {
@@ -136,6 +134,7 @@ const handleConfirm = () => {
           type: 'success'
         });
         store.dispatch('handleActWords', value);
+        isDialog.value = false;
       }
     } else {
       emit('update', 4);
@@ -145,6 +144,7 @@ const handleConfirm = () => {
         type: 'success'
       });
       store.dispatch('handleActWords', value);
+      isDialog.value = false;
     }
   } else {
     ElMessage.error(handleI18n('login.errorempty'));
@@ -185,73 +185,88 @@ const watchInputWords = (index: number) => {
 </script>
 <template>
   <h1
-    class="text-title leading-normal mb-3 font-publico italic md:text-xl lg:text-2xl xl:text-2xl 2xl:text-3xl"
+    class="text-title leading-normal mb-10 font-publico italic text-right md:text-xs lg:text-xl xl:text-2xl 2xl:text-2xl"
   >
     {{ $t('login.welcome') }}
   </h1>
-  <div class="flex w-full items-center">
-    <div class="w-10 mr-3 mt-2">
-      <img src="@/assets/image/fingerprint.png" alt="" />
+  <div class="flex w-full justify-between">
+    <div></div>
+    <div class="w-10/12">
+      <div class="flex w-full items-center">
+        <div class="w-10 mr-3 mt-2">
+          <img src="@/assets/image/fingerprint.png" alt="" />
+        </div>
+        <div class="flex-1">
+          <!-- <h3 class="text-title leading-normal mb-2">{{ $t('login.lead') }}</h3> -->
+          <el-form
+            ref="loginFormRef"
+            :model="loginData"
+            :rules="loginRules"
+            label-width="100px"
+            class="wallet-form"
+            label-position="top"
+            @submit.prevent
+          >
+            <el-form-item prop="password" class="mb-5">
+              <template #label>
+                <span class="text-tinge">{{ $t('login.signPassword') }}</span>
+              </template>
+              <el-input
+                ref="securitydiscword"
+                v-model="loginData.password"
+                class="placeholder-place"
+                type="password"
+                :show-password="isPassword"
+                autocomplete="off"
+                clearable
+              />
+            </el-form-item>
+          </el-form>
+        </div>
+      </div>
+      <div class="w-full text-right">
+        <el-button
+          type="primary"
+          :disabled="logining"
+          class="h-10 bg-black text-white border-none uppercase w-1/4 rounded-3xl"
+          @click="handleLoginSubmit(loginFormRef)"
+        >
+          <span class="text-xl" style="font-size: 18px">
+            {{ logining ? $t('logging') : $t('login.sign') }}
+          </span>
+        </el-button>
+      </div>
+      <div class="text-right mt-3">
+        <a
+          class="text-black uppercase block mb-3"
+          href="javascript:;"
+          style="font-size: 18px"
+        >
+          <span @click="handleCreate">{{ $t('login.build') }}</span>
+        </a>
+        <a
+          class="text-black uppercase block"
+          href="javascript:;"
+          style="font-size: 18px"
+        >
+          <span @click="handleImport">{{ $t('login.import') }}</span>
+        </a>
+      </div>
     </div>
-    <div class="flex-1">
-      <!-- <h3 class="text-title leading-normal mb-2">{{ $t('login.lead') }}</h3> -->
-      <el-form
-        ref="loginFormRef"
-        :model="loginData"
-        status-icon
-        :rules="loginRules"
-        label-width="100px"
-        class="wallet-form"
-        label-position="top"
-        @submit.prevent
-      >
-        <el-form-item prop="password" class="mb-5">
-          <template #label>
-            <span class="text-tinge">{{ $t('login.signPassword') }}</span>
-          </template>
-          <el-input
-            ref="securitydiscword"
-            v-model="loginData.password"
-            class="placeholder-place"
-            type="password"
-            :show-password="isPassword"
-            autocomplete="off"
-            :placeholder="$t('login.inputPassword')"
-            clearable
-          />
-        </el-form-item>
-      </el-form>
-    </div>
   </div>
-  <div class="w-full text-right">
-    <el-button
-      type="primary"
-      :disabled="logining"
-      class="h-10 bg-black text-white border-none uppercase w-1/4 rounded-3xl"
-      @click="handleLoginSubmit(loginFormRef)"
-    >
-      <span class="text-xl">
-        {{ logining ? $t('logging') : $t('login.sign') }}
-      </span>
-    </el-button>
-  </div>
-  <div class="text-right mt-3">
-    <a class="text-black uppercase block mb-3" href="javascript:;">
-      <span @click="handleCreate">{{ $t('login.build') }}</span>
-    </a>
-    <a class="text-black uppercase block" href="javascript:;">
-      <span @click="handleImport">{{ $t('login.import') }}</span>
-    </a>
-  </div>
-  <dialog-login
-    :title="$t('login.impwall')"
-    :is-dialog="isDialog"
-    :is-footer="isFooter"
+  <el-dialog
+    v-model="isDialog"
+    :close-on-click-modal="false"
+    :close-on-press-escape="false"
     :width="width"
-    @close="handleClose"
-    @cancel="handleCancel"
-    @confirm="handleConfirm"
+    destroy-on-close
+    center
+    :append-to-body="true"
+    :before-close="handleClose"
   >
+    <template #header>
+      <h3 class="font-semibold text-base">{{ $t('login.impwall') }}</h3>
+    </template>
     <template #default>
       <div class="login-tabs">
         <el-tabs v-model="importName" @tab-click="handleTabsImport">
@@ -283,5 +298,22 @@ const watchInputWords = (index: number) => {
         </el-tabs>
       </div>
     </template>
-  </dialog-login>
+    <template #footer>
+      <span class="dialog-footer">
+        <el-button
+          class="text-center text-sm rounded border border-btn mx-3 hover:bg-btn hover:text-white hover:border-btn focus:bg-btn focus:border-btn"
+          @click="handleCancel"
+        >
+          {{ $t('login.back') }}
+        </el-button>
+        <el-button
+          type="primary"
+          class="text-center text-sm rounded bg-btn text-white border-btn mx-3"
+          @click="handleConfirm"
+        >
+          {{ $t('login.next') }}
+        </el-button>
+      </span>
+    </template>
+  </el-dialog>
 </template>

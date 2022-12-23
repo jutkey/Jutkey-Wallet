@@ -1,6 +1,5 @@
 <script setup lang="ts">
-// eslint-disable-next-line no-unused-vars
-import { ref, reactive, PropType, toRefs, toRaw } from 'vue';
+import { ref, toRefs } from 'vue';
 import {
   Check,
   Plus,
@@ -15,7 +14,7 @@ import util from '@/plugins/util';
 import DialogDefault from '@/components/DialogDefault.vue';
 import keyring from '@/plugins/keyring';
 import { handleI18n } from '@/plugins/i18n';
-import { handleEscapeHtml } from '@/plugins/common';
+import { handleEscapeHtml, handleRemoveCookies } from '@/plugins/common';
 import { currentType } from '@/plugins/dataType';
 
 const router = useRouter();
@@ -164,6 +163,7 @@ const handleImportWallet = (privateKey: string) => {
     onClose: () => {
       handleImportCancel();
       util.closeLoading();
+      importName.value = '';
     }
   });
 };
@@ -229,7 +229,7 @@ const handleImportConfirm = () => {
 
 const handleSignOut = () => {
   util.showLoading();
-  localStorage.removeItem('token');
+  handleRemoveCookies('token');
   const routerValue = router.replace('/login');
   routerValue
     .then(() => {
@@ -319,7 +319,15 @@ const handleTabsImport = (tab: TabsPaneContext) => {
 };
 const handleBeforeUpload = (file: File) => {
   console.log(file);
+  const format = file.name.substring(file.name.lastIndexOf('.') + 1);
+  console.log(format);
   const reader = new FileReader();
+  if (format !== 'json') {
+    return ElMessage({
+      message: handleI18n('user.json'),
+      type: 'error'
+    });
+  }
   reader.onload = () => {
     try {
       if (typeof reader.result === 'string') {
@@ -480,7 +488,7 @@ const handleUploadRequest = () => {};
               <el-upload
                 drag
                 action="#"
-                :http-request="(handleUploadRequest as any)"
+                :http-request="handleUploadRequest"
                 :show-file-list="false"
                 :before-upload="handleBeforeUpload"
               >

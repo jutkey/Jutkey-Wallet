@@ -2,12 +2,7 @@
 import { reactive, watch, toRefs, inject } from 'vue';
 import { ElMessage } from 'element-plus';
 import { handleI18n } from 'plugins/i18n';
-import {
-  balanceData,
-  axiosType,
-  balanceParams,
-  transferParams
-} from '@/plugins/dataType';
+import { balanceData, axiosType, transferParams } from '@/plugins/dataType';
 import transfer from '@/plugins/lib';
 import util from '@/plugins/util';
 
@@ -32,10 +27,9 @@ console.log(ecoInfo.value);
 const { account } = ecoInfo.value;
 
 const bParams = {
-  wallet: account,
   ecosystem: ecoId.value
 };
-const handleGetBalance = async (params: balanceParams) => {
+const handleGetBalance = async (params: any) => {
   const res = await axios.get(`/balance/${account}`, params);
   console.log(res);
   balance.data = res;
@@ -115,7 +109,7 @@ watch(
     <div class="flex items-center justify-around mb-3">
       <el-button
         type="primary"
-        class="text-center text-sm rounded bg-btn text-white border-blue mx-3"
+        class="text-center text-sm rounded bg-btn text-white border-btn mx-3"
         @click="handleInto('utxo')"
       >
         {{ $t('user.intoutxo') }}

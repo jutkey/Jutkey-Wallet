@@ -7,6 +7,7 @@ import { axiosType, honorOther, getListResponse } from '@/plugins/dataType';
 import { handleSecond, handleSecondUTC } from '@/plugins/day';
 import contract from '@/plugins/lib';
 import { handleI18n } from '@/plugins/i18n';
+import { handleBlockexplorer } from '@/plugins/common';
 
 const axios = inject('axios') as axiosType;
 const route = useRoute();
@@ -86,24 +87,25 @@ const handleRevoke = () => {
     });
   });
 };
+const bowser = handleBlockexplorer();
 </script>
 <template>
   <div class="w-full">
-    <h3 class="mb-3 flex justify-between">
+    <div class="mb-3 flex justify-between font-semibold">
       <span>{{ $t('node.voteRecord') }}</span>
-      <router-link :to="`/honor/${honorId}`">
+      <span @click="router.go(-1)">
         <i class="iconfont el-ui-back pr-20px text-2xl cursor-pointer"></i>
-      </router-link>
-    </h3>
+      </span>
+    </div>
     <div class="w-full flex bg-basic-box p-20px rounded mb-20px">
       <div class="">
         <div class="mb-2">
           <span>{{ $t('node.total') }}:</span>
-          <span>{{ util.format(vote.data.totalVote) }}</span>
+          <span class="ml-1">{{ util.format(vote.data.totalVote) }}</span>
         </div>
         <div>
           <span>{{ $t('node.lock') }}:</span>
-          <span>{{ util.formatFixed(vote.data.staking) }}</span>
+          <span class="ml-1">{{ util.formatFixed(vote.data.staking) }}</span>
           <span class="ml-1 text-xs">{{ $t('page.symbol') }}</span>
         </div>
       </div>
@@ -124,7 +126,7 @@ const handleRevoke = () => {
             <el-table-column :label="$t('node.hash')" show-overflow-tooltip>
               <template #default="scope">
                 <a
-                  :href="scope.row.hash"
+                  :href="`${bowser}/blockchain/hash/${scope.row.hash}`"
                   target="_blank"
                   class="inline-black hover:text-blue"
                 >
@@ -146,7 +148,7 @@ const handleRevoke = () => {
             </el-table-column>
             <el-table-column :label="$t('node.num')" show-overflow-tooltip>
               <template #default="scope">
-                <span>{{ scope.row.vote }}</span>
+                <span>{{ util.format(scope.row.vote) }}</span>
               </template>
             </el-table-column>
             <el-table-column

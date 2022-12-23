@@ -10,7 +10,7 @@ export interface API {
 const route = useRoute();
 const router = useRouter();
 const arrOpeneds: string[] = [];
-const arrRouter = reactive(handleRouter());
+const arrRouter: any = reactive(handleRouter());
 console.log(router);
 const pathActive = ref('/');
 const handleOpen = (key: string, keyPath: string[]) => {
@@ -31,6 +31,7 @@ watch(
       case 'Assets':
       case 'Record':
       case 'Transfer':
+      case 'AssetsAirdrop':
         pathActive.value = '/assets';
         break;
       case 'Ethereum':
@@ -140,6 +141,16 @@ const theme = computed(() => {
             <i :class="item.icon" class="text-icon text-secnod"></i>
             <span class="ml-3 text-secnod">{{ $t(item.title) }}</span>
           </el-menu-item>
+          <a
+            v-else
+            :key="item.link"
+            :href="item.link"
+            target="_blank"
+            class="el-menu-item"
+          >
+            <i :class="item.icon" class="text-icon text-secnod"></i>
+            <span class="ml-3 text-secnod">{{ $t(item.title) }}</span>
+          </a>
         </template>
       </template>
     </el-menu>

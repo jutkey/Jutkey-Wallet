@@ -80,7 +80,7 @@ const handleCreateSubmit = (formEl: FormInstance | undefined) => {
       util.removeCache('accountWords');
       util.removeCache('accountImport');
       util.removeCache('hasher');
-      localStorage.removeItem('token'); */
+       */
       emit('update', 0);
     } else {
       // emit('update', 2);
@@ -101,14 +101,13 @@ const handleUserWords = (num: number) => {
     ref="createFormRef"
     :model="createData"
     label-position="top"
-    status-icon
     :rules="createRules"
     label-width="100px"
     class="wallet-form"
   >
     <!-- <el-form-item prop="account" class="mb-5">
       <template #label>
-        <span class="text-tinge">{{ $t('login.nickname') }}</span>
+        <span class="text-tinge">{{ $t('login.iName') }}</span>
       </template>
       <el-input
         ref="securitydiscword"
@@ -163,7 +162,10 @@ const handleUserWords = (num: number) => {
     </el-form-item> -->
     <el-form-item>
       <div class="w-full flex justify-between py-20px">
-        <el-button class="w-1/3 h-10 text-base" @click="handleUserWords(0)">
+        <el-button
+          class="w-1/3 h-10 text-center text-sm rounded border border-btn hover:bg-btn hover:text-white hover:border-btn focus:bg-btn focus:border-btn"
+          @click="handleUserWords(0)"
+        >
           {{ $t('login.cancel') }}
         </el-button>
         <el-button
@@ -171,7 +173,7 @@ const handleUserWords = (num: number) => {
           class="w-1/3 h-10 bg-btn text-white border-btn"
           @click="handleCreateSubmit(createFormRef)"
         >
-          {{ $t('login.confirm') }}
+          {{ $t('login.affirm') }}
         </el-button>
       </div>
     </el-form-item>

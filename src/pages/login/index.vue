@@ -13,7 +13,7 @@ import AddNetwork from '@/components/login/AddNetwork.vue';
 import defaultUrl from '@/plugins/url/defaultUrl';
 import util from '@/plugins/util';
 import { networkLogin, arrNetwork } from '@/plugins/dataType';
-import axios from '@/plugins/http';
+import axios from '@/plugins/http/node';
 
 const createType = ref('create');
 const createStep = ref(0);
@@ -46,17 +46,11 @@ const networkList: arrNetwork = reactive({
 const objLang = inject('objLang') as langArray;
 
 console.log(axios);
-/* const handleGetuid = async () => {
-  const res = await axios.get('/getuid', {}, 'nodeserver');
-  console.log(res);
-};
-handleGetuid(); */
-const i = 0;
-const handleTestNetwork = async (i: number) => {
-  if (i <= networkList.list.length - 1) {
+
+const handleTest = async (item: any, i: number) => {
+  try {
     const startTime = new Date().getTime();
-    const res = await axios.get(`${networkList.list[i].ip}/api/v2/getuid`);
-    console.log(res);
+    const res = await axios.get(`${item.ip}/api/v2/getuid`);
     const endTime = new Date().getTime();
     if (res.token) {
       networkList.list[i].onLine = true;
@@ -70,10 +64,10 @@ const handleTestNetwork = async (i: number) => {
       networkList.list[i].networkId = 0;
     }
     if (networkList.list[i].onLine) {
-      console.log(util.getCache('networkIp'));
-      console.log(networkList.list[i].networkId);
+      //  console.log(util.getCache('networkIp'));
+      // console.log(networkList.list[i].networkId);
       const networkIp = util.getCache('networkIp');
-      console.log(networkIp);
+      // console.log(networkIp);
       if (networkIp) {
         if (networkIp.ip === networkList.list[i].ip) {
           networkList.list[i].status = true;
@@ -84,47 +78,31 @@ const handleTestNetwork = async (i: number) => {
       } else if (i === 0) {
         networkList.list[i].status = true;
         networks.status = true;
+        util.setCache('networkIp', networkList.list[i]);
       } else {
         networkList.list[i].status = false;
       }
     }
-    i += 1;
-    handleTestNetwork(i);
-  } else {
-    i = 0;
+  } catch (error) {
+    console.log(error);
+    networkList.list[i].onLine = false;
+    networkList.list[i].speed = `error`;
+    networkList.list[i].uid = '';
+    networkList.list[i].networkId = 0;
+  }
+  if (i === networkList.list.length - 1) {
     util.setCache('networks', util.handleReduce(networkList.list));
   }
-  /* list.forEach(async (item: networkLogin, index: number) => {
-    const startTime = new Date().getTime();
-    const res = await axios.get(`${item.ip}/api/v2/getuid`);
-    console.log(res);
-    const endTime = new Date().getTime();
-    if (res.token) {
-      item.onLine = true;
-      item.speed = `${endTime - startTime} ms`;
-      item.uid = res.uid;
-      item.networkId = Number(res.network_id);
-    } else {
-      item.onLine = false;
-      item.speed = `0 ms`;
-      item.uid = '';
-      item.networkId = 0;
-    }
-    if (item.onLine) {
-      if (util.getCache('networkUid') === item.uid) {
-        item.status = true;
-        networks.status = true;
-      } else if (index === 0) {
-        item.status = true;
-        networks.status = true;
-      }
-    }
-  });
-  networkList.list = util.handleReduce(list);
-  util.setCache('networks', util.handleReduce(networkList.list));
-  console.log(util.getCache('networks')); */
 };
-handleTestNetwork(i);
+const handleNetworkConnect = async () => {
+  for (let index = 0; index < networkList.list.length; index += 1) {
+    const item = networkList.list[index];
+    console.log(index);
+    handleTest(item, index);
+  }
+};
+handleNetworkConnect();
+
 // console.log(JSON.stringify(objLang));
 const handleBackstep = () => {
   if (createStep.value > 0) {
@@ -177,47 +155,61 @@ const handleCloseInner = () => {
 const handleAddNetwork = async (row: any) => {
   console.log(row.ip);
   const startTime = new Date().getTime();
-  const res = await axios.get(`${row.ip}/api/v2/getuid`);
-  if (res.token) {
-    console.log(res);
-    const endTime = new Date().getTime();
-    const list = util.getCache('networks');
-    console.log(list);
-    const id = list[list.length - 1].id + 1;
-    const obj = {
-      id,
-      name: row.name,
-      ip: row.ip,
-      uid: res.uid,
-      networkId: Number(res.network_id),
-      isAdd: true,
-      speed: `${endTime - startTime} ms`,
-      status: false,
-      onLine: true
-    };
-    list.push(obj);
-    networkList.list = util.handleReduce(list);
-    console.log(networkList.list);
-    util.setCache('networks', util.handleReduce(list));
-    networks.innerVisible = false;
-  } else {
+  util.showLoading();
+  try {
+    const res = await axios.get(`${row.ip}/api/v2/getuid`);
+    if (res.token) {
+      console.log(res);
+      const endTime = new Date().getTime();
+      const list = util.getCache('networks');
+      console.log(list);
+      const id = list[list.length - 1].id + 1;
+      const obj = {
+        id,
+        name: row.name,
+        ip: row.ip,
+        uid: res.uid,
+        networkId: Number(res.network_id),
+        isAdd: true,
+        speed: `${endTime - startTime} ms`,
+        status: false,
+        onLine: true
+      };
+      list.push(obj);
+      networkList.list = util.handleReduce(list);
+      console.log(networkList.list);
+      util.setCache('networks', util.handleReduce(list));
+      networks.innerVisible = false;
+    } else {
+      ElMessage.error(handleI18n('login.networkerror'));
+    }
+    util.closeLoading();
+  } catch (error) {
+    console.log(error);
     ElMessage.error(handleI18n('login.networkerror'));
+    util.closeLoading();
   }
 };
 const handleConnectInner = async (row: networkLogin) => {
   util.setCache('networkIp', row);
   console.log(row);
-  handleTestNetwork(0);
-  if (i >= networkList.list.length - 1) {
-    window.location.reload();
+  for (let index = 0; index < networkList.list.length; index += 1) {
+    const item = networkList.list[index];
+    item.status = false;
+    if (row.ip === item.ip) {
+      handleTest(row, index);
+      item.status = true;
+    }
   }
+  util.setCache('networks', util.handleReduce(networkList.list));
 };
 const handleDeteleInner = (obj: networkLogin) => {
   const currtentList = util.getCache('networks');
+  console.log(currtentList);
   if (currtentList && currtentList.length) {
     ElMessageBox.confirm(
-      'It will permanently delete the file. Continue?',
-      'Warning',
+      handleI18n('login.deleting'),
+      handleI18n('user.tips'),
       {
         type: 'warning',
         icon: markRaw(Delete),
@@ -225,7 +217,8 @@ const handleDeteleInner = (obj: networkLogin) => {
         cancelButtonText: handleI18n('login.cancel'),
         confirmButtonText: handleI18n('login.confirm'),
         confirmButtonClass: ' bg-btn text-white border-btn force',
-        cancelButtonClass: 'text-title hover:text-blue',
+        cancelButtonClass:
+          'text-title text-center text-sm rounded border border-btn mx-3 hover:bg-btn hover:text-white hover:border-btn focus:bg-btn focus:border-btn',
         center: true
       }
     )
@@ -234,8 +227,9 @@ const handleDeteleInner = (obj: networkLogin) => {
           return item.ip !== obj.ip;
         });
         networkList.list = util.handleReduce(list);
+        console.log(networkList.list);
         util.setCache('networks', util.handleReduce(networkList.list));
-        handleTestNetwork(0);
+        handleNetworkConnect();
       })
       .catch(() => {});
   }
@@ -248,14 +242,14 @@ const handleDeteleInner = (obj: networkLogin) => {
     >
       <div class="w-full">
         <h1
-          class="text-white leading-tight mb-5 font-bebas login-h1 uppercase md:text-3xl lg:text-5xl xl:text-5xl 2xl:text-6xl"
+          class="text-white leading-tight mb-5 font-bebas login-h1 uppercase md:text-2xl lg:text-3xl xl:text-4xl 2xl:text-5xl"
         >
-          A Multi-Chain Wallet That NEVER STORES Your Private Keys
+          {{ $t('login.keys') }}
         </h1>
         <p
-          class="italic text-base md:text-lg lg:text-2xl xl:text-2xl 2xl:text-3xl"
+          class="italic text-base md:text-lg lg:text-lg xl:text-lg 2xl:text-xl"
         >
-          More than that, it's an asset management tool for IBAX Network
+          {{ $t('login.more') }}
         </p>
       </div>
       <div class="flex justify-center items-center w-full">
@@ -266,15 +260,14 @@ const handleDeteleInner = (obj: networkLogin) => {
             class="w-24 md:w-24 lg:w-28 xl:w-32 2xl:w-36"
           />
           <p
-            class="mt-5 text-2xl login-h1 font-bebas md:text-2xl lg:text-2xl xl:text-3xl 2xl:text-4xl"
+            class="mt-2 text-2xl login-h1 font-bebas md:text-3xl lg:text-4xl xl:text-5xl 2xl:text-6xl"
           >
             JUTKEY
           </p>
         </div>
       </div>
-      <p class="w-full md:text-lg lg:text-xl xl:text-2xl 2xl:text-2xl">
-        By tapping "Login" or "Generate a new wallet" you consentand agree to
-        ourTerms and Conditions and Privacy Policy.
+      <p class="w-full text-sm">
+        {{ $t('login.by') }}
       </p>
     </div>
     <div class="w-3/5 flex flex-wrap content-between">
@@ -324,7 +317,7 @@ const handleDeteleInner = (obj: networkLogin) => {
           </el-dropdown>
         </div>
       </div>
-      <div class="w-1/2 xl:w-1/2 lg:w-10/12 mx-auto">
+      <div class="w-3/5 xl:w-3/5 lg:w-10/12 mx-auto">
         <template v-if="createStep === 0">
           <sign-login
             :create-step="createStep"

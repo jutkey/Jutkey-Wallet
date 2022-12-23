@@ -46,7 +46,10 @@ const handleUserOperate = (num: number) => {
     </el-scrollbar>
   </div>
   <div class="w-full flex justify-between py-20px">
-    <el-button class="w-1/3 h-10 text-base" @click="handleUserOperate(0)">
+    <el-button
+      class="w-1/3 h-10 text-center text-sm rounded border border-btn hover:bg-btn hover:text-white hover:border-btn focus:bg-btn focus:border-btn"
+      @click="handleUserOperate(0)"
+    >
       {{ $t('login.reject') }}
     </el-button>
     <el-button

@@ -8,8 +8,13 @@ import ja from 'element-plus/es/locale/lang/ja';
 import es from 'element-plus/es/locale/lang/es';
 import tr from 'element-plus/es/locale/lang/tr';
 import { invoke } from '@tauri-apps/api/tauri';
+import { checkUpdate } from '@tauri-apps/api/updater';
 import UpdateApp from '@/components/UpdateApp.vue';
+import { handleIsTauri } from '@/plugins/common';
 
+const isUpdate = ref(false);
+const isTauri = ref(handleIsTauri());
+const appInfo = reactive({ info: {} }) as any;
 const route = useRoute();
 console.log(route.name);
 const isLogin = ref(true);
@@ -84,10 +89,35 @@ onMounted(() => {
       break;
   }
 });
-
-document.addEventListener('DOMContentLoaded', () => {
-  invoke('close_splashscreen');
-});
+// tauri check latest version
+if (isTauri.value) {
+  const handleCheckTauri = async () => {
+    const isTauri = await invoke('is_tauri');
+    console.log(`%c${isTauri}`, 'color: red;font-size:20px');
+    if (isTauri === 'tauri') {
+      try {
+        const { shouldUpdate, manifest } = await checkUpdate();
+        console.log(shouldUpdate, manifest);
+        if (shouldUpdate) {
+          isUpdate.value = true;
+          appInfo.info = manifest;
+        } else {
+          isUpdate.value = false;
+        }
+      } catch (error) {
+        isUpdate.value = false;
+        console.log(error);
+      }
+    }
+  };
+  handleCheckTauri();
+  document.addEventListener('DOMContentLoaded', () => {
+    invoke('close_splashscreen');
+  });
+}
+const handleClose = () => {
+  isUpdate.value = false;
+};
 </script>
 
 <template>
@@ -102,7 +132,12 @@ document.addEventListener('DOMContentLoaded', () => {
           <component :is="Component" />
         </transition>
       </router-view>
-      <update-app></update-app>
+      <update-app
+        v-if="isTauri"
+        :is-update="isUpdate"
+        :app-info="appInfo"
+        @close="handleClose"
+      ></update-app>
     </div>
   </el-config-provider>
 </template>

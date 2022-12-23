@@ -43,6 +43,18 @@ const routes = [
             }
           },
           {
+            path: 'airdrop',
+            name: 'AssetsAirdrop',
+            component: () =>
+              import(
+                /* webpackChunkName: "assets" */ '@/pages/assets/airdrop.vue'
+              ),
+            meta: {
+              key: '2-2',
+              title: 'nav.assets'
+            }
+          },
+          {
             path: '/assets/transfer/:id/:account',
             name: 'Transfer',
             component: () =>
@@ -50,7 +62,7 @@ const routes = [
                 /* webpackChunkName: "assets" */ '@/pages/assets/transfer.vue'
               ),
             meta: {
-              key: '2-2',
+              key: '2-3',
               title: 'nav.assets'
             }
           },
@@ -62,7 +74,7 @@ const routes = [
                 /* webpackChunkName: "assets" */ '@/pages/assets/record.vue'
               ),
             meta: {
-              key: '2-3',
+              key: '2-4',
               title: 'nav.assets'
             }
           }
@@ -133,7 +145,7 @@ const routes = [
               ),
             meta: {
               key: '4-2',
-              title: 'nav.ethTrade'
+              title: 'nav.eth'
             }
           },
           {
@@ -145,7 +157,7 @@ const routes = [
               ),
             meta: {
               key: '4-3',
-              title: 'nav.ethTrade'
+              title: 'nav.eth'
             }
           },
           {
@@ -173,16 +185,6 @@ const routes = [
             }
           }
         ]
-      },
-      {
-        path: '/bnb',
-        name: 'BNB',
-        component: () =>
-          import(/* webpackChunkName: "bnb" */ '@/pages/bnb/index.vue'),
-        meta: {
-          key: '9',
-          title: 'nav.eth'
-        }
       },
       {
         path: '/tron',

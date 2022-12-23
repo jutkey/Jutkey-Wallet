@@ -40,7 +40,7 @@ const cashForm = reactive({
 const validateStake = (rule: any, value: any, callback: any) => {
   const reg = /(^[1-9]\d*$)/;
   if (!reg.test(value)) {
-    callback(new Error(handleI18n('nft.balanceint')));
+    callback(new Error(placeholder));
   } else if (Number(value) < Number(min) || Number(value) > Number(max)) {
     callback(new Error(placeholder));
   } else {
@@ -113,18 +113,13 @@ const handleCancel = () => {
 };
 const handleInput = () => {
   const { StakeAmount } = cashForm;
-  if (
-    Number(StakeAmount) >= Number(min) &&
-    Number(StakeAmount) <= Number(max)
-  ) {
-    console.log(StakeAmount);
-    cashForm.energyPower = parseInt(
-      String(
-        (Number(StakeAmount) / 10) * (1 + (Number(energyPoint.value) - 1) / 100)
-      ),
-      10
-    );
-  }
+  console.log(StakeAmount);
+  cashForm.energyPower = parseInt(
+    String(
+      (Number(StakeAmount) / 10) * (1 + (Number(energyPoint.value) - 1) / 100)
+    ),
+    10
+  );
 };
 </script>
 <template>

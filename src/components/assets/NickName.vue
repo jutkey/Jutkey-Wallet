@@ -119,16 +119,15 @@ const handleUploadSubmit = async () => {
       <div class="form-box my-2">
         <el-form
           ref="nickFormRef"
-          class="form-box-nickname"
+          class="form-box-iName"
           :model="nickFrom"
           :rules="nickRules"
           label-width="auto"
-          status-icon
         >
           <el-form-item prop="nickName" class="mb-1 flex items-center">
             <template #label>
               <span class="text-tinge-text text-sm">
-                {{ $t('user.nickname') }}
+                {{ $t('user.iName') }}
               </span>
             </template>
             <el-input

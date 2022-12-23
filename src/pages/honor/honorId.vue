@@ -23,11 +23,13 @@ const paramsDetails = {
   search: 1
 };
 const handleHonorDetails = async (params: honorDeatils) => {
+  util.showLoading();
   const res = await axios.post('/node_detail', params, 'walletserver');
   console.log(res);
   if (res.code === 0 && res.data) {
     honorData.info = res.data;
   }
+  util.closeLoading();
 };
 watch(
   () => route.path,
@@ -95,7 +97,7 @@ const explorer = handleBlockexplorer();
             </el-tooltip>
           </div>
           <a
-            :href="honorData.info.website"
+            :href="`${honorData.info.website}`"
             target="_blank"
             class="block mb-1 hover:text-blue"
           >
@@ -113,17 +115,6 @@ const explorer = handleBlockexplorer();
       <div class="">
         <div class="flex">
           <router-link
-            v-if="Number(honorData.info.myVote) !== 0"
-            :to="{ name: 'VoteRecord', params: { id: honorData.info.id } }"
-            class="pl-2 mb-2 hover:text-blue"
-          >
-            <span>{{ $t('node.alvote') }}:</span>
-            <span>{{ honorData.info.myVote }}</span>
-            <span class="ml-1 text-xs">
-              {{ $t('page.symbol') }}
-            </span>
-          </router-link>
-          <router-link
             v-if="Number(honorData.info.myStaking) !== 0"
             :to="{ name: 'StakeRecord', params: { id: honorData.info.id } }"
             class="pl-2 mb-2 hover:text-blue ml-2"
@@ -137,12 +128,36 @@ const explorer = handleBlockexplorer();
               {{ $t('page.symbol') }}
             </span>
           </router-link>
+          <router-link
+            v-if="Number(honorData.info.myVote) !== 0"
+            :to="{ name: 'VoteRecord', params: { id: honorData.info.id } }"
+            class="pl-2 mb-2 hover:text-blue"
+          >
+            <span>{{ $t('node.alvote') }}:</span>
+            <span>{{ honorData.info.myVote }}</span>
+            <span class="ml-1 text-xs">
+              {{ $t('page.symbol') }}
+            </span>
+          </router-link>
         </div>
         <div class="flex h-20">
           <div class="p-2 border border-basic ml-3 rounded">
             <div class="flex mb-4 items-center">
               <span>{{ $t('node.packnum') }}:</span>
               <span>{{ util.format(String(honorData.info.packed)) }}</span>
+            </div>
+            <div>
+              {{
+                honorData.info.packedRate === ''
+                  ? 0
+                  : honorData.info.packedRate
+              }}%
+            </div>
+          </div>
+          <div class="p-2 border border-basic ml-3 rounded">
+            <div class="flex mb-3 items-center">
+              <span>{{ $t('node.ranking') }}:</span>
+              <span>{{ util.format(String(honorData.info.ranking)) }}</span>
               <div v-if="honorData.info.ranking <= 101" class="meta-honor-vote">
                 <i
                   v-if="honorData.info.voteTrend === 1"
@@ -157,19 +172,6 @@ const explorer = handleBlockexplorer();
                   class="iconfont el-ui-Refuse text-xs text-dimGray ml-1"
                 ></i>
               </div>
-            </div>
-            <div>
-              {{
-                honorData.info.packedRate === ''
-                  ? 0
-                  : honorData.info.packedRate
-              }}%
-            </div>
-          </div>
-          <div class="p-2 border border-basic ml-3 rounded">
-            <div class="flex mb-3 items-center">
-              <span>{{ $t('node.ranking') }}:</span>
-              <span>{{ util.format(String(honorData.info.ranking)) }}</span>
             </div>
             <div class="flex items-center">
               <span>{{ util.format(String(honorData.info.vote)) }}</span>

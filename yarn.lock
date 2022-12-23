@@ -823,6 +823,11 @@
   resolved "https://registry.npmmirror.com/@types/http-cache-semantics/-/http-cache-semantics-4.0.1.tgz#0ea7b61496902b95890dc4c3a116b60cb8dae812"
   integrity sha512-SZs7ekbP8CN0txVG2xVRH6EgKmEm31BOxA07vkFaETzZz1xh+cbt8BcI0slpymvwhx5dlFnQG2rTlPVQn+iRPQ==
 
+"@types/js-cookie@^3.0.2":
+  version "3.0.2"
+  resolved "https://registry.npmmirror.com/@types/js-cookie/-/js-cookie-3.0.2.tgz#451eaeece64c6bdac8b2dde0caab23b085899e0d"
+  integrity sha512-6+0ekgfusHftJNYpihfkMu8BWdeHs9EOJuGcSofErjstGPfPGEu9yTu4t460lTzzAMl2cM5zngQJqPMHbbnvYA==
+
 "@types/json-schema@*":
   version "7.0.11"
   resolved "https://registry.npmmirror.com/@types/json-schema/-/json-schema-7.0.11.tgz#d421b6c527a3037f7c84433fd2c4229e016863d3"
@@ -864,7 +869,7 @@
   dependencies:
     "@types/node" "*"
 
-"@types/node@*", "@types/node@>=13.7.0", "@types/node@^18.7.18":
+"@types/node@*", "@types/node@>=13.7.0":
   version "18.7.18"
   resolved "https://registry.npmmirror.com/@types/node/-/node-18.7.18.tgz#633184f55c322e4fb08612307c274ee6d5ed3154"
   integrity sha512-m+6nTEOadJZuTPkKR/SYK3A2d7FZrgElol9UP1Kae90VVU4a6mxnPuLiIW1m4Cq4gZ/nWb9GrdVXJCoCazDAbg==
@@ -873,6 +878,11 @@
   version "12.20.55"
   resolved "https://registry.npmmirror.com/@types/node/-/node-12.20.55.tgz#c329cbd434c42164f846b909bd6f85b5537f6240"
   integrity sha512-J8xLz7q2OFulZ2cyGTLE1TbbZcjpno7FaN6zdJNrgAdrJ+DZzh/uFR6YrTb4C+nXakvud8Q4+rbhoIWlYQbUFQ==
+
+"@types/node@^18.11.11":
+  version "18.11.11"
+  resolved "https://registry.npmmirror.com/@types/node/-/node-18.11.11.tgz#1d455ac0211549a8409d3cdb371cd55cc971e8dc"
+  integrity sha512-KJ021B1nlQUBLopzZmPBVuGU9un7WJd/W4ya7Ih02B4Uwky5Nja0yGYav2EfYIk0RR2Q9oVhf60S2XR1BCWJ2g==
 
 "@types/pbkdf2@^3.0.0":
   version "3.1.0"
@@ -3404,6 +3414,11 @@ isstream@~0.1.2:
   resolved "https://registry.npmmirror.com/isstream/-/isstream-0.1.2.tgz#47e63f7af55afa6f92e1500e690eb8b8529c099a"
   integrity sha512-Yljz7ffyPbrLpLngrMtZ7NduUgVvi6wG9RJ9IUcyCd59YQ911PBJphODUcbOVbqYfxe1wuYf/LJ8PauMRwsM/g==
 
+js-cookie@^3.0.1:
+  version "3.0.1"
+  resolved "https://registry.npmmirror.com/js-cookie/-/js-cookie-3.0.1.tgz#9e39b4c6c2f56563708d7d31f6f5f21873a92414"
+  integrity sha512-+0rgsUXZu4ncpPxRL+lNEptWMOWl9etvPHc/koSRp6MPwpRYAhmk0dUG00J4bxVV3r9uUzfo24wW0knS07SKSw==
+
 js-sdsl@^4.1.4:
   version "4.1.4"
   resolved "https://registry.npmmirror.com/js-sdsl/-/js-sdsl-4.1.4.tgz#78793c90f80e8430b7d8dc94515b6c77d98a26a6"
@@ -4489,10 +4504,10 @@ safe-buffer@~5.1.0:
   resolved "https://registry.npmmirror.com/safer-buffer/-/safer-buffer-2.1.2.tgz#44fa161b0187b9549dd84bb91802f9bd8385cd6a"
   integrity sha512-YZo3K82SD7Riyi0E1EQPojLz7kpepnSQI9IyPbHHg1XXXevb5dJI7tpyN2ADxGcQbHG7vcyRHk0cbwqcQriUtg==
 
-sass@^1.54.9:
-  version "1.54.9"
-  resolved "https://registry.npmmirror.com/sass/-/sass-1.54.9.tgz#b05f14ed572869218d1a76961de60cd647221762"
-  integrity sha512-xb1hjASzEH+0L0WI9oFjqhRi51t/gagWnxLiwUNMltA0Ab6jIDkAacgKiGYKM9Jhy109osM7woEEai6SXeJo5Q==
+sass@^1.56.1:
+  version "1.56.1"
+  resolved "https://registry.npmmirror.com/sass/-/sass-1.56.1.tgz#94d3910cd468fd075fa87f5bb17437a0b617d8a7"
+  integrity sha512-VpEyKpyBPCxE7qGDtOcdJ6fFbcpOM+Emu7uZLxVrkX8KVU/Dp5UF7WLvzqRuUhB6mqqQt1xffLoG+AndxTZrCQ==
   dependencies:
     chokidar ">=3.0.0 <4.0.0"
     immutable "^4.0.0"
@@ -5188,6 +5203,11 @@ vue-router@^4.1.5:
   integrity sha512-IsvoF5D2GQ/EGTs/Th4NQms9gd2NSqV+yylxIyp/OYp8xOwxmU8Kj/74E9DTSYAyH5LX7idVUngN3JSj1X4xcQ==
   dependencies:
     "@vue/devtools-api" "^6.1.4"
+
+vue-social-sharing@^4.0.0-alpha4:
+  version "4.0.0-alpha4"
+  resolved "https://registry.npmmirror.com/vue-social-sharing/-/vue-social-sharing-4.0.0-alpha4.tgz#48d17f4ff2828c60689f2a065df86588af2bd1fb"
+  integrity sha512-hMbgpZkY5aRAiznSB/sgzdMVgdSbkmIHEaELX7pUbuUd6KS1Z/GAi7a/q0Qn+GFn0+6qMMvwyp3ZOE0+WYPQ1w==
 
 vue-tsc@^0.40.13:
   version "0.40.13"

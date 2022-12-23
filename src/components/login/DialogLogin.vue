@@ -128,6 +128,9 @@ const handleDialogCancel = () => {
 };
 const handleCloseInner = () => {
   emit('innerclose', false);
+  if (newworkRef.value) {
+    newworkRef.value.resetFields();
+  }
 };
 const handleSubmitInner = async (formEl: FormInstance | undefined) => {
   if (!formEl) return;
@@ -136,7 +139,7 @@ const handleSubmitInner = async (formEl: FormInstance | undefined) => {
       const { name, ip } = networkForm;
       console.log(name, ip);
       emit('add', { name, ip });
-      formEl.resetFields();
+      // formEl.resetFields();
     } else {
       console.log('error submit!', fields);
     }
@@ -168,6 +171,7 @@ const handleRestInner = (formEl: FormInstance | undefined) => {
       width="30%"
       :before-close="handleCloseInner"
       append-to-body
+      @close="handleCloseInner"
     >
       <template #header>
         <h3 class="font-semibold text-base text-center">
@@ -198,6 +202,12 @@ const handleRestInner = (formEl: FormInstance | undefined) => {
           <el-form-item class="text-center">
             <div class="w-full">
               <el-button
+                class="text-center text-sm rounded border border-btn mx-3 hover:bg-btn hover:text-white hover:border-btn focus:bg-btn focus:border-btn"
+                @click="handleRestInner(newworkRef)"
+              >
+                {{ $t('login.cancel') }}
+              </el-button>
+              <el-button
                 v-loading.fullscreen.lock="addNetworkLoading"
                 type="primary"
                 class="bg-btn text-sm text-white border-none"
@@ -206,12 +216,6 @@ const handleRestInner = (formEl: FormInstance | undefined) => {
                 @click="handleSubmitInner(newworkRef)"
               >
                 {{ $t('login.confirm') }}
-              </el-button>
-              <el-button
-                class="text-center text-sm rounded text-blue border border-btn"
-                @click="handleRestInner(newworkRef)"
-              >
-                {{ $t('login.cancel') }}
               </el-button>
             </div>
           </el-form-item>
@@ -228,7 +232,7 @@ const handleRestInner = (formEl: FormInstance | undefined) => {
           {{ $t('login.confirm') }}
         </el-button>
         <el-button
-          class="text-center text-sm rounded text-blue border border-btn mx-3 hover:bg-btn hover:text-white hover:border-btn focus:bg-btn focus:border-btn"
+          class="text-center text-sm rounded border border-btn mx-3 hover:bg-btn hover:text-white hover:border-btn focus:bg-btn focus:border-btn"
           @click="handleDialogCancel"
         >
           {{ $t('login.cancel') }}

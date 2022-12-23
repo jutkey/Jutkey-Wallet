@@ -11,6 +11,7 @@ import keyring from '@/plugins/keyring';
 
 const expediteNum = ref(0) as Ref<number>;
 const boo = ref(false) as Ref<boolean>;
+// eslint-disable-next-line no-unused-vars
 const router = useRouter();
 const props = defineProps({
   ecoId: {
@@ -51,17 +52,41 @@ const validateAccount = (rule: any, value: any, callback: any) => {
 const validateAmount = (rule: any, value: any, callback: any) => {
   const amount = keyring.formatUnits((ecoInfo.value as any).amount);
   console.log(amount);
+  const reg = /^\d+.?\d{0,12}$/;
   if (!value) {
-    return callback(new Error(handleI18n('user.inputAmount')));
+    callback(new Error(handleI18n('user.inputAmount')));
+  } else if (amount <= value) {
+    callback(new Error(handleI18n('user.amountShort')));
+  } else if (Number(value) <= 0) {
+    callback(new Error(handleI18n('eth.zero')));
+  } else if (!reg.test(value)) {
+    callback(new Error(handleI18n('user.inputtwelve')));
+  } else {
+    callback();
   }
-  if (amount <= parseFloat(value)) {
-    return callback(new Error(handleI18n('user.amountShort')));
+};
+const validateUrgent = (rule: any, value: any, callback: any) => {
+  const reg = /^\d+.?\d{0,12}$/;
+  const amount = keyring.formatUnits((ecoInfo.value as any).amount);
+  console.log(amount);
+  if (value) {
+    if (amount <= value) {
+      callback(new Error(handleI18n('user.amountShort')));
+    } else if (Number(value) <= 0) {
+      callback(new Error(handleI18n('eth.zero')));
+    } else if (!reg.test(value)) {
+      callback(new Error(handleI18n('user.inputtwelve')));
+    } else {
+      callback();
+    }
+  } else {
+    callback();
   }
-  return callback();
 };
 const tradeRules = reactive<FormRules>({
   account: [{ validator: validateAccount, trigger: 'blur', required: true }],
-  amount: [{ validator: validateAmount, trigger: 'blur', required: true }]
+  amount: [{ validator: validateAmount, trigger: 'blur', required: true }],
+  urgent: [{ validator: validateUrgent, trigger: 'blur', required: false }]
 });
 // eslint-disable-next-line no-unused-vars
 const handleSubmitForm = async (formEl: FormInstance | undefined) => {
@@ -91,8 +116,9 @@ const handleSubmitForm = async (formEl: FormInstance | undefined) => {
           } else {
             ElMessage.error(res.msg);
           }
+          console.log(res);
           util.closeLoading();
-          router.replace('/assets');
+          // router.replace('/assets');
           formEl.resetFields();
         });
       });
@@ -122,8 +148,8 @@ const handleUrgentInput = () => {
       :model="tradeFrom"
       :rules="tradeRules"
       label-width="120px"
-      status-icon
       label-position="top"
+      @submit.prevent
     >
       <el-form-item prop="account" class="mb-5">
         <template #label>
@@ -145,7 +171,7 @@ const handleUrgentInput = () => {
           <span class="text-tinge-text text-sm">{{ $t('user.amount') }}</span>
         </template>
         <el-input
-          v-model.number="tradeFrom.amount"
+          v-model="tradeFrom.amount"
           class="placeholder-place"
           type="number"
           autocomplete="off"
@@ -173,7 +199,7 @@ const handleUrgentInput = () => {
           <span class="text-tinge-text text-sm">{{ $t('user.urgent') }}</span>
         </template>
         <el-input
-          v-model.number="tradeFrom.urgent"
+          v-model="tradeFrom.urgent"
           class="placeholder-place"
           type="number"
           autocomplete="off"
@@ -202,17 +228,17 @@ const handleUrgentInput = () => {
           </el-tooltip>
         </div>
         <el-button
+          class="text-center text-sm rounded text-light-blue border border-light-blue mx-3 hover:bg-side hover:border-light-blue focus:bg-side focus:border-light-blue"
+          @click="handleResetForm(tradeFormRef)"
+        >
+          {{ $t('login.cancel') }}
+        </el-button>
+        <el-button
           type="primary"
           class="text-center text-sm rounded bg-btn text-white border-btn mx-3"
           @click="handleSubmitForm(tradeFormRef)"
         >
           {{ $t('login.confirm') }}
-        </el-button>
-        <el-button
-          class="text-center text-sm rounded text-light-blue border border-light-blue mx-3 hover:bg-side hover:border-light-blue focus:bg-side focus:border-light-blue"
-          @click="handleResetForm(tradeFormRef)"
-        >
-          {{ $t('login.cancel') }}
         </el-button>
       </div>
     </el-form>

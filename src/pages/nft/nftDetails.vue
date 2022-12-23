@@ -1,7 +1,7 @@
 <script setup lang="ts">
 // eslint-disable-next-line no-unused-vars
 import { ref, reactive, inject, watch, Ref } from 'vue';
-import { useRoute } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
 import { ElMessageBox, ElMessage } from 'element-plus';
 import { handleI18n } from '@/plugins/i18n';
 import util from '@/plugins/util';
@@ -16,16 +16,21 @@ import { handleSecond, handleSecondUTC } from '@/plugins/day';
 import NftCash from '@/components/nft/NftCash.vue';
 import NftOut from '@/components/nft/NftOut.vue';
 import NftBuild from '@/components/nft/NftBuild.vue';
+import NftSynthesis from '@/components/nft/nftSynthesis.vue';
 import { handleBlockexplorer, handleWalletserver } from '@/plugins/common';
 
 const reload = inject('reload') as Function;
 const route = useRoute();
+const router = useRouter();
 const axios = inject('axios') as axiosType;
 const { account } = util.getCache('current');
 const isCash = ref(false);
 const isOut = ref(false);
 const isBuild = ref(false);
+const isSynthesis = ref(false);
 const dialogNft = ref(false);
+const synthesis = ref<InstanceType<typeof NftSynthesis>>();
+const txHash = ref('');
 const nftImg = ref('');
 const nftId = ref(0) as Ref<number>;
 const nftData = reactive({
@@ -52,8 +57,12 @@ const url = handleWalletserver();
 const handleNftMiner = async (params: honorDeatils) => {
   const res = await axios.post('/nft_miner_detail', params, 'walletserver');
   console.log(res);
-  nftData.info = res.data;
-  nftImg.value = `${url}/api/v1/nft_miner_file/${nftData.info.id}`;
+  if (res.code === 0) {
+    nftData.info = res.data;
+    nftImg.value = `${url}/api/v1/nft_miner_file/${nftData.info.id}`;
+  } else {
+    router.replace('/nft');
+  }
 };
 const recordParams = {
   search: 0,
@@ -78,6 +87,7 @@ const miningParams = {
   wallet: account
 };
 const handleNftMining = async (params: nftlist) => {
+  util.showLoading();
   const res = await axios.post('/nft_miner_reward', params, 'walletserver');
   console.log(res);
   if (res.code === 0) {
@@ -86,6 +96,7 @@ const handleNftMining = async (params: nftlist) => {
     nftData.miningPage.page = res.data.page;
     nftData.miningPage.total = res.data.total;
   }
+  util.closeLoading();
 };
 watch(
   () => route.path,
@@ -170,11 +181,26 @@ const handleClose = () => {
 const handleShowNft = () => {
   dialogNft.value = true;
 };
-
 const browser = handleBlockexplorer();
+const handleOpenSynthesis = (hash: string) => {
+  console.log(hash);
+  isBuild.value = false;
+
+  txHash.value = hash;
+  console.log(synthesis.value);
+  if (txHash.value) {
+    isSynthesis.value = true;
+    // synthesis.value.handleBuildImage(txHash.value);
+  }
+};
 </script>
 <template>
   <div class="w-full">
+    <div class="mb-3 flex justify-between font-semibold">
+      <span @click="router.go(-1)">
+        <i class="iconfont el-ui-back pr-20px text-2xl cursor-pointer"></i>
+      </span>
+    </div>
     <div v-if="nftData.info" class="w-full">
       <div class="flex justify-between flex-wrap h-nft mb-20px">
         <div class="bg-basic-box p-20px rounded mb-20px w-49 h-full">
@@ -212,7 +238,7 @@ const browser = handleBlockexplorer();
             </el-button>
           </div>
           <div class="flex items-center mb-3">
-            <span class="flex-shrink-0">NFT HASH:</span>
+            <span class="flex-shrink-0">HASH:</span>
             <el-tooltip
               effect="dark"
               :content="`${nftData.info.hash}`"
@@ -246,12 +272,12 @@ const browser = handleBlockexplorer();
             </span>
             <span class="ml-1">{{ $t('page.symbol') }}</span>
           </div>
-          <div class="flex items-center mb-3">
-            <span class="ml-1">{{ $t('nft.times') }}:</span>
+          <!--   <div class="flex items-center mb-3">
+            <span>{{ $t('nft.times') }}:</span>
             <span class="ml-1">
               {{ util.format(nftData.info.rewardCount) }}
             </span>
-          </div>
+          </div> -->
           <div class="flex items-center mb-3">
             <span>{{ $t('nft.mining') }}:</span>
             <span class="ml-1">{{ util.formatFixed(nftData.info.ins) }}</span>
@@ -388,7 +414,7 @@ const browser = handleBlockexplorer();
             <el-table-column show-overflow-tooltip>
               <template #default="scope">
                 <a
-                  :href="`${browser}/blockchain/hash/${scope.row.token_hash}`"
+                  :href="`${browser}/blockchain/hash/${scope.row.txhash}`"
                   target="_blank"
                   class="hover:text-blue"
                 >
@@ -460,8 +486,14 @@ const browser = handleBlockexplorer();
       :nft-img="nftImg"
       :account="account"
       @close="handleClose"
+      @compose="handleOpenSynthesis"
     ></nft-build>
-
+    <nft-synthesis
+      v-if="txHash"
+      ref="synthesis"
+      :tx-hash="txHash"
+      :is-synthesis="isSynthesis"
+    ></nft-synthesis>
     <el-dialog v-model="dialogNft" class="bg-basic-box" width="80%" center>
       <div class="nft-img">
         <img

@@ -34,9 +34,9 @@ const nftInfo = {
   wallet: account
 };
 const handleNftMiner = async (params: nftParams) => {
+  util.showLoading();
   const res = await axios.post('/nft_miner_key_infos', params, 'walletserver');
   console.log(res);
-
   if (res.code === 0 && res.data) {
     nftMiner.isCreate = res.data.isCreate;
     console.log(res.data.rets);
@@ -44,6 +44,7 @@ const handleNftMiner = async (params: nftParams) => {
       nftMiner.list = res.data.rets;
     }
   }
+  util.closeLoading();
 };
 handleNftMiner(nftInfo);
 const handleGetlocator = async () => {
@@ -144,7 +145,11 @@ const browser = handleBlockexplorer();
           class="bg-basic-box p-20px rounded w-49 flex items-stretch justify-between text-sm mb-3 shadow-xl"
         >
           <div class="flex items-center">
-            <span class="bg-success w-3 h-3 rounded-full"></span>
+            <span
+              v-if="item.energy_power"
+              class="bg-success w-3 h-3 rounded-full"
+            ></span>
+            <span v-else class="bg-ashy w-3 h-3 rounded-full"></span>
           </div>
           <div class="w-20 h-20">
             <img :src="`${url}/api/v1/nft_miner_file/${item.id}`" alt="" />
@@ -162,15 +167,21 @@ const browser = handleBlockexplorer();
               </div>
             </div>
             <div class="flex items-center justify-between w-full">
-              <div class="w-49 flex items-center">
-                <span class="mr-1">NFT HASH:</span>
-                <el-tooltip
-                  effect="dark"
-                  :content="`${item.token_hash}`"
-                  placement="bottom"
-                >
-                  <span class="truncate w-49">{{ item.token_hash }}</span>
-                </el-tooltip>
+              <div class="w-49 flex items-center justify-between">
+                <div class="flex items-center w-5/6">
+                  <span class="mr-1">HASH:</span>
+                  <el-tooltip
+                    effect="dark"
+                    :content="`${item.token_hash}`"
+                    placement="bottom"
+                  >
+                    <span class="truncate flex-1">{{ item.token_hash }}</span>
+                  </el-tooltip>
+                </div>
+                <i
+                  class="iconfont el-ui-zu291 cursor-pointer text-sm my-1"
+                  @click.prevent="util.copyText(item.token_hash)"
+                ></i>
               </div>
               <div class="w-49 flex items-center">
                 <span class="mr-1">{{ $t('nft.explosive') }}:</span>
@@ -224,7 +235,9 @@ const browser = handleBlockexplorer();
             placement="bottom"
           >
             <div class="mb-2 font-semibold w-full truncate">
-              <span>{{ util.formatFixed(nftMiner.info.stakeAmount) }}</span>
+              <span>
+                {{ util.formatFixed(nftMiner.info.stakeAmount) }}
+              </span>
               <span class="ml-1 text-xs">{{ $t('page.symbol') }}</span>
             </div>
           </el-tooltip>
@@ -262,7 +275,7 @@ const browser = handleBlockexplorer();
       <div v-if="nftMiner.arr.length" class="table-box">
         <div class="mb-20px">
           <el-table :data="nftMiner.arr" stripe style="width: 100%">
-            <el-table-column label="NFT HASH" show-overflow-tooltip>
+            <el-table-column label="HASH" show-overflow-tooltip>
               <template #default="scope">
                 <a
                   :href="`${browser}/meta/${scope.row.token_hash}`"
@@ -276,7 +289,7 @@ const browser = handleBlockexplorer();
             <el-table-column :label="$t('node.hash')" show-overflow-tooltip>
               <template #default="scope">
                 <a
-                  :href="`${browser}/blockchain/hash/${scope.row.token_hash}`"
+                  :href="`${browser}/blockchain/hash/${scope.row.txhash}`"
                   target="_blank"
                   class="hover:text-blue"
                 >

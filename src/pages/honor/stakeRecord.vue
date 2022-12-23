@@ -7,6 +7,7 @@ import { axiosType, honorOther, getListResponse } from '@/plugins/dataType';
 import { handleSecond, handleSecondUTC } from '@/plugins/day';
 import contract from '@/plugins/lib';
 import { handleI18n } from '@/plugins/i18n';
+import { handleBlockexplorer } from '@/plugins/common';
 
 const axios = inject('axios') as axiosType;
 const route = useRoute();
@@ -94,23 +95,24 @@ const handleRevoke = () => {
     });
   });
 };
+const bowser = handleBlockexplorer();
 </script>
 <template>
   <div class="w-full">
-    <h3 class="mb-3 flex justify-between">
+    <div class="mb-3 flex justify-between font-semibold">
       <span>{{ $t('node.bondRecord') }}</span>
-      <router-link :to="`/honor/${honorId}`">
+      <span @click="router.go(-1)">
         <i class="iconfont el-ui-back pr-20px text-2xl cursor-pointer"></i>
-      </router-link>
-    </h3>
+      </span>
+    </div>
     <div class="w-full flex bg-basic-box p-20px rounded mb-20px">
       <div class="">
         <div class="mb-2">
           <span>{{ $t('node.paid') }}:</span>
-          <span>{{ util.formatFixed(stake.data.staking) }}</span>
+          <span class="ml-1">{{ util.formatFixed(stake.data.staking) }}</span>
           <span class="ml-1 text-xs">{{ $t('page.symbol') }}</span>
         </div>
-        <div v-if="stake.data.getStatus !== 0">
+        <!--  <div v-if="stake.data.getStatus !== 0">
           <span>{{ $t('node.claim') }}:</span>
           <el-tooltip
             class="box-item"
@@ -120,7 +122,7 @@ const handleRevoke = () => {
           >
             <span>{{ handleSecondUTC(stake.data.dateWithdraw) }}(UTC)</span>
           </el-tooltip>
-        </div>
+        </div> -->
       </div>
       <div class="ml-auto">
         <el-button
@@ -131,13 +133,21 @@ const handleRevoke = () => {
         >
           {{ $t('node.cancel') }}
         </el-button>
-        <el-button
+        <span
           v-if="stake.data.getStatus === 1"
-          class="w-full block h-10 text-center text-sm rounded text-light-blue border border-light-blue mb-3 ml-0 hover:bg-side hover:border-light-blue focus:bg-side focus:border-light-blue"
+          class="block p-3 text-center text-xs rounded"
           disabled
         >
+          <el-tooltip
+            class="box-item"
+            effect="dark"
+            :content="`${handleSecond(stake.data.dateWithdraw)}`"
+            placement="bottom"
+          >
+            <span>{{ handleSecondUTC(stake.data.dateWithdraw) }}(UTC)</span>
+          </el-tooltip>
           {{ $t('node.unclaimed') }}
-        </el-button>
+        </span>
         <el-button
           v-if="stake.data.getStatus === 2"
           type="primary"
@@ -155,7 +165,7 @@ const handleRevoke = () => {
             <el-table-column :label="$t('node.hash')" show-overflow-tooltip>
               <template #default="scope">
                 <a
-                  :href="scope.row.hash"
+                  :href="`${bowser}/blockchain/hash/${scope.row.hash}`"
                   target="_blank"
                   class="inline-black hover:text-blue"
                 >

@@ -9,7 +9,7 @@ import clipBorad from 'vue-clipboard3';
 import keyring from './keyring';
 // import store from '@/store/';
 import { handleI18n } from './i18n';
-import { handleGetObjUrl } from './common';
+import { handleGetObjUrl, handleSetCookies } from './common';
 
 // eslint-disable-next-line no-unused-vars
 const securitydiscword = ref() as Ref<HTMLElement>;
@@ -214,21 +214,22 @@ export default {
     }
     return str;
   },
-  format(num: string | number) {
+  format(num: string | number = '0') {
     const arr = String(num).split('.');
     const str =
       (arr[0] || 0).toString().replace(/(\d)(?=(?:\d{3})+$)/g, '$1,') +
       (arr[1] ? `.${arr[1]}` : '');
     return this.cutZero(str);
   },
-  formatFixed(money: any, fixed = 12, format = 1) {
+  formatFixed(money: string | number = '0', fixed = 12, format = 1) {
     try {
-      if (money > 0) {
-        money = new Decimal(money).div(new Decimal(1000000000000));
+      let balance: any = Number(money);
+      if (balance > 0) {
+        balance = new Decimal(balance).div(new Decimal(1000000000000));
         if (fixed !== undefined) {
-          money = money.toFixed(fixed);
+          balance = balance.toFixed(fixed);
         }
-        return format ? this.format(money) : money;
+        return format ? this.format(balance) : balance;
       }
       return 0;
     } catch (e) {
@@ -263,8 +264,9 @@ export default {
       {
         closeOnClickModal: false,
         customClass: 'form-box bg-basic-box   border-basic-box',
-        confirmButtonClass: ' bg-btn text-white border-btn',
-        cancelButtonClass: '  hover:text-blue',
+        confirmButtonClass: 'bg-btn text-white border-btn',
+        cancelButtonClass:
+          'el-button text-center text-sm rounded text-light-blue border border-light-blue mx-3 hover:bg-side hover:border-light-blue focus:bg-side focus:border-light-blue',
         confirmButtonText: handleI18n('login.confirm'),
         cancelButtonText: handleI18n('login.cancel'),
         inputAutocomplete: 'off',
@@ -344,7 +346,8 @@ export default {
       accountList.push(current);
       this.setCache('accountWords', accountList);
     }
-    localStorage.setItem('token', token);
+    handleSetCookies('token', token);
+    // localStorage.setItem('token', token);
     this.setCache('keyId', keyId);
     this.setCache('current', current);
     // Generate according to auxiliary words
@@ -436,7 +439,8 @@ export default {
       });
       this.setCache('accountImport', newAccountImport);
     }
-    localStorage.setItem('token', token);
+    handleSetCookies('token', token);
+    // localStorage.setItem('token', token);
     this.setCache('current', current);
     this.setCache('hasher', hasher);
     this.setCache('keyId', keyId);

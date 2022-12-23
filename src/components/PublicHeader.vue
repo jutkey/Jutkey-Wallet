@@ -32,7 +32,7 @@ const fisrtEcosystem = {
 };
 const handleFisrtEcosystem = async (params: ecosystemParam) => {
   const res = await http.post('/ecosystem_key_totals', params, 'walletserver');
-  console.log(res);
+  //  console.log(res);
   if (res.code === 0) {
     const [obj] = res.data.rets;
     firstEco.obj = obj;
@@ -40,7 +40,7 @@ const handleFisrtEcosystem = async (params: ecosystemParam) => {
       obj.memberImageHash
     }?x=${new Date().getTime()}`;
 
-    console.log(avatar.value);
+    // console.log(avatar.value);
   }
 };
 handleFisrtEcosystem(fisrtEcosystem);
@@ -82,11 +82,11 @@ interface currentType {
   type: boolean;
   index?: number;
 }
-console.log(localStorage.getItem('lang'));
+// console.log(localStorage.getItem('lang'));
 if (localStorage.getItem('lang')) {
   lang.value = localStorage.getItem('lang') as string;
 }
-console.log(lang.value);
+// console.log(lang.value);
 const objDate = reactive({ data });
 let timer: ReturnType<typeof setTimeout>;
 const isCollapse = computed({
@@ -126,7 +126,7 @@ if (localStorage.theme === 'light') {
   document.documentElement.classList.remove('light');
 }
 const handleChangeTheme = (str: string) => {
-  console.log(theme);
+  // console.log(theme);
   const val = localStorage.getItem('theme');
   store.dispatch('handleActTheme', str);
   if (val !== str) {
@@ -152,7 +152,7 @@ const handleLangShow = (val: string) => {
   strLang.value = obj.label;
 };
 if (lang.value) {
-  console.log(lang.value);
+  // console.log(lang.value);
   handleLangShow(lang.value);
 }
 const handleCommandLang = (val: any) => {
@@ -247,14 +247,14 @@ const handleHidePopover = () => {
           v-if="firstEco.obj.memberImageHash"
           :src="avatar"
           alt="profile"
-          class="w-8 rounded-full"
+          class="w-8 h-8 rounded-full"
         />
 
         <img
           v-else
           src="@/assets/image/profile.png"
           alt="profile"
-          class="w-8 rounded-full"
+          class="w-8 h-8 rounded-full"
         />
         <el-icon v-show="isArrow" class="el-icon--right" :size="20">
           <arrow-down />

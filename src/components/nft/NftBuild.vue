@@ -12,7 +12,7 @@ import { axiosType } from '@/plugins/dataType';
 const router = useRouter();
 console.log(router);
 const axios = inject('axios') as axiosType;
-const emit = defineEmits(['update:isBuild', 'close']);
+const emit = defineEmits(['update:isBuild', 'close', 'compose']);
 const props = defineProps({
   isBuild: {
     type: Boolean,
@@ -32,9 +32,10 @@ const props = defineProps({
   }
 });
 const { isBuild, nftId, nftImg, account } = toRefs(props);
-
+const url = handleWalletserver();
 const seleId = ref('') as any;
 const seleImg = ref('');
+const txHash = ref('');
 const nftList = reactive({ list: {}, locator: {} }) as any;
 const nftParams = {
   search: nftId.value,
@@ -64,6 +65,12 @@ const handleGetlocator = async () => {
   }
 };
 handleGetlocator();
+const handleCancel = () => {
+  if (isBuild.value) {
+    emit('close');
+  }
+};
+
 const handleConfirm = async () => {
   if (!seleId.value) return ElMessage.success(handleI18n('user.chain'));
 
@@ -92,7 +99,11 @@ const handleConfirm = async () => {
           message: handleI18n('user.dosuccess')
         });
         seleId.value = '';
-        router.replace('/nft');
+        txHash.value = res.txHash;
+        //  router.replace('/nft');
+        console.log(res);
+        emit('compose', txHash.value);
+        // handleBuildImage(txHash.value);
       } else {
         ElMessage.error(res.msg);
       }
@@ -100,10 +111,6 @@ const handleConfirm = async () => {
     });
   });
 };
-const handleCancel = () => {
-  if (isBuild.value) emit('close');
-};
-const url = handleWalletserver();
 const handleSelectChange = (id: number) => {
   console.log(id);
   if (id) {

@@ -40,7 +40,7 @@ const arrRecord = reactive({
     offset: 10
   }
 });
-const { api, rpcUrl, brower, apikey } = util.getCache('showEthNetwork');
+const { api, rpcUrl, brower, apikey, symbol } = util.getCache('showEthNetwork');
 const eth = new ETH(privateKey, rpcUrl, api, apikey, brower);
 console.log(eth.brower);
 console.log(eth.apikey);
@@ -48,7 +48,7 @@ objPage.apikey = eth.apikey;
 objRecord.apikey = eth.apikey;
 const handletradeList = async (params: recordType) => {
   util.showLoading();
-  const res = (await axios.post(`${eth.api}`, qs.stringify(params))) as any;
+  const res = (await axios.post(`${eth.api}/api`, qs.stringify(params))) as any;
   console.log(res);
   if (res.data.status === '1') {
     arrRecord.list = res.data.result;
@@ -59,7 +59,7 @@ const handletradeList = async (params: recordType) => {
   util.closeLoading();
 };
 const handletradePage = async (params: recordPage) => {
-  const res = (await axios.post(`${eth.api}`, qs.stringify(params))) as any;
+  const res = (await axios.post(`${eth.api}/api`, qs.stringify(params))) as any;
   if (res.data.status === '1') {
     arrRecord.pageNum.total = res.data.result.length;
   } else {
@@ -90,7 +90,7 @@ const handleChangePage = (page: number) => {
 </script>
 <template>
   <div class="bg-basic-box rounded p-20px">
-    <div v-if="arrRecord.list.length" class="table-box">
+    <div v-if="arrRecord.list.length" class="table-box min-h-300">
       <el-table :data="arrRecord.list" stripe style="width: 100%">
         <el-table-column label="Txn Hash" show-overflow-tooltip>
           <template #default="scope">
@@ -169,7 +169,7 @@ const handleChangePage = (page: number) => {
             <span>
               {{ Number(eth.decimals(scope.row.value, '18')) }}
             </span>
-            <span class="ml-1 text-xs">ETH</span>
+            <span class="ml-1 text-xs">{{ symbol }}</span>
           </template>
         </el-table-column>
         <el-table-column align="center">

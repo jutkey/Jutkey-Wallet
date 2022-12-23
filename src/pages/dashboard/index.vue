@@ -5,12 +5,13 @@ import { axiosType, ecosystemParam, getListResponse } from '@/plugins/dataType';
 import socket from '@/plugins/webSocket';
 import NftChart from '@/components/home/NftChart.vue';
 import MounthAsset from '@/components/home/MounthAsset.vue';
+import EthShow from '@/components/home/EthShow.vue';
 
 const { account } = util.getCache('current');
 const panel = reactive({ statistics: {}, nft: {} }) as any;
 const axios = inject('axios') as axiosType;
 const handlePanleData = (data: any) => {
-  // console.log(JSON.stringify(data));
+  console.log(JSON.stringify(data));
   panel.statistics = data.info;
 };
 const handleInit = async () => {
@@ -238,7 +239,7 @@ onBeforeUnmount(() => {
         </el-scrollbar>
       </div>
       <div class="w-49 p-20px bg-basic-box rounded-lg shadow-xl">
-        <h4 class="font-semibold mb-3 text-muted">{{ $t('home.survey') }}</h4>
+        <h4 class="font-semibold mb-3 text-first">{{ $t('home.survey') }}</h4>
         <div class="w-full flex justify-between">
           <div class="flex-1 text-center">
             <div class="mb-2">{{ $t('home.nft') }}</div>
@@ -308,5 +309,6 @@ onBeforeUnmount(() => {
         <nft-chart :account="account"></nft-chart>
       </div>
     </div>
+    <eth-show></eth-show>
   </div>
 </template>

@@ -1,10 +1,11 @@
 import { createStore } from 'vuex';
 import auth from '@/plugins/auth';
 import axios from '@/plugins/http';
+import { handleGetCookies } from '@/plugins/common';
 
 const lang = localStorage.getItem('lang');
 const theme = localStorage.getItem('theme');
-const token = localStorage.getItem('token');
+const token = handleGetCookies('token');
 const words = localStorage.getItem('words');
 const current = localStorage.getItem('current');
 const account = localStorage.getItem('account');

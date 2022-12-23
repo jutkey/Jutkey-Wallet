@@ -90,10 +90,10 @@ const handleSelectWords = () => {
 };
 </script>
 <template>
-  <h3 class="pb-20px text-center text-title leading-normal">
+  <!--   <h3 class="pb-20px text-center text-title leading-normal">
     {{ $t('login.info') }}
-  </h3>
-  <div class="pb-20px">{{ $t('login.words') }}</div>
+  </h3> -->
+  <div class="pb-20px">{{ $t('login.test') }}</div>
   <div class="flex justify-between flex-wrap bg-gray p-3 mb-3">
     <span
       v-for="(item, index) in checkWords.selected"
@@ -115,7 +115,10 @@ const handleSelectWords = () => {
     </span>
   </div>
   <div class="w-full flex justify-between">
-    <el-button class="w-1/3 h-10 text-base" @click="handleUserWords(2)">
+    <el-button
+      class="w-1/3 h-10 text-center text-sm rounded border border-btn hover:bg-btn hover:text-white hover:border-btn focus:bg-btn focus:border-btn"
+      @click="handleUserWords(2)"
+    >
       {{ $t('login.previous') }}
     </el-button>
     <el-button
@@ -123,7 +126,7 @@ const handleSelectWords = () => {
       class="w-1/3 h-10 bg-btn text-white border-btn"
       @click="handleSelectWords"
     >
-      {{ $t('login.confirm') }}
+      {{ $t('login.affirm') }}
     </el-button>
   </div>
 </template>

@@ -92,9 +92,7 @@ const handleChangePage = (page: number) => {
           <div class=" ">
             <div class="w-full flex justify-center items-center">
               <span>{{ $t('user.all') }}</span>
-              <span class="ml-1">
-                ({{ util.format(String(record.data.allTx)) }})
-              </span>
+              <span class="ml-1">({{ util.format(record.data.allTx) }})</span>
             </div>
             <div>
               <span>{{ util.formatFixed(record.data.allAmount) }}</span>
@@ -115,9 +113,7 @@ const handleChangePage = (page: number) => {
           <div class=" ">
             <div class="w-full flex justify-center items-center">
               <span>{{ $t('user.in') }}</span>
-              <span class="ml-1">
-                ({{ util.format(String(record.data.inTx)) }})
-              </span>
+              <span class="ml-1">({{ util.format(record.data.inTx) }})</span>
             </div>
             <div>
               <span>{{ util.formatFixed(record.data.inAmount) }}</span>
@@ -138,9 +134,7 @@ const handleChangePage = (page: number) => {
           <div class=" ">
             <div class="w-full flex justify-center items-center">
               <span>{{ $t('user.out') }}</span>
-              <span class="ml-1">
-                ({{ util.format(String(record.data.outTx)) }})
-              </span>
+              <span class="ml-1">({{ util.format(record.data.outTx) }})</span>
             </div>
             <div>
               <span>{{ util.formatFixed(record.data.outAmount) }}</span>

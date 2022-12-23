@@ -25,13 +25,13 @@ const props = defineProps({
 const { isDialog, honorId, honorName } = toRefs(props);
 const honorFormRef = ref<FormInstance>();
 const honorFrom = reactive({
-  amount: 0
+  amount: 1
 });
 const validateAmount = (rule: any, value: any, callback: any) => {
   if (!value) {
-    callback(new Error(handleI18n('node.voteinput')));
+    callback(new Error(handleI18n('node.input')));
   } else if (value < 1) {
-    callback(new Error(handleI18n('node.voteone')));
+    callback(new Error(handleI18n('node.one')));
   } else {
     callback();
   }
@@ -113,8 +113,8 @@ const handleCancel = () => {
           :model="honorFrom"
           :rules="honorRules"
           label-width="120px"
-          status-icon
           label-position="top"
+          @submit.prevent
         >
           <el-form-item prop="amount" class="mb-4">
             <template #label>
@@ -127,7 +127,7 @@ const handleCancel = () => {
               class="placeholder-place"
               type="number"
               autocomplete="off"
-              :placeholder="$t('node.voteone')"
+              :placeholder="$t('node.one')"
               clearable
             />
           </el-form-item>

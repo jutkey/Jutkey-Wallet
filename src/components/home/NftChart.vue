@@ -1,11 +1,12 @@
 <script setup lang="ts">
-import { toRefs, inject, onMounted, computed, watch } from 'vue';
+import { ref, toRefs, inject, onMounted, computed, watch } from 'vue';
 import { axiosType } from '@/plugins/dataType';
 import Chart from '@/plugins/echarts';
 import util from '@/plugins/util';
 import { handleTimeUTC } from '@/plugins/day';
 import store from '@/store';
 
+const nftVisible = ref(false);
 const theme = computed(() => {
   return store.getters.postTheme;
 });
@@ -42,6 +43,12 @@ const handleNftIncome = async (params: any) => {
 onMounted(() => {
   handleNftIncome(nftParams);
 });
+const handleHow = () => {
+  nftVisible.value = true;
+};
+const handleClose = () => {
+  nftVisible.value = false;
+};
 watch(
   () => theme.value,
   () => {
@@ -54,7 +61,37 @@ watch(
 </script>
 <template>
   <div class="w-full">
-    <div class="text-first">{{ $t('home.nftmin') }}</div>
+    <div class="flex justify-between text-first">
+      <span>{{ $t('home.nftmin') }}</span>
+      <span class="cursor-pointer" @click="handleHow">
+        {{ $t('home.how') }}
+      </span>
+    </div>
     <div id="nftLine" class="w-full" style="height: 350px"></div>
+    <el-dialog
+      v-model="nftVisible"
+      class="bg-basic-box"
+      :close-on-click-modal="false"
+      :close-on-press-escape="false"
+      destroy-on-close
+      center
+      :append-to-body="true"
+      :before-close="handleClose"
+    >
+      <template #header>
+        <h3 class="font-semibold text-first">{{ $t('home.how') }}</h3>
+      </template>
+      <div class="mb-3">
+        {{ $t('home.network') }}
+      </div>
+      <h4 class="text-first mb-2">{{ $t('home.top') }}</h4>
+      <div class="mb-3">
+        {{ $t('home.member') }}
+      </div>
+      <h4 class="mb-2 text-first">{{ $t('home.value') }}</h4>
+      <div class="mb-5">
+        {{ $t('home.mining') }}
+      </div>
+    </el-dialog>
   </div>
 </template>

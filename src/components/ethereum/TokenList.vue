@@ -1,26 +1,33 @@
 <script setup lang="ts">
 import { ref, reactive, toRefs } from 'vue';
 import util from '@/plugins/util';
+import ETH from '@/plugins/ethereum/';
 
 const props = defineProps({
   showEthNetwork: {
     type: Object,
     default: () => {}
-  },
-  eth: {
-    type: Object,
-    default: () => {}
   }
 });
 const loading = ref(false);
-const { showEthNetwork, eth } = toRefs(props);
-console.log(JSON.stringify(showEthNetwork));
+const { showEthNetwork } = toRefs(props);
+console.log(showEthNetwork.value);
+const token = ref('');
+// console.log(JSON.stringify(showEthNetwork));
+const { chainId, rpcUrl, apikey, api } = showEthNetwork.value;
 const tokenList = reactive({ list: [] }) as any;
-const { address, apikey, api, getTokenBalance } = eth.value;
-console.log(eth.value);
-const arrCurrency = util.getCache(address) ? util.getCache(address) : [];
+const { privateKey } = util.getCache('current');
+// const { address, apikey, api, getTokenBalance } = eth.value;
+
+const eth = new ETH(privateKey, rpcUrl, api, apikey);
+console.log(eth);
+const { address } = eth;
+const arrCurrency = util.getCache(`${address}-${chainId}`)
+  ? util.getCache(`${address}-${chainId}`)
+  : [];
 console.log(arrCurrency.length);
 const i = 0;
+const list: any = [];
 const handleCurrencyList = async (i: number) => {
   if (arrCurrency.length) {
     // util.showLoading();
@@ -29,19 +36,19 @@ const handleCurrencyList = async (i: number) => {
       console.log(`i=${i}`);
       console.log(arrCurrency[i]);
       const contractaddress = arrCurrency[i].address;
-      const { address } = eth.value;
       const { decimals } = arrCurrency[i];
-      const balance = await getTokenBalance(
-        api,
+      const balance = await eth.getTokenBalance(
+        eth.api,
         contractaddress,
         address,
         apikey,
         decimals
       );
       arrCurrency[i].balance = balance;
-      arrCurrency[i].address = eth.value.address;
+      arrCurrency[i].address = address;
       arrCurrency[i].contractAddress = contractaddress;
       tokenList.list[i] = arrCurrency[i];
+      list.push(arrCurrency[i]);
       i += 1;
       handleCurrencyList(i);
     } else {
@@ -53,11 +60,54 @@ const handleCurrencyList = async (i: number) => {
   }
 };
 handleCurrencyList(i);
+const handleSearch = () => {
+  const val = token.value;
+  console.log(val);
+  console.log(list);
+  if (val) {
+    const reg = new RegExp(val.toLowerCase());
+    const arr = list.filter((item: any) => {
+      const boo =
+        reg.test(item.name.toLowerCase()) ||
+        reg.test(item.name.toUpperCase()) ||
+        reg.test(item.symbol.toLowerCase()) ||
+        reg.test(item.symbol.toUpperCase());
+      // const boo = item.name.indexOf(val) > -1 || item.name.indexOf(val) > -1;
+      return boo;
+    });
+    tokenList.list = arr;
+  } else {
+    tokenList.list = list;
+  }
+};
 </script>
 <template>
-  <div v-loading="loading" class="w-full">
-    <template v-if="tokenList.list.length > 0">
-      <div class="flex justify-between flex-wrap">
+  <div
+    v-loading="loading"
+    element-loading-background="rgba(0, 0, 0, 0.8)"
+    class="w-full"
+  >
+    <template v-if="list.length > 0">
+      <div class="flex">
+        <div class="w-30 form-box">
+          <el-input
+            v-model="token"
+            class="placeholder-place"
+            type="text"
+            autocomplete="off"
+            :placeholder="$t('eth.tips')"
+            clearable
+          />
+        </div>
+        <el-button
+          type="primary"
+          class="py-4 text-sm bg-btn text-white border-btn mb-3 ml-3"
+          @click="handleSearch"
+        >
+          {{ $t('eth.search') }}
+        </el-button>
+      </div>
+      <div v-if="tokenList.list.length" class="flex justify-between flex-wrap">
         <div
           v-for="item in tokenList.list"
           :key="item.name"
@@ -65,13 +115,23 @@ handleCurrencyList(i);
         >
           <h3 class="mb-20px text-muted flex justify-between items-center">
             <span>{{ item.name }}</span>
-            <span class="text-sm">{{ item.type }}</span>
+            <!--  <span class="text-sm">{{ item.type }}</span> -->
           </h3>
           <div class="flex justify-between">
             <div>
-              <div class="w-12 mb-3">
-                <img v-if="item.logoURI" :src="item.logoURI" alt="coin" />
-                <i v-else class="iconfont el-ui-a-Ecology1 text-xl"></i>
+              <div class="w-8 mb-3">
+                <img
+                  v-if="item.logoURI"
+                  :src="item.logoURI"
+                  alt="coin"
+                  class="w-8 h-8 rounded-full"
+                />
+                <img
+                  v-else
+                  src="@/assets/image/tokens/other.png"
+                  alt="coin"
+                  class="w-8 h-8 rounded-full"
+                />
               </div>
               <div class="font-semibold text-xl">
                 <span>{{ item.balance }}</span>
@@ -100,6 +160,12 @@ handleCurrencyList(i);
             </div>
           </div>
         </div>
+      </div>
+      <div
+        v-else
+        class="w-full bg-basic-box rounded-3xl p-20 flex justify-center"
+      >
+        <img src="@/assets/image/no-data.png" alt="no-data" />
       </div>
     </template>
     <div

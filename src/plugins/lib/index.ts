@@ -13,6 +13,7 @@ export default {
   privateKey,
   ecosystem: 1,
   async tokensSend(params: any, callback: Function) {
+    console.log(params.ecosystem);
     if (params.ecosystem) {
       this.ecosystem = params.ecosystem;
     }
@@ -53,7 +54,8 @@ export default {
     const txParams: txType = {};
     const objHash: hashType = {};
     console.log(JSON.stringify(data));
-    const { ecosystem, Expedite } = params;
+    const { Expedite } = params;
+    const { ecosystem } = this;
     const Amount = params[params.attribute];
     const balance = await this.getBalance(ecosystem);
     const { utxo, amount, total } = balance;
@@ -179,7 +181,7 @@ export default {
     try {
       if (res) {
         const keyArr = Object.keys(res.results);
-        const result = res.results[keyArr[0]];
+        const result = res.results[keyArr[0]] as any;
         console.log(num);
         if (num <= 0) {
           clearTimeout(timer);
@@ -199,6 +201,11 @@ export default {
         } else {
           clearTimeout(timer);
           num = 4;
+          console.log(result);
+          if (result.blockid) {
+            const [item] = keyArr;
+            result.txHash = item;
+          }
           return callback(result, 'success');
         }
       }

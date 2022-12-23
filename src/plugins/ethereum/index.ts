@@ -10,14 +10,14 @@ import { handleI18n } from '../i18n';
 
 const defaultBrower = 'https://etherscan.io';
 // eslint-disable-next-line no-unused-vars
-const mainUrl = 'https://mainnet.infura.io/v3/864b6f681de34c9a8ef2270575ad4592';
+const mainUrl = 'https://mainnet.infura.io/v3/b8456dc7fd6f4816bd812aa2edf70d70';
 // console.log(Web3);
 class ObjectETH {
   private web3Provider;
 
   private privateKey: string;
 
-  private gasLimit: string = '0x100000';
+  // public gasLimit: string = '0x100000';
 
   // rinkeby or homestead
   private networks = 'rinkeby';
@@ -28,7 +28,7 @@ class ObjectETH {
 
   public address: string;
 
-  public apikey = '5XX1YUUC5AHJ4S9VYNNWV2GY2U67EX189A';
+  public apikey = '5JS72N3W41HPGBWS9SWTBC5N5IV7F72A32';
 
   public api = 'https://api.etherscan.io/api';
 
@@ -43,8 +43,12 @@ class ObjectETH {
     apikey: string,
     brower: string = defaultBrower
   ) {
+    console.log(api);
     this.privateKey = privateKey;
-    const initWeb3 = new Web3.providers.HttpProvider(rpcUrl) as any;
+    const currentProvider: any = new Web3.providers.HttpProvider(rpcUrl);
+    const web3Provider = new ethers.providers.Web3Provider(currentProvider);
+    // const initWeb3 = new ethers.providers.JsonRpcProvider(rpcUrl) as any;
+    // console.log(initWeb3);
     /*  this.web3Provider = new providers.InfuraProvider(
       'homestead',
       '5XX1YUUC5AHJ4S9VYNNWV2GY2U67EX189A'
@@ -63,7 +67,7 @@ class ObjectETH {
       projectId: '864b6f681de34c9a8ef2270575ad4592',
       projectSecret: '39a02dcfc7714195aa13ec0062b694ed'
     }); */
-    this.web3Provider = new ethers.providers.Web3Provider(initWeb3);
+    this.web3Provider = web3Provider;
     // this.chainId = this.web3Provider.network.chainId;
     this.wallet = new Wallet(this.privateKey);
     this.address = this.wallet.address;
@@ -75,7 +79,10 @@ class ObjectETH {
 
   async getGasPrice() {
     const weiGasPrice = await this.web3Provider.getGasPrice();
-    const gasPrice = Web3.utils.fromWei(`${weiGasPrice}`, 'Gwei');
+    console.log(weiGasPrice);
+    // const gasPrice = Web3.utils.fromWei(`${weiGasPrice}`, 'Gwei');
+    const gasPrice = utils.formatUnits(weiGasPrice, 'gwei');
+    console.log(gasPrice);
     return gasPrice;
   }
 
@@ -85,14 +92,21 @@ class ObjectETH {
     return res;
   }
 
-  /*   async getBalance() {
+  async getProvider(apikey: string) {
+    const res = await this.web3Provider.getNetwork();
+    const provider = new ethers.providers.EtherscanProvider(res, apikey);
+    return provider;
+  }
+
+  async getMainBalance() {
     const res = await this.connectWallet.getBalance();
     console.log(res);
     const str = res.toString();
     console.log(Number(utils.formatEther(BigNumber.from(str))));
     const num = Number(utils.formatEther(BigNumber.from(str)));
     return num ? utils.formatEther(BigNumber.from(str)) : '0';
-  } */
+  }
+
   async getBalance(address: string, apikey: string) {
     const paramsBalance = {
       module: 'account',
@@ -102,7 +116,7 @@ class ObjectETH {
       apikey
     };
     try {
-      const res = await axios.get(`${this.api}`, { params: paramsBalance });
+      const res = await axios.get(`${this.api}/api`, { params: paramsBalance });
       console.log(res);
       const { data } = res;
       if (data.status === '1') {
@@ -111,11 +125,34 @@ class ObjectETH {
         console.log(num);
         return num ? utils.formatEther(str) : '0';
       }
-      ElMessage.error('Failed to get balance');
+      // ElMessage.error('Failed to get balance');
     } catch (error) {
       console.log(error);
       // util.closeLoading();
-      ElMessage.error('Failed to get balance');
+      // ElMessage.error('Failed to get balance');
+    }
+  }
+
+  async getLastPrice(apikey: string, action: string) {
+    const paramsBalance = {
+      module: 'stats',
+      action,
+      apikey
+    };
+    try {
+      const res = await axios.get(`${this.api}/api`, { params: paramsBalance });
+      console.log(res);
+      const { data } = res;
+      if (data.status === '1') {
+        const str = data.result;
+        console.log(str.ethusd);
+        return str.ethusd;
+      }
+      ElMessage.error('Failed to get price');
+    } catch (error) {
+      console.log(error);
+      // util.closeLoading();
+      // ElMessage.error('Failed to get price');
     }
   }
 
@@ -162,7 +199,10 @@ class ObjectETH {
       apikey
     };
     try {
-      const res = await axios.post(`${this.api}`, qs.stringify(objContract));
+      const res = await axios.post(
+        `${this.api}/api`,
+        qs.stringify(objContract)
+      );
       console.log(res);
       const { data } = res;
       if (data.status === '1') {
@@ -177,9 +217,10 @@ class ObjectETH {
         console.log(contract);
         return contract;
       }
-
-      ElMessage.error(handleI18n('eth.contractError'));
+      // console.log('++++++++++');
+      // ElMessage.error(handleI18n('eth.contractError'));
     } catch (error) {
+      console.log('==========');
       // util.closeLoading();
       ElMessage.error(handleI18n('eth.contractError'));
     }
@@ -219,7 +260,7 @@ class ObjectETH {
     };
     console.log(api);
     try {
-      const res = await axios.get(`${api}`, { params: paramsBalance });
+      const res = await axios.get(`${api}/api`, { params: paramsBalance });
       console.log(res);
       const { data } = res;
       if (data.status === '1') {
@@ -230,11 +271,11 @@ class ObjectETH {
           : '0';
         return balance;
       }
-      ElMessage.error('Failed to get token balance');
+      // ElMessage.error('Failed to get token balance');
     } catch (error) {
       console.log(error);
       // util.closeLoading();
-      ElMessage.error('Failed to get token balance');
+      // ElMessage.error('Failed to get token balance');
     }
     /*  const contract = (await this.getContract(contractAddress)) as any;
     let balance = 0;
@@ -249,6 +290,30 @@ class ObjectETH {
     return { balance, contractAddress }; */
   }
 
+  async getTokenLastPrice(contractAddress: string, apikey: string) {
+    const paramsBalance = {
+      module: 'token',
+      action: 'tokeninfo',
+      contractAddress,
+      apikey
+    };
+    try {
+      const res = await axios.get(`${this.api}`, { params: paramsBalance });
+      console.log(res);
+      const { data } = res;
+      if (data.status === '1') {
+        const str = data.result;
+        console.log(str);
+        // return str.ethusd;
+      }
+      // ElMessage.error('Failed to get price');
+    } catch (error) {
+      console.log(error);
+      // util.closeLoading();
+      // ElMessage.error('Failed to get price');
+    }
+  }
+
   // eslint-disable-next-line class-methods-use-this
   decimals(amount: string, decimals: string) {
     const num = Number(utils.formatUnits(amount, decimals).toString());
@@ -259,22 +324,31 @@ class ObjectETH {
   }
 
   async getTokenInfo(contractAddress: string) {
-    const contract = (await this.getContract(contractAddress)) as any;
-    const [decimals, name, symbol] = await Promise.all([
-      contract.decimals.call(),
-      contract.name.call(),
-      contract.symbol.call()
-    ]);
-    console.log(decimals, name, symbol);
-    return { decimals, name, symbol };
+    try {
+      const contract = (await this.getContract(contractAddress)) as any;
+      const [decimals, name, symbol] = await Promise.all([
+        contract.decimals.call(),
+        contract.name.call(),
+        contract.symbol.call()
+      ]);
+      console.log(decimals, name, symbol);
+      return { decimals, name, symbol };
+    } catch (error) {
+      return error;
+    }
   }
 
   async tokenTransfer(
     contractAddress: string,
     toAddress: string,
     amount: string,
+    gasLimit: string,
+    gasPrice: string,
     callback: Function
   ) {
+    const weiPrice = Web3.utils.toWei(gasPrice, 'Gwei');
+    console.log(weiPrice);
+    console.log(gasLimit);
     const contract = (await this.getContract(contractAddress)) as any;
     console.log(contract);
     const balance = await contract.balanceOf(this.address);
@@ -289,6 +363,10 @@ class ObjectETH {
       const res = await contract.transfer(
         toAddress,
         utils.parseUnits(amount, decimals)
+        /* {
+          gasLimit: Web3.utils.toHex(gasLimit),
+          gasPrice: Web3.utils.toHex(weiPrice)
+        } */
       );
       // console.log(res);
       callback(res);

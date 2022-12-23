@@ -17,7 +17,7 @@ const i18n = createI18n({
 const { t } = i18n.global;
 export function handleI18n(key: string, obj?: any) {
   if (obj) {
-    return t(key);
+    return t(key, obj);
   }
   return t(key);
 }

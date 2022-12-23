@@ -54,7 +54,11 @@ const explorer = handleBlockexplorer();
         <el-table :data="block.list" stripe style="width: 100%">
           <el-table-column :label="$t('node.block')" width="150">
             <template #default="scope">
-              <a :href="`${explorer}/blockchain/block/${scope.row.block_id}`">
+              <a
+                :href="`${explorer}/blockchain/block/${scope.row.block_id}`"
+                target="_blank"
+                class="inline-black hover:text-blue"
+              >
                 {{ scope.row.block_id }}
               </a>
             </template>

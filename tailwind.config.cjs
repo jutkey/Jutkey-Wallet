@@ -35,7 +35,12 @@ module.exports = {
       width: {
         img: '24px',
         49: '49%',
-        19: '19%'
+        19: '19%',
+        100: '100px',
+        30: '30%'
+      },
+      minHeight: {
+        300: '300px'
       },
       height: {
         '40px': '40px',
@@ -47,11 +52,10 @@ module.exports = {
         transparent: 'transparent',
         current: 'currentColor',
         success: '#04b78a',
-        error: '#ee2e6b',
         title: '#242f57',
         white: '#fff',
         primary: 'linear-gradient(270deg, #3961f5 0%, #5e81f7 100%)',
-        blue: '#003380',
+        blue: 'var(--link-hover)',
         gray: '#f7f7f7',
         tinge: '#97a0c3',
         place: '#bfc7e0',
@@ -60,6 +64,7 @@ module.exports = {
         warn: '#b47d00',
         ashy: '#aab0b7',
         'bg-warn': 'rgba(219, 154, 4, 0.2)',
+        error: '#ee2e6b',
         'bg-success': 'rgba(0, 201, 167, 0.2)'
       },
       backgroundImage: {
@@ -93,13 +98,16 @@ module.exports = {
         muted: 'var(--color-text-muted)',
         'light-blue': 'var(--color-text-blue)',
         'tinge-text': 'var(--color-text-tinge)',
-        'muted-hover': 'var(--color-text-muted-hover)'
+        'muted-hover': 'var(--color-text-muted-hover)',
+        active: 'var(--bg-active)'
       },
       borderColor: {
         basic: 'var(--border-base)',
         'basic-box': 'var(--bg-base-box)',
         'light-blue': 'var(--color-text-blue)',
-        btn: 'var(--bg-active)'
+        btn: 'var(--bg-active)',
+        active: 'var(--bg-btn-hover)',
+        gary: 'var(--color-border)'
       },
       boxShadow: {
         xl: '0px 2px 6px rgba(28,41,90,0.04)'
@@ -124,11 +132,14 @@ module.exports = {
           '--color-text-base': '#4A5373',
           '--color-text-blue': '#3961f5',
           '--color-text-muted': '#242f57',
+          '--color-border': '#dcdfe6',
           '--color-text-muted-hover': theme('colors.gray.200'),
-          '--bg-assets': "url('./src/assets/image/user-light.png')"
+          '--bg-assets': "url('./src/assets/image/user-light.png')",
+          '--link-hover': '#00ffa6'
         },
         '.light': {
           '--bg-active': '#3961F5',
+          '--link-hover': '#3961F5',
           '--bg-base': '#f4f7fc',
           '--bg-base-box': '#fff',
           '--bg-side': '#e1e8fb',
@@ -143,13 +154,17 @@ module.exports = {
           '--color-text-muted': '#242f57',
           '--color-text-blue': '#3961f5',
           '--color-text-tinge': '#97a0c3',
+          '--color-border': '#dcdfe6',
           '--color-text-muted-hover': theme('colors.gray.200'),
           '--bg-assets': "url('/src/assets/image/user-light.png')",
           '--bg-shadow':
-            '0 0 0 1px var(--el-input-border-color,var(--el-border-color)) inset'
+            '0 0 0 1px var(--el-input-border-color,var(--el-border-color)) inset',
+          '--color-border-inner': '#dcdfe6',
+          '--color-inner': '#dcdfe6'
         },
         '.dark': {
           '--bg-active': '#102D23',
+          '--link-hover': '#00ffa6',
           '--bg-base': '#111111',
           '--bg-side': '#102D23',
           '--bg-base-box': '#1C1C1C',
@@ -161,12 +176,15 @@ module.exports = {
           '--color-text-second': '#a0a0a0',
           '--color-text-third': '#737373',
           '--color-text-blue': 'rgba(255, 255, 255, 0.9)',
+          '--color-border': '#022E22',
           '--color-text-muted': 'rgba(255, 255, 255, 0.9)',
           '--color-text-tinge': 'rgba(255, 255, 255, 0.7)',
           '--color-text-muted-hover': theme('colors.gray.200'),
           '--bg-assets': "url('/src/assets/image/user-dark.png')",
           '--bg-shadow': '0 0 0 1px #102D23 inset',
-          '--bg-shadow-focus': '0 0 0 1px #022E22 inset'
+          '--bg-shadow-focus': '0 0 0 1px #022E22 inset',
+          '--color-border-inner': '#102d23',
+          '--color-inner': '#a0a0a0'
         }
       });
     })

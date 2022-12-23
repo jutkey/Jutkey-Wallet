@@ -26,7 +26,7 @@ const props = defineProps({
 const { isDialog, honorId, honorName } = toRefs(props);
 const honorFormRef = ref<FormInstance>();
 const honorFrom = reactive({
-  amount: 0
+  amount: 1
 });
 const validateAmount = (rule: any, value: any, callback: any) => {
   if (!value) {
@@ -115,7 +115,6 @@ const handleCancel = () => {
           :model="honorFrom"
           :rules="honorRules"
           label-width="120px"
-          status-icon
           label-position="top"
           @submit.prevent
         >

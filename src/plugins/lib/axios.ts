@@ -4,8 +4,9 @@ import { ElMessage } from 'element-plus';
 import router from '@/router/index';
 import auth from '../auth';
 import util from '@/plugins/util';
+import { handleGetCookies, handleRemoveCookies } from '@/plugins/common';
 
-const token = localStorage.getItem('token');
+const token = handleGetCookies('token');
 const apiAddress = auth.getChainUrl();
 // eslint-disable-next-line no-unused-vars
 const errorHandle = (status: number, other: any) => {
@@ -15,7 +16,7 @@ const errorHandle = (status: number, other: any) => {
   switch (status) {
     case 401: {
       const routeValue = router.replace('/login');
-      localStorage.removeItem('token');
+      handleRemoveCookies('token');
       routeValue
         .then(() => {
           window.location.reload();
@@ -30,7 +31,7 @@ const errorHandle = (status: number, other: any) => {
   }
   /*  if (status !== 200) {
     const routeValue = router.replace('/login');
-    localStorage.removeItem('token');
+handleRemoveCookies('token');
     routeValue
       .then(() => {
         window.location.reload();
@@ -39,7 +40,7 @@ const errorHandle = (status: number, other: any) => {
   } */
   /*  if (status === 401 || status === -402) {
     router.replace('/login');
-    localStorage.removeItem('token');
+    handleRemoveCookies('token');
   } */
 };
 
@@ -68,7 +69,7 @@ service.interceptors.response.use(
     console.log(status);
     /*  if (status === 401 || status === -402) {
       router.replace('/login');
-      localStorage.removeItem('token');
+     handleRemoveCookies('token');
     } */
     return response.status === 200
       ? Promise.resolve(response.data)

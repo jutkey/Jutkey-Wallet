@@ -152,11 +152,11 @@ const url = handleWalletserver();
                 <el-tooltip
                   class="item"
                   effect="dark"
-                  :content="scope.row.api_address"
+                  :content="scope.row.apiAddress"
                   placement="bottom"
                 >
                   <i
-                    class="iconfont el-Description"
+                    class="iconfont el-ui-Group17 text-blue ml-1 cursor-pointer"
                     :class="{
                       'text-ashy': !scope.row.committee
                     }"

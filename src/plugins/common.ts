@@ -1,32 +1,28 @@
-import devNetworks from '../url/infura-dev';
-import testNetworks from '../url/infura-test';
-import prodNetworks from '../url/infura-prod';
+import Cookies from 'js-cookie';
 import walletUrl from './url/walletUrl';
 import util from './util';
+
+const num = 8;
+const time = new Date(new Date().getTime() + num * 60 * 60 * 1000);
+export const handleSetCookies = (name: string, value: any) => {
+  Cookies.set(name, value, { expires: time });
+};
+export const handleGetCookies = (name: string) => {
+  return Cookies.get(name);
+};
+export const handleRemoveCookies = (name: string) => {
+  Cookies.remove(name);
+};
 
 export const handleGetObjUrl = () => {
   const arrUrl = walletUrl;
   const networkIp = util.getCache('networkIp');
-  console.log(networkIp);
+  // console.log(networkIp);
   if (networkIp) {
     const obj = arrUrl.find((item) => item.networkId === networkIp.networkId);
-    return obj;
+    return obj || arrUrl[0];
   }
   return arrUrl[0];
-};
-export const handleArrNetwork = () => {
-  const condition = import.meta.env.VITE_NODE_ENV;
-  console.log(condition);
-  if (condition === 'development') {
-    return devNetworks;
-  }
-  if (condition === 'test') {
-    return testNetworks;
-  }
-  if (condition === 'production') {
-    return prodNetworks;
-  }
-  return devNetworks;
 };
 export function handleWalletserver() {
   const objUrl = handleGetObjUrl() as any;
@@ -95,6 +91,13 @@ export const bigNumCompare = (a: string, b: string) => {
     }
   }
   return back;
+};
+export const handleIsTauri = () => {
+  return Boolean(
+    typeof window !== 'undefined' &&
+      window !== undefined &&
+      window.__TAURI_IPC__ !== undefined
+  );
 };
 export const handleEventNumber = (num: number) => {
   let eventName = '';
@@ -211,87 +214,47 @@ export const handleRouter = () => {
       key: '3',
       title: 'nft.title',
       icon: 'iconfont el-ui-Group14',
-      path: '/nft',
-      children: [
-        {
-          path: '/nft',
-          key: '3-1',
-          title: 'nft.list',
-          icon: 'iconfont el-block-list'
-        }
-      ]
+      path: '/nft'
     },
     {
       key: '4',
       title: 'nav.eth',
       icon: 'iconfont el-ui-ETH',
-      path: '/ethereum',
-      children: [
-        {
-          path: '/ethereum',
-          key: '4-1',
-          title: 'nav.assets',
-          icon: 'iconfont el-block-list'
-        }
-      ]
+      path: '/ethereum'
     },
-    {
-      key: '9',
+    /* {
+      key: '5',
       title: 'bnb.chain',
       icon: 'iconfont el-ui-BNB',
-      path: '/bnb',
-      children: [
-        {
-          path: '/bnb',
-          key: '9-1',
-          title: 'nav.assets',
-          icon: 'iconfont el-block-list'
-        }
-      ]
-    },
-    {
-      key: '10',
+      path: '/bnb'
+    }, */
+    /*  {
+      key: '6',
       title: 'tron.chain',
       icon: 'iconfont el-ui-a-outline-trontron-trx',
-      path: '/tron',
-      children: [
-        {
-          path: '/tron',
-          key: '10-1',
-          title: 'nav.assets',
-          icon: 'iconfont el-block-list'
-        }
-      ]
-    },
+      path: '/tron'
+    }, */
     {
-      key: '5',
+      key: '7',
       title: 'nav.honor',
       icon: 'iconfont el-ui-oup10',
-      path: '/honor',
-      children: [
-        {
-          path: '/honor',
-          key: '5-1',
-          title: 'honor.list',
-          icon: 'iconfont el-ui-honor-node'
-        }
-      ]
+      path: '/honor'
+    },
+    {
+      link: 'https://jutkey.com',
+      key: '8',
+      title: 'nav.help',
+      icon: 'iconfont el-ui-fa'
     },
     {
       path: '/manage',
-      key: '6',
+      key: '9',
       title: 'nav.manage',
       icon: 'iconfont el-ui-Group211'
     },
-    /* {
-      path: '/help',
-      key: '7',
-      title: 'nav.help',
-      icon: 'iconfont el-ui-fa'
-    }, */
     {
       path: '/about',
-      key: '8',
+      key: '10',
       title: 'nav.about',
       icon: 'iconfont el-ui-up10'
     }

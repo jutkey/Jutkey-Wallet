@@ -178,7 +178,7 @@ const handleSelectChange = (props: number) => {
                     show-overflow-tooltip
                   >
                     <template #default="scope">
-                      <span>
+                      <span class="text-xs">
                         {{ handleSecondUTC(scope.row.time) }}
                       </span>
                     </template>

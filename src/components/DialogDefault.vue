@@ -11,6 +11,14 @@ const props = defineProps({
   isDialog: {
     type: Boolean,
     default: () => false
+  },
+  isFooter: {
+    type: Boolean,
+    default: () => true
+  },
+  width: {
+    type: String,
+    default: () => '40%'
   }
 });
 const isDialog = computed({
@@ -21,6 +29,7 @@ const isDialog = computed({
     emit('update:isDialog', val);
   }
 });
+
 const handleClose = () => {
   emit('close', false);
 };
@@ -37,7 +46,7 @@ const handleDialogCancel = () => {
     class="bg-basic-box"
     :close-on-click-modal="false"
     :close-on-press-escape="false"
-    width="40%"
+    :width="width"
     destroy-on-close
     center
     :append-to-body="true"
@@ -47,7 +56,7 @@ const handleDialogCancel = () => {
       <h3 class="font-semibold text-first">{{ title }}</h3>
     </template>
     <slot></slot>
-    <template #footer>
+    <template v-if="isFooter" #footer>
       <span class="dialog-footer">
         <el-button
           class="text-center text-sm rounded text-light-blue border border-light-blue mx-3 hover:bg-side hover:border-light-blue focus:bg-side focus:border-light-blue"

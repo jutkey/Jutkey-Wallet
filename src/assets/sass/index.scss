@@ -2,9 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
-@import './font.scss';
-@import './error.scss';
-@import './loaddown.scss';
+@import "./font.scss";
+@import "./error.scss";
+@import "./loaddown.scss";
+@import "./shareon.scss";
 $color-title: #242f57;
 $color-text: #4a5373;
 $font-12: 12px;
@@ -22,7 +23,7 @@ $font-32: 32px;
   body,
   .el-container {
     height: 100%;
-    font-size: $font-12;
+    font-size: $font-14;
   }
   #body {
     .el-menu--vertical:not(.el-menu--collapse),
@@ -31,7 +32,7 @@ $font-32: 32px;
     }
     .el-menu-item,
     .el-sub-menu__title {
-      font-size: $font-12;
+      font-size: $font-14;
       height: 45px;
       line-height: 45px;
     }
@@ -41,10 +42,10 @@ $font-32: 32px;
     .el-table,
     .el-tabs__item,
     .el-button {
-      font-size: $font-12;
+      font-size: $font-14;
     }
     .el-input__inner::placeholder {
-      font-size: $font-12;
+      font-size: $font-14;
     }
     .login-h1 {
       font-size: 32px;
@@ -57,7 +58,7 @@ $font-32: 32px;
   body,
   .el-container {
     height: 100%;
-    font-size: $font-14;
+    font-size: $font-16;
   }
   #body {
     .el-menu--vertical:not(.el-menu--collapse),
@@ -67,7 +68,7 @@ $font-32: 32px;
 
     .el-menu-item,
     .el-sub-menu__title {
-      font-size: $font-14;
+      font-size: $font-16;
       height: 50px;
       line-height: 50px;
     }
@@ -77,10 +78,10 @@ $font-32: 32px;
     .el-table,
     .el-tabs__item,
     .el-button {
-      font-size: $font-14;
+      font-size: $font-16;
     }
     .el-input__inner::placeholder {
-      font-size: $font-14;
+      font-size: $font-16;
     }
     .login-h1 {
       font-size: 40px;
@@ -93,7 +94,7 @@ $font-32: 32px;
   body,
   .el-container {
     height: 100%;
-    font-size: $font-16;
+    font-size: $font-18;
   }
   #body {
     .el-menu--vertical:not(.el-menu--collapse),
@@ -102,7 +103,7 @@ $font-32: 32px;
     }
     .el-menu-item,
     .el-sub-menu__title {
-      font-size: $font-16;
+      font-size: $font-18;
       height: 55px;
       line-height: 55px;
     }
@@ -112,10 +113,10 @@ $font-32: 32px;
     .el-table,
     .el-tabs__item,
     .el-button {
-      font-size: $font-14;
+      font-size: $font-18;
     }
     .el-input__inner::placeholder {
-      font-size: $font-14;
+      font-size: $font-18;
     }
     .login-h1 {
       font-size: 45px;
@@ -287,12 +288,13 @@ $font-32: 32px;
       color: var(--color-text-second);
       &::placeholder {
         color: var(--color-text-tinge);
+        font-size: 0.7rem;
       }
     }
     .el-message-box__title {
       color: var(--color-text-second);
     }
-    &-nickname {
+    &-iName {
       .el-form-item__label {
         height: auto;
         line-height: 1.5em;
@@ -370,6 +372,7 @@ $font-32: 32px;
   }
   .table-box {
     margin-bottom: 30px;
+    margin-top: 30px;
     .el-table {
       background-color: var(--bg-base-box);
       color: var(--color-text-second);
@@ -390,10 +393,7 @@ $font-32: 32px;
       text-transform: uppercase;
       background-color: var(--bg-base);
     }
-    .el-table--striped
-      .el-table__body
-      tr.el-table__row--striped
-      td.el-table__cell {
+    .el-table--striped .el-table__body tr.el-table__row--striped td.el-table__cell {
       background-color: var(--bg-base);
       &:hover {
         background-color: var(--bg-base);
@@ -466,7 +466,7 @@ $font-32: 32px;
         padding: 1px 0;
       }
       .el-table {
-        font-size: 0.5rem;
+        font-size: 0.75rem;
       }
     }
     img {
@@ -506,6 +506,23 @@ $font-32: 32px;
         white-space: nowrap;
         width: 100%;
       }
+      &::placeholder {
+        color: var(--color-text-tinge);
+        font-size: 0.7rem;
+      }
+    }
+  }
+  .check-box {
+    .el-checkbox__input.is-checked .el-checkbox__inner {
+      background-color: var(--bg-btn-hover);
+      border-color: var(--bg-btn-hover);
+    }
+    .el-checkbox__input.is-checked + .el-checkbox__label {
+      color: var(--bg-btn-hover);
+    }
+    .el-checkbox__inner {
+      background-color: var(--color-inner);
+      border-color: var(--color-border-inner);
     }
   }
   .upload-box {
@@ -575,6 +592,7 @@ $font-32: 32px;
     &:hover {
       background-color: var(--bg-btn-hover);
       color: #1c1c1c;
+      // border: none;
     }
   }
   .el-button--primary.bg-black {

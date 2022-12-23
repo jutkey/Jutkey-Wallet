@@ -28,12 +28,13 @@ const handleCreateStep = (num: number) => {
   <h3 class="pb-20px text-title leading-normal text-center">
     {{ $t('login.backupMn') }}
   </h3>
-  <div class="flex text-tinge pb-3 justify-between">
+  <div class="flex text-tinge justify-between">
     <span>{{ $t('login.words') }}</span>
     <a class="text-blue" href="javascript:;" @click="handleExport('words')">
       {{ $t('login.export') }}
     </a>
   </div>
+  <div class="text-tinge pb-3 text-sm">{{ $t('login.save') }}</div>
   <div class="flex justify-between flex-wrap bg-gray p-3 mb-20px">
     <span
       v-for="(item, index) in words.arr"

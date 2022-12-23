@@ -42,17 +42,22 @@ const arrRecord = reactive({
     offset: 10
   }
 });
-const { rpcUrl, brower, api, apikey } = util.getCache('showEthNetwork');
-const eth = new ETH(privateKey, rpcUrl, api, apikey, brower);
+const { rpcUrl, brower, apikey } = util.getCache('showEthNetwork');
+const eth = new ETH(privateKey, rpcUrl, apikey, brower);
 console.log(eth.brower);
 objPage.apikey = eth.apikey;
 objRecord.apikey = eth.apikey;
 objRecord.address = eth.address;
 objPage.address = eth.address;
 address.value = eth.address.toLowerCase();
+const provider = ref({} as any);
 const handletradeList = async (params: recordType) => {
   util.showLoading();
-  const res = (await axios.post(`${eth.api}`, qs.stringify(params))) as any;
+  const provider = await eth.getProvider(apikey);
+  const res = (await axios.post(
+    `${provider.baseUrl}/api`,
+    qs.stringify(params)
+  )) as any;
   console.log(res);
   if (res.data.status === '1') {
     arrRecord.list = res.data.result;
@@ -63,12 +68,21 @@ const handletradeList = async (params: recordType) => {
   util.closeLoading();
 };
 const handletradePage = async (params: recordPage) => {
-  const res = (await axios.post(`${eth.api}`, qs.stringify(params))) as any;
+  const provider = await eth.getProvider(apikey);
+  const res = (await axios.post(
+    `${provider.baseUrl}/api`,
+    qs.stringify(params)
+  )) as any;
   if (res.data.status === '1') {
     arrRecord.pageNum.total = res.data.result.length;
   } else {
     arrRecord.pageNum.total = 1;
   }
+};
+const handleGetProvider = async () => {
+  provider.value = await eth.getProvider(apikey);
+  handletradeList(objRecord);
+  handletradePage(objPage);
 };
 watch(
   () => route.path,
@@ -77,8 +91,7 @@ watch(
       console.log(route.params.contractAddress);
       objRecord.contractaddress = route.params.contractAddress as string;
       objPage.contractaddress = route.params.contractAddress as string;
-      handletradeList(objRecord);
-      handletradePage(objPage);
+      handleGetProvider();
     }
   },
   {
@@ -93,7 +106,7 @@ const handleChangePage = (page: number) => {
 </script>
 <template>
   <div class="bg-basic-box rounded p-20px">
-    <div v-if="arrRecord.list.length" class="table-box">
+    <div v-if="arrRecord.list.length" class="table-box min-h-300">
       <el-table :data="arrRecord.list" stripe style="width: 100%">
         <el-table-column label="Txn Hash" show-overflow-tooltip>
           <template #default="scope">

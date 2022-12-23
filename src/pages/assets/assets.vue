@@ -1,27 +1,37 @@
 <script setup lang="ts">
 import { ref, reactive, inject } from 'vue';
+import { ElMessage } from 'element-plus';
+import { handleI18n } from 'plugins/i18n';
 import util from '@/plugins/util';
-import { handleWalletserver } from '@/plugins/common';
+import contract from '@/plugins/lib';
+import { handleWalletserver, handleBlockexplorer } from '@/plugins/common';
 import { ecosystemParam, axiosType, getListResponse } from '@/plugins/dataType';
 import NickName from '@/components/assets/NickName.vue';
-import lib from '@/plugins/lib';
 import SelectList from '@/components/SelectList.vue';
 import AvatarUpload from '@/components/assets/AvatarUpload.vue';
 import store from '@/store';
 
 const url = handleWalletserver();
+const brower = handleBlockexplorer();
 const axios = inject('axios') as axiosType;
 const reload = inject('reload') as Function;
 const current = util.getCache('current');
 const isIname = ref(false);
 const isAvatar = ref(false);
 console.log(current);
-const handleBalance = async () => {
-  const res = await lib.getBalance(1);
-  console.log(res);
-};
-handleBalance();
 const firstEco = reactive({ obj: {} }) as any;
+const assgin = reactive({
+  data: {
+    balance: '0',
+    amount: '0'
+  }
+}) as any;
+const airdrop = reactive({
+  data: {
+    lock: '0',
+    amount: '0'
+  }
+}) as any;
 const avatar = ref('');
 const fisrtEcosystem = {
   wallet: current.account,
@@ -71,9 +81,11 @@ const handleOtherEcosystem = async (params: ecosystemParam) => {
 };
 handleOtherEcosystem(paramsEcosystem);
 
+// eslint-disable-next-line no-unused-vars
 const handleDialogUpload = () => {
   isAvatar.value = true;
 };
+// eslint-disable-next-line no-unused-vars
 const handleDialogIname = () => {
   isIname.value = true;
 };
@@ -82,16 +94,30 @@ const handleChangePage = (page: number) => {
   paramsEcosystem.page = page;
   handleOtherEcosystem(paramsEcosystem);
 };
-
-// eslint-disable-next-line no-unused-vars
-const handleActionUser = async () => {
-  const res = await axios.get(`keyinfo/${current.keyId}`);
-  console.log(res);
-  // const assign = Object.assign({}, res, obj);
-  //  console.log(assign);
-  // commit('handleKeyInfo', assign);
+const handleAssignBalance = async () => {
+  const res = await axios.get(
+    `assign_balance/${current.account}`,
+    null,
+    'walletserver'
+  );
+  if (res.code === 0) {
+    console.log(res);
+    assgin.data = res.data;
+  }
 };
-handleActionUser();
+handleAssignBalance();
+const handleAirdropBalance = async () => {
+  const res = await axios.get(
+    `airdrop_balance/${current.account}`,
+    null,
+    'walletserver'
+  );
+  if (res.code === 0) {
+    console.log(res);
+    airdrop.data = res.data;
+  }
+};
+handleAirdropBalance();
 const handleCancel = () => {
   isIname.value = false;
   isAvatar.value = false;
@@ -111,16 +137,67 @@ const handleConfirm = () => {
   isAvatar.value = false;
   reload();
 };
+const handleReceive = () => {
+  if (firstEco.obj.amount === '0') {
+    ElMessage.error(handleI18n('eth.notenough'));
+  } else {
+    util.checkTradepass(() => {
+      util.showLoading();
+      const params = { contractName: 'GetAssignAmount' };
+      contract.tokensSend(params, (res: any, status: string) => {
+        if (status === 'error') {
+          console.log(res);
+          ElMessage.error(res.errmsg.error);
+        } else if (status === 'loading') {
+          ElMessage.success(handleI18n('user.chain'));
+        } else if (status === 'success') {
+          ElMessage.success(handleI18n('user.dosuccess'));
+          reload();
+        } else {
+          ElMessage.error(res.msg);
+        }
+        util.closeLoading();
+      });
+    });
+  }
+};
+const handleReceiveAirdrop = () => {
+  if (firstEco.obj.amount === '0') {
+    ElMessage.error(handleI18n('eth.notenough'));
+  } else {
+    util.checkTradepass(() => {
+      util.showLoading();
+      const params = { contractName: 'ClaimAirdrop' };
+      contract.tokensSend(params, (res: any, status: string) => {
+        if (status === 'error') {
+          console.log(res);
+          ElMessage.error(res.errmsg.error);
+        } else if (status === 'loading') {
+          ElMessage.success(handleI18n('user.chain'));
+        } else if (status === 'success') {
+          ElMessage.success(handleI18n('user.dosuccess'));
+          reload();
+        } else {
+          ElMessage.error(res.msg);
+        }
+        util.closeLoading();
+      });
+    });
+  }
+};
 </script>
 <template>
   <div class="w-full">
     <div
-      class="w-full flex bg-basic-box bg-no-repeat bg-center bg-100% mb-8 rounded-3xl shadow-xl"
+      class="w-full flex bg-basic-box bg-no-repeat bg-center bg-100% mb-8 rounded-3xl shadow-xl p-20px"
     >
       <div class="m-3% text-center">
-        <div
+        <!--  <div
           class="bg-white cursor-pointer rounded-full flex items-center justify-center w-24 h-24 mx-auto"
           @click="handleDialogUpload"
+        > -->
+        <div
+          class="bg-white rounded-full flex items-center justify-center w-24 h-24 mx-auto"
         >
           <img
             v-if="firstEco.obj.memberImageHash"
@@ -138,16 +215,27 @@ const handleConfirm = () => {
         <h3 v-if="firstEco.obj.memberName" class="mt-20px text-muted">
           {{ firstEco.obj.memberName }}
         </h3>
-        <div
+        <!--  <div
           v-else
           class="mt-20px flex items-center justify-center text-first"
           @click="handleDialogIname"
         >
           <span class="italic mr-1">iName</span>
           <i class="iconfont el-ui-bianji text-xl cursor-pointer"></i>
+        </div> -->
+        <div v-else class="mt-20px flex items-center justify-center text-first">
+          <span class="italic mr-1">iName</span>
+          <!-- <i class="iconfont el-ui-bianji text-xl cursor-pointer"></i> -->
         </div>
         <div class="my-2 text-first">
-          {{ firstEco.obj.account }}
+          <a
+            :href="`${brower}/blockchain/account/${firstEco.obj.account}`"
+            target="_blank"
+            class="hover:text-blue"
+          >
+            {{ firstEco.obj.account }}
+          </a>
+          <!--  {{ firstEco.obj.account }} -->
           <el-tooltip
             class="item"
             effect="dark"
@@ -155,53 +243,114 @@ const handleConfirm = () => {
             placement="bottom"
           >
             <i
-              class="iconfont el-ui-zu291 cursor-pointer text-xl"
+              class="iconfont el-ui-zu291 cursor-pointer text-lg ml-1"
               @click="util.copyText(firstEco.obj.account)"
             ></i>
           </el-tooltip>
         </div>
       </div>
-      <div class="flex flex-auto p-20px">
-        <div class="font-semibold text-xl text-first">
-          <span>{{ util.formatFixed(firstEco.obj.amount) }}</span>
-          <span class="ml-1 text-sm">{{ firstEco.obj.tokenSymbol }}</span>
+      <div class="flex flex-auto my-3% py-20px">
+        <div class="font-semibold text-xl text- w-full">
+          <div class="mb-1">
+            <span>{{ util.formatFixed(firstEco.obj.amount) }}</span>
+            <span class="ml-1 text-sm">{{ firstEco.obj.tokenSymbol }}</span>
+          </div>
+          <!-- airdrop -->
+          <div v-if="airdrop.data" class="flex items-center text-sm">
+            <div
+              v-if="airdrop.data.lock !== '0'"
+              class="flex items-center flex-1"
+            >
+              <span class="text-lg">
+                {{ util.formatFixed(airdrop.data.lock) }}
+              </span>
+              <span class="ml-1 text-xs">{{ $t('page.symbol') }}</span>
+              <span class="ml-2 text-xs">({{ $t('home.airdroplock') }})</span>
+              <router-link
+                :to="{ name: 'AssetsAirdrop' }"
+                class="ml-2 bg-btn text-white rounded px-4 py-2 text-xs leading-3 cursor-pointer"
+              >
+                {{ $t('home.speed') }}
+              </router-link>
+            </div>
+            <div
+              v-if="airdrop.data.amount !== '0'"
+              class="flex items-center ml-5 flex-1"
+            >
+              <span class="text-lg">
+                {{ util.formatFixed(airdrop.data.amount) }}
+              </span>
+              <span class="ml-1">{{ $t('page.symbol') }}</span>
+              <span
+                class="ml-2 bg-btn text-white rounded px-4 py-2 text-xs leading-3 cursor-pointer"
+                @click="handleReceiveAirdrop"
+              >
+                {{ $t('home.airdropreceive') }}
+              </span>
+            </div>
+          </div>
+          <!-- distribution -->
+          <div v-if="assgin.data" class="flex items-center text-sm">
+            <div v-if="assgin.data.balance !== '0'" class="flex items-center">
+              <span class="text-lg">
+                {{ util.formatFixed(assgin.data.balance) }}
+              </span>
+              <span class="ml-1 text-xs">{{ $t('page.symbol') }}</span>
+              <span class="ml-2 text-xs">({{ $t('home.lock') }})</span>
+            </div>
+            <div
+              v-if="assgin.data.amount !== '0'"
+              class="flex items-center ml-5"
+            >
+              <span class="text-lg">
+                {{ util.formatFixed(assgin.data.amount) }}
+              </span>
+              <span class="ml-1">{{ $t('page.symbol') }}</span>
+              <span
+                class="ml-2 bg-btn text-white rounded px-4 py-2 text-xs leading-3 cursor-pointer"
+                @click="handleReceive"
+              >
+                {{ $t('home.receive') }}
+              </span>
+            </div>
+          </div>
         </div>
-        <div class="ml-auto w-36">
-          <router-link
-            v-if="firstEco.obj.id"
-            :to="{
-              name: 'Transfer',
-              params: { id: firstEco.obj.id, account: firstEco.obj.account }
-            }"
-            class="block w-full h-10 leading-10 text-center text-sm rounded bg-btn text-white border-btn mb-3 ml-0"
-          >
-            {{ $t('user.trade') }}
-          </router-link>
-          <!--   <el-button
+      </div>
+      <div class="ml-auto w-36">
+        <router-link
+          v-if="firstEco.obj.id"
+          :to="{
+            name: 'Transfer',
+            params: { id: firstEco.obj.id, account: firstEco.obj.account }
+          }"
+          class="block w-full h-10 leading-10 text-center text-sm rounded bg-btn text-white border-btn mb-3 ml-0"
+        >
+          {{ $t('user.trade') }}
+        </router-link>
+        <!--   <el-button
             type="primary"
             class="w-full h-10 text-sm  bg-btn text-white border-btn mb-3 ml-0"
             @click="handleOpenTrade(firstEco.obj)"
           >
             {{ $t('user.trade') }}
           </el-button> -->
-          <!--  <el-button
+        <!--  <el-button
             type="primary"
             class="w-full h-10 block  bg-btn text-sm text-white border-btn mb-3 ml-0"
             @click="handleOpenTrade"
           >
             {{ $t('user.collection') }}
           </el-button> -->
-          <router-link
-            v-if="firstEco.obj.id"
-            :to="{
-              name: 'Record',
-              params: { id: firstEco.obj.id, account: firstEco.obj.account }
-            }"
-            class="w-full block h-10 leading-10 text-center text-sm rounded text-light-blue border border-light-blue mb-3 ml-0 hover:bg-side hover:border-light-blue focus:bg-side focus:border-light-blue"
-          >
-            {{ $t('user.record') }}
-          </router-link>
-        </div>
+        <router-link
+          v-if="firstEco.obj.id"
+          :to="{
+            name: 'Record',
+            params: { id: firstEco.obj.id, account: firstEco.obj.account }
+          }"
+          class="w-full block h-10 leading-10 text-center text-sm rounded text-light-blue border border-light-blue mb-3 ml-0 hover:bg-side hover:border-light-blue focus:bg-side focus:border-light-blue"
+        >
+          {{ $t('user.record') }}
+        </router-link>
       </div>
     </div>
     <div class="w-full">
